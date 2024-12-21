@@ -1,5 +1,5 @@
 # Sử dụng image PHP với Apache
-FROM php:7.4-apache
+FROM php:8.2-apache
 
 # Cài đặt các phần mở rộng PHP cần thiết
 RUN apt-get update && apt-get install -y \
