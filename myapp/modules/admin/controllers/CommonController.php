@@ -10,6 +10,9 @@ use yii\web\Response;
 
 class CommonController extends Controller
 {
+    // Khai báo thuộc tính để lưu trữ trạng thái success
+    private $isSuccessful = false;
+
     /**
      * Cấu hình behaviors cho tất cả các controller kế thừa.
      *
@@ -73,12 +76,24 @@ class CommonController extends Controller
 
             // Chuẩn hóa dữ liệu trả về
             $response->data = [
-                'status' => $response->isSuccessful ? 'success' : 'error',
+                'status' => $this->getIsSuccessful() ? 'success' : 'error',
                 'code' => $response->statusCode,
                 'result' => $data,
             ];
         });
 
         return true;
+    }
+
+    // Đặt isSuccessful là public để có thể gọi từ controller con
+    public function isSuccessful()
+    {
+        $this->isSuccessful = true; // Cập nhật giá trị của isSuccessful
+    }
+
+    private function getIsSuccessful()
+    {
+        // Trả về giá trị của biến isSuccessful
+        return $this->isSuccessful;
     }
 }

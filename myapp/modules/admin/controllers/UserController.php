@@ -19,7 +19,7 @@ class UserController extends CommonController
                 'accessToken' => '100-token',
             ],
         ];
-
+        $this->isSuccessful();
         return $users;
     }
 
