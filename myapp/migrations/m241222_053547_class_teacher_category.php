@@ -3,30 +3,28 @@
 use yii\db\Migration;
 
 /**
- * Class m241221_171004_class_teacher
+ * Class m241222_053547_class_teacher_category
  */
-class m241221_171004_class_teacher extends Migration
+class m241222_053547_class_teacher_category extends Migration
 {
     /**
      * {@inheritdoc}
      */
     public function safeUp()
     {
-        $this->createTable('class_teacher', [
+        $this->createTable('class_teacher_category', [
             'uuid' => $this->string(36)->notNull(),
             'name' => $this->string()->notNull(),
-            'order' => $this->integer()->notNull(),
             'created_at' => $this->integer()->notNull(),
             'created_by' => $this->integer()->notNull(),
             'updated_at' => $this->integer()->notNull(),
             'updated_by' => $this->integer()->notNull(),
             'is_deleted' => $this->boolean()->defaultValue(false),
-            'foreign_uuid' => $this->string(36),
         ]);
 
         $this->addPrimaryKey(
-            'pk-class_teacher',
-            'class_teacher', 
+            'pk-class_teacher_category',
+            'class_teacher_category', 
             'uuid'  
         );
     }
@@ -36,6 +34,6 @@ class m241221_171004_class_teacher extends Migration
      */
     public function safeDown()
     {
-        $this->dropTable('class_teacher');
+        $this->dropTable('class_teacher_category');
     }
 }

@@ -21,6 +21,12 @@ class m241221_172531_class_room extends Migration
             'updated_by' => $this->integer()->notNull(),
             'is_deleted' => $this->boolean()->defaultValue(false),
         ]);
+
+        $this->addPrimaryKey(
+            'pk-class_room',
+            'class_room', 
+            'uuid'  
+        );
     }
 
     /**

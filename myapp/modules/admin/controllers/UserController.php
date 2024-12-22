@@ -3,24 +3,19 @@
 namespace app\modules\admin\controllers;
 
 use Yii;
+use app\models\ClassTeacher;
+use app\models\ClassTeacherCategory;
 
 class UserController extends CommonController
 {
     // Action index trả về danh sách người dùng dưới dạng JSON
     public function actionIndex()
     {
-        // Dữ liệu giả lập
-        $users = [
-            [
-                'id' => '100',
-                'username' => 'admin',
-                'password' => 'admin',
-                'authKey' => 'test100key',
-                'accessToken' => '100-token',
-            ],
-        ];
-        $this->isSuccessful();
-        return $users;
+        $teachers = ClassTeacher::find()
+         ->joinWith('foreignUu')
+        ->all();
+
+        return  $teachers;
     }
 
     // Action hiển thị thông tin user với ID
