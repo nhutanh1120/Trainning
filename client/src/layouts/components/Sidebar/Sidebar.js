@@ -20,7 +20,7 @@ function Sidebar() {
     const [suggestedUsers, setSuggestedUsers] = useState([]);
 
     useEffect(() => {
-        userService.getSuggested().then((data) => {
+        userService.getSuggested({ page: 1, perPage: 5 }).then((data) => {
             setSuggestedUsers(data);
         });
     }, []);
