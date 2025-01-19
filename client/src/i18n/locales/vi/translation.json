@@ -1,0 +1,45 @@
+{
+    "LAYOUTS": {
+        "HEADER": {
+            "LOGO": {
+                "ALT": "Tiktok"
+            },
+            "SEARCH": {
+                "ACCOUNTS": "Tài khoản",
+                "PLACEHOLDER": "Tìm kiếm tài khoản và video"
+            },
+            "MENU": {
+                "VIEW_PROFILE": "Hồ sơ",
+                "GET_COINS": "Nhận xu",
+                "SETTINGS": "Cài đặt",
+                "LANGUAGE": "Ngôn ngữ",
+                "ENGLISH": "Tiếng Anh",
+                "VIETNAMESE": "Tiếng Việt",
+                "FEEDBACK_HELP": "Phản hồi và trợ giúp",
+                "KEYBOARD_SHORTCUTS": "Phím tắt",
+                "LOGOUT": "Đăng xuất"
+            },
+            "BUTTON": {
+                "UPLOAD": "Tải lên",
+                "LOGIN": "Đăng nhập",
+                "UPLOAD_VIDEO": {
+                    "CONTENT": "Tải lên"
+                },
+                "MESSAGE": {
+                    "CONTENT": "Tin Nhắn"
+                },
+                "INBOX": {
+                    "CONTENT": "Hoạt động"
+                }
+            }
+        },
+        "SIDEBAR": {
+            "FOR_YOU": "Dành cho bạn",
+            "FOLLOWING": "Đang Follow",
+            "LIVE": "LIVE",
+            "SEE_ALL": "Xem thêm",
+            "SUGGESTED_ACCOUNTS": "Tài khoản đề xuất",
+            "FOLLOWING_ACCOUNTS": "Tài khoản đã follow"
+        }
+    }
+}

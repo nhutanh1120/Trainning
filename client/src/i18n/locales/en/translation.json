@@ -1,0 +1,45 @@
+{
+    "LAYOUTS": {
+        "HEADER": {
+            "LOGO": {
+                "ALT": "Tiktok"
+            },
+            "SEARCH": {
+                "ACCOUNTS": "Accounts",
+                "PLACEHOLDER": "Search accounts and videos"
+            },
+            "MENU": {
+                "VIEW_PROFILE": "View profile",
+                "GET_COINS": "Get coins",
+                "SETTINGS": "Settings",
+                "LANGUAGE": "Language",
+                "ENGLISH": "English",
+                "VIETNAMESE": "Vietnamese",
+                "FEEDBACK_HELP": "Feedback and Help",
+                "KEYBOARD_SHORTCUTS": "Keyboard Shortcuts",
+                "LOGOUT": "Log out"
+            },
+            "BUTTON": {
+                "UPLOAD": "Upload",
+                "LOGIN": "Log in",
+                "UPLOAD_VIDEO": {
+                    "CONTENT": "Upload video"
+                },
+                "MESSAGE": {
+                    "CONTENT": "Message"
+                },
+                "INBOX": {
+                    "CONTENT": "Inbox"
+                }
+            }
+        },
+        "SIDEBAR": {
+            "FOR_YOU": "For You",
+            "FOLLOWING": "Following",
+            "LIVE": "LIVE",
+            "SEE_ALL": "See all",
+            "SUGGESTED_ACCOUNTS": "Suggested accounts",
+            "FOLLOWING_ACCOUNTS": "Following accounts"
+        }
+    }
+}

@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import { useTranslation } from 'react-i18next';
 import classNames from 'classnames/bind';
 import styles from './SuggestedAccounts.module.scss';
 import AccountItem from './AccountItem';
@@ -6,6 +7,7 @@ import AccountItem from './AccountItem';
 const cx = classNames.bind(styles);
 
 function SuggestedAccounts({ label, data = [] }) {
+    const { t } = useTranslation();
     return (
         <div className={cx('wrapper')}>
             <p className={cx('label')}>{label}</p>
@@ -14,7 +16,7 @@ function SuggestedAccounts({ label, data = [] }) {
                 <AccountItem key={account.id} data={account} />
             ))}
 
-            <p className={cx('more-btn')}>See all</p>
+            <p className={cx('more-btn')}>{t('LAYOUTS.SIDEBAR.SEE_ALL')}</p>
         </div>
     );
 }

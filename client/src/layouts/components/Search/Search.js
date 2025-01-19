@@ -10,6 +10,7 @@ import AccountItem from '~/components/AccountItem';
 import { SearchIcon } from '~/components/Icons';
 import { useDebounce } from '~/hooks';
 import styles from './Search.module.scss';
+import { useTranslation } from 'react-i18next';
 
 const cx = classNames.bind(styles);
 
@@ -18,6 +19,7 @@ function Search() {
     const [searchResult, setSearchResult] = useState([]);
     const [showResult, setShowResult] = useState(false);
     const [loading, setLoading] = useState(false);
+    const { t } = useTranslation();
 
     const debouncedValue = useDebounce(searchValue, 500);
 
@@ -68,7 +70,7 @@ function Search() {
                 render={(attrs) => (
                     <div className={cx('search-result')} tabIndex="-1" {...attrs}>
                         <PopperWrapper>
-                            <h4 className={cx('search-title')}>Accounts</h4>
+                            <h4 className={cx('search-title')}>{t('LAYOUTS.HEADER.SEARCH.ACCOUNTS')}</h4>
                             {searchResult.map((result) => (
                                 <AccountItem key={result.id} data={result} />
                             ))}
@@ -81,7 +83,7 @@ function Search() {
                     <input
                         ref={inputRef}
                         value={searchValue}
-                        placeholder="Search accounts and videos"
+                        placeholder={t('LAYOUTS.HEADER.SEARCH.PLACEHOLDER')}
                         spellCheck={false}
                         onChange={handleChange}
                         onFocus={() => setShowResult(true)}

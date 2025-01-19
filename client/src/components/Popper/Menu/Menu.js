@@ -1,3 +1,5 @@
+import { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import PropTypes from 'prop-types';
 import classNames from 'classnames/bind';
 import Tippy from '@tippyjs/react/headless';
@@ -6,15 +8,18 @@ import { Wrapper as PopperWrapper } from '~/components/Popper';
 import MenuItem from './MenuItem';
 import Header from './Header';
 import styles from './Menu.module.scss';
-import { useState } from 'react';
 
 const cx = classNames.bind(styles);
-
 const defaultFn = () => {};
 
 function Menu({ children, items = [], hideOnClick = false, onChange = defaultFn }) {
     const [history, setHistory] = useState([{ data: items }]);
     const current = history[history.length - 1];
+    const { i18n } = useTranslation();
+
+    useEffect(() => {
+        setHistory([{ data: items }]);
+    }, [i18n.language, items]);
 
     const renderItems = () => {
         return current.data.map((item, index) => {

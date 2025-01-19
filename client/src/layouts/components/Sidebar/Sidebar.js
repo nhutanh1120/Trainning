@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
 import classNames from 'classnames/bind';
+import { useTranslation } from 'react-i18next';
+
 import styles from './Sidebar.module.scss';
 import Menu, { MenuItem } from './Menu';
 import {
@@ -17,6 +19,7 @@ import config from '~/config';
 const cx = classNames.bind(styles);
 
 function Sidebar() {
+    const { t } = useTranslation();
     const [suggestedUsers, setSuggestedUsers] = useState([]);
 
     useEffect(() => {
@@ -28,18 +31,28 @@ function Sidebar() {
     return (
         <aside className={cx('wrapper')}>
             <Menu>
-                <MenuItem title="For You" to={config.routes.home} icon={<HomeIcon />} activeIcon={<HomeActiveIcon />} />
                 <MenuItem
-                    title="Following"
+                    title={t('LAYOUTS.SIDEBAR.FOR_YOU')}
+                    to={config.routes.home}
+                    icon={<HomeIcon />}
+                    activeIcon={<HomeActiveIcon />}
+                />
+                <MenuItem
+                    title={t('LAYOUTS.SIDEBAR.FOLLOWING')}
                     to={config.routes.following}
                     icon={<UserGroupIcon />}
                     activeIcon={<UserGroupActiveIcon />}
                 />
-                <MenuItem title="LIVE" to={config.routes.live} icon={<LiveIcon />} activeIcon={<LiveActiveIcon />} />
+                <MenuItem
+                    title={t('LAYOUTS.SIDEBAR.LIVE')}
+                    to={config.routes.live}
+                    icon={<LiveIcon />}
+                    activeIcon={<LiveActiveIcon />}
+                />
             </Menu>
 
-            <SuggestedAccounts label="Suggested accounts" data={suggestedUsers} />
-            <SuggestedAccounts label="Following accounts" />
+            <SuggestedAccounts label={t('LAYOUTS.SIDEBAR.SUGGESTED_ACCOUNTS')} data={suggestedUsers} />
+            <SuggestedAccounts label={t('LAYOUTS.SIDEBAR.FOLLOWING_ACCOUNTS')} />
         </aside>
     );
 }
