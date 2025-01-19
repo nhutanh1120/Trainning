@@ -1,5 +1,13 @@
 .wrapper {
     width: 356px;
+    height: calc(100vh - var(--default-layout-header-height));
     padding: 20px 0 26px 8px;
-    // margin-left: -18px;
+    overflow-y: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+
+    &:hover {
+        scrollbar-width: auto;
+        -ms-overflow-style: auto;
+    }
 }

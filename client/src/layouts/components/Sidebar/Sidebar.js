@@ -15,6 +15,7 @@ import {
 import SuggestedAccounts from '~/components/SuggestedAccounts';
 import * as userService from '~/services/userService';
 import config from '~/config';
+import About from './About';
 
 const cx = classNames.bind(styles);
 
@@ -53,6 +54,8 @@ function Sidebar() {
 
             <SuggestedAccounts label={t('LAYOUTS.SIDEBAR.SUGGESTED_ACCOUNTS')} data={suggestedUsers} />
             <SuggestedAccounts label={t('LAYOUTS.SIDEBAR.FOLLOWING_ACCOUNTS')} />
+
+            <About />
         </aside>
     );
 }

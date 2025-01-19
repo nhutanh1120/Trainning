@@ -1,0 +1,116 @@
+.wrapper {
+    --color-media: #ffffffe6;
+
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    -webkit-box-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    padding-inline: 4rem calc(11rem);
+    margin: 0px auto;
+    transition-property: margin, width, padding;
+    transition-duration: 300ms;
+    transition-timing-function: linear;
+    overflow: hidden clip;
+    scroll-snap-stop: always;
+    scroll-snap-align: start center;
+}
+
+.container {
+    width: 400px;
+    height: 600px;
+    position: relative;
+    border-radius: 16px;
+    background-color: rgba(22, 24, 35, 0.06);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+
+    .player-wrapper {
+        position: absolute;
+        left: 0px;
+        top: 0px;
+        width: 100%;
+        height: 100%;
+        border-radius: 16px;
+
+        video {
+            display: block;
+            width: 100%;
+            height: 100%;
+            border-radius: 16px;
+            object-fit: cover;
+        }
+    }
+}
+
+.media-controls-top {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    color: var(--color-media);
+
+    button {
+        background-color: transparent;
+        cursor: pointer;
+    }
+}
+
+.media-controls-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    padding: 10px;
+    color: var(--color-media);
+
+    button {
+        padding: 5px;
+        color: var(--color-media);
+        background-color: transparent;
+        cursor: pointer;
+    }
+}
+
+.description {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding-right: 8px;
+    flex-grow: 1;
+
+    button {
+        font-weight: 600;
+    }
+}
+
+.content {
+    max-height: 21px;
+    overflow-y: hidden;
+
+    &.active {
+        max-height: unset;
+    }
+}
+
+.author {
+    color: var(--color-media);
+    font-size: 1.4rem;
+    font-weight: 600;
+    cursor: pointer;
+
+    .name {
+        display: inline;
+    }
+
+    .dot {
+        padding: 0 5px;
+    }
+}

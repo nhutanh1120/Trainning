@@ -39,7 +39,13 @@
             "LIVE": "LIVE",
             "SEE_ALL": "Xem thêm",
             "SUGGESTED_ACCOUNTS": "Tài khoản đề xuất",
-            "FOLLOWING_ACCOUNTS": "Tài khoản đã follow"
+            "FOLLOWING_ACCOUNTS": "Tài khoản đã follow",
+            "ABOUT": {
+                "SECTION_1": "Giới thiệu Phòng tin tức TikTok Shop Liên hệ Nghề nghiệp ByteDance",
+                "SECTION_2": "TikTok vì cộng đồng Quảng cáo Nhà phát triển Minh bạch Phần thưởng trên TikTok TikTok Embeds",
+                "SECTION_3": "Trợ giúp An toàn Điều khoản Quyền riêng tư Cổng thông tin Nhà sáng tạo Hướng dẫn cộng đồng",
+                "COPYRIGHT": "© {{year}} TikTok"
+            }
         }
     }
 }

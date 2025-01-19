@@ -39,7 +39,13 @@
             "LIVE": "LIVE",
             "SEE_ALL": "See all",
             "SUGGESTED_ACCOUNTS": "Suggested accounts",
-            "FOLLOWING_ACCOUNTS": "Following accounts"
+            "FOLLOWING_ACCOUNTS": "Following accounts",
+            "ABOUT": {
+                "SECTION_1": "About Newsroom TikTok Shop Contact Careers ByteDance",
+                "SECTION_2": "TikTok for Good Advertise Developers Transparency TikTok Rewards TikTok Browse TikTok Embeds",
+                "SECTION_3": "Help Safety Terms Privacy Creator Portal Community Guidelines",
+                "COPYRIGHT": "© {{year}} TikTok"
+            }
         }
     }
 }
