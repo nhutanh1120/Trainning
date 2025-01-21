@@ -49,7 +49,7 @@ function Media() {
                         ref={videoRef}
                     >
                         <source
-                            src="https://files.fullstack.edu.vn/f8-tiktok/videos/3624-6669c160c13f5.mp4"
+                            src="https://files.fullstack.edu.vn/f8-tiktok/videos/3584-66608241175ad.mp4"
                             type="video/mp4"
                         />
                     </video>

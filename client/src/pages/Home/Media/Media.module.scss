@@ -4,14 +4,9 @@
     position: relative;
     display: flex;
     flex-direction: row;
-    -webkit-box-pack: center;
     justify-content: center;
-    -webkit-box-align: center;
     align-items: center;
     gap: 1rem;
-    padding: 1rem;
-    padding-inline: 4rem calc(11rem);
-    margin: 0px auto;
     transition-property: margin, width, padding;
     transition-duration: 300ms;
     transition-timing-function: linear;

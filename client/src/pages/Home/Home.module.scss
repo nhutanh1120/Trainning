@@ -1,0 +1,27 @@
+.wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    height: 100%;
+}
+
+.list-content {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    height: 100vh;
+    overflow-y: scroll;
+    scroll-snap-type: y mandatory; /* Bắt buộc cuộn từng phần tử */
+    scrollbar-width: none; /* Ẩn thanh cuộn */
+    scroll-behavior: smooth; /* Làm mượt khi cuộn */
+}
+
+.content {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: end;
+    gap: 1rem;
+    padding: 16px 0;
+    scroll-snap-align: start;
+}
