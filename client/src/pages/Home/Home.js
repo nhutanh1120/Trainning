@@ -1,9 +1,10 @@
-import { Link } from 'react-router-dom';
-import Media from './Media';
-import ActionBar from './ActionBar';
+import { useRef, useState } from 'react';
 import classNames from 'classnames/bind';
 import style from './Home.module.scss';
-import { useRef, useState } from 'react';
+
+import Media from './Media';
+import ActionBar from './ActionBar';
+import { AngleUpIcon, AngleDownIcon } from '~/components/Icons';
 
 const cx = classNames.bind(style);
 
@@ -25,15 +26,19 @@ function Home() {
         <div className={cx('wrapper')}>
             <div className={cx('list-content')}>
                 {[...Array(5)].map((_, index) => (
-                    <article key={index} className="content" ref={(el) => (articlesRef.current[index] = el)}>
+                    <article key={index} className={cx('content')} ref={(el) => (articlesRef.current[index] = el)}>
                         <Media />
                         <ActionBar />
                     </article>
                 ))}
             </div>
             <div className={cx('navigation')}>
-                <button onClick={() => handleScroll('up')}>Cuộn Lên</button>
-                <button onClick={() => handleScroll('down')}>Cuộn Xuống</button>
+                <button onClick={() => handleScroll('up')}>
+                    <AngleUpIcon width="2.4rem" height="2.4rem" />
+                </button>
+                <button onClick={() => handleScroll('down')}>
+                    <AngleDownIcon width="2.4rem" height="2.4rem" />
+                </button>
             </div>
             <div className={cx('promotion')}></div>
         </div>

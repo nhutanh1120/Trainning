@@ -10,7 +10,8 @@
 
     // Default layout
     --default-layout-header-height: 60px;
-    --default-layout-width: 1150px;
+    // --default-layout-width: 1150px;
+    --default-layout-width: 100%;
     --default-layout-horizontal-spacer: 24px;
 }
 
@@ -52,6 +53,7 @@ html *::-webkit-scrollbar-track {
 button,
 input,
 [tabindex] {
+    appearance: none;
     outline: none;
     border: none;
 }
@@ -61,7 +63,7 @@ a {
     text-decoration: none;
 }
 
-// Fonts emmbeded
+// Fonts embedded
 @font-face {
     font-family: ProximaNova;
     src: url('/assets/fonts/Proxima-Nova-Regular.woff2');

@@ -21,9 +21,9 @@ const data = [
 ];
 function ActionBar() {
     return (
-        <section className="warrap">
-            {data.map((item) => (
-                <ButtonIcon icon={item.icon} count={item.count} />
+        <section className="wrapper">
+            {data.map((item, index) => (
+                <ButtonIcon key={index} icon={item.icon} count={item.count} />
             ))}
         </section>
     );
