@@ -4,7 +4,7 @@ import style from './Home.module.scss';
 
 import Media from './Media';
 import ActionBar from './ActionBar';
-import { AngleUpIcon, AngleDownIcon } from '~/components/Icons';
+import { AngleUpIcon, AngleDownIcon, TiktokIcon } from '~/components/Icons';
 
 const cx = classNames.bind(style);
 
@@ -40,7 +40,12 @@ function Home() {
                     <AngleDownIcon width="2.4rem" height="2.4rem" />
                 </button>
             </div>
-            <div className={cx('promotion')}></div>
+            <div className={cx('promotion')}>
+                <button className={cx('coin')}>
+                    <TiktokIcon width="1.4rem" height="1.4rem" />
+                    nhận xu
+                </button>
+            </div>
         </div>
     );
 }

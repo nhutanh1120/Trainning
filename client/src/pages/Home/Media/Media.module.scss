@@ -1,6 +1,7 @@
 .wrapper {
     --color-media: #ffffffe6;
     --border-radius: 16px;
+    --header-and-padding: calc(var(--default-layout-header-height) + var(--default-padding-content) * 2);
 
     position: relative;
     display: flex;
@@ -18,7 +19,7 @@
 
 .container {
     width: 400px;
-    height: 600px;
+    height: calc(100vh - var(--header-and-padding));
     position: relative;
     border-radius: 16px;
     background-color: rgba(22, 24, 35, 0.06);
@@ -48,9 +49,9 @@
     position: absolute;
     top: 10px;
     left: 10px;
-    color: var(--color-media);
 
     button {
+        color: var(--color-media);
         background-color: transparent;
         cursor: pointer;
     }
@@ -93,6 +94,15 @@
 
     &.active {
         max-height: unset;
+    }
+
+    .tag a {
+        color: var(--color-media);
+        margin-right: 8px;
+    }
+
+    .tag a:hover {
+        text-decoration: underline;
     }
 }
 

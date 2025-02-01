@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styles from './Media.module.scss';
 import { VolumeMuteIcon, VolumeUpIcon, PictureToPictureIcon } from '~/components/Icons';
 import { faPause, faPlay } from '@fortawesome/free-solid-svg-icons';
+import { Link } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
 
@@ -73,11 +74,11 @@ function Media() {
                 <div className={cx('media-controls-bottom')}>
                     <div className={cx('description')}>
                         <div className={cx('info')}>
-                            <a className={cx('author')}>
+                            <Link to="/about" className={cx('author')}>
                                 <h3 className={cx('name')}>author</h3>
                                 <span className={cx('dot')}>·</span>
                                 <span className={cx('date')}>4 ngay truoc</span>
-                            </a>
+                            </Link>
                             <div
                                 className={cx('content', {
                                     active: isExpanded,
@@ -85,9 +86,9 @@ function Media() {
                             >
                                 <p className={cx('text')}>mo ta video</p>
                                 <div className={cx('tag')}>
-                                    <a>#a</a>
-                                    <a>#b</a>
-                                    <a>#c</a>
+                                    <Link to="/tag/a">#a</Link>
+                                    <Link to="/tag/b">#b</Link>
+                                    <Link to="/tag/c">#c</Link>
                                 </div>
                             </div>
                         </div>

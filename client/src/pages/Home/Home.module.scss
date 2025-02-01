@@ -1,10 +1,12 @@
 .wrapper {
+    --default-padding-content: 20px;
+
     display: flex;
     align-items: center;
     justify-content: space-between;
     width: 100%;
     height: calc(100vh - var(--default-layout-header-height));
-    padding: 20px;
+    padding: var(--default-padding-content);
 }
 
 .list-content {
@@ -46,4 +48,30 @@
         border-radius: 50%;
         cursor: pointer;
     }
+}
+
+.promotion {
+    position: fixed;
+    right: var(--default-layout-horizontal-spacer);
+    bottom: var(--default-layout-horizontal-spacer);
+}
+
+.coin {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 4px;
+    width: 90px;
+    height: 32px;
+    padding: 0px 8px;
+    color: #161823bf;
+    font-weight: 700;
+    font-size: 12px;
+    text-align: center;
+    text-transform: capitalize;
+    background: #fff;
+    border: 1px solid #1618231f;
+    box-shadow: #0000000f 0px 2px 8px;
+    border-radius: 52px;
+    cursor: pointer;
 }

@@ -7,6 +7,31 @@
     background: none;
     cursor: pointer;
     color: #161823;
+
+    + .wrapper {
+        margin-top: 10px;
+    }
+}
+
+.action-icon {
+    position: absolute;
+    bottom: -6px;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    background-color: #fe2c55;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+
+    &.active {
+        border: 1px solid #1618231f;
+        background-color: #fff;
+        color: #fe2c55;
+    }
 }
 
 .icon {
@@ -23,6 +48,11 @@
 
     &.active {
         color: #fe2c55;
+    }
+
+    svg {
+        width: 24px;
+        height: 24px;
     }
 }
 
