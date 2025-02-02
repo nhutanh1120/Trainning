@@ -71,4 +71,5 @@
   ```
   docker exec your_php_service php yii fixture/load model_class
   docker exec your_php_service sh -c "yes | php yii fixture/load model_class"
+  docker exec your_php_service sh -c "yes | php yii fixture/load '*'"
   ```
