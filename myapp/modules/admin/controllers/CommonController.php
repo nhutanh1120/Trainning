@@ -26,7 +26,8 @@ class CommonController extends Controller
         $behaviors['corsFilter'] = [
             'class' => Cors::class,
             'cors' => [
-                'Origin' => ['*'], // Cho phép mọi nguồn
+                // 'Origin' => ['*'], // Cho phép mọi nguồn
+                'Origin' => ['http://localhost:3000'],
                 'Access-Control-Request-Method' => ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // Các phương thức được hỗ trợ
                 'Access-Control-Allow-Credentials' => true, // Cho phép gửi cookie
                 'Access-Control-Max-Age' => 3600, // Thời gian cache của trình duyệt

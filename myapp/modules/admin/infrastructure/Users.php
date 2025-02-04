@@ -1,6 +1,6 @@
 <?php
 
-namespace app\modules\admin\models;
+namespace app\modules\admin\infrastructure;
 
 use Yii;
 
@@ -27,7 +27,7 @@ use Yii;
  * @property string|null $created_at
  * @property string|null $updated_at
  */
-class User extends \yii\db\ActiveRecord
+class Users extends \yii\db\ActiveRecord
 {
     /**
      * {@inheritdoc}

@@ -1,6 +1,6 @@
 <?php
 
-namespace app\modules\admin\models;
+namespace app\modules\admin\infrastructure;
 
 use Yii;
 
@@ -17,7 +17,7 @@ use Yii;
  * @property Users $userUu
  * @property Videos $videoUu
  */
-class Comment extends \yii\db\ActiveRecord
+class Comments extends \yii\db\ActiveRecord
 {
     /**
      * {@inheritdoc}

@@ -1,6 +1,6 @@
 <?php
 
-namespace app\modules\admin\models;
+namespace app\modules\admin\infrastructure;
 
 use Yii;
 
@@ -24,7 +24,7 @@ use Yii;
  * @property Likes[] $likes
  * @property Users $userUu
  */
-class Video extends \yii\db\ActiveRecord
+class Videos extends \yii\db\ActiveRecord
 {
     /**
      * {@inheritdoc}
