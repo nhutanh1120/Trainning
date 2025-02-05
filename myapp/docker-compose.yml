@@ -1,17 +1,19 @@
 services:
   php:
-    build:
-      context: .
-      dockerfile: ./docker/Dockerfile  # Đường dẫn tới Dockerfile
+    # build:
+    #   context: .
+    #   dockerfile: ./docker/Dockerfile  # Đường dẫn tới Dockerfile
     image: yiisoftware/yii2-php:8.2-apache
     container_name: yii2_php
     volumes:
       - ~/.composer-docker/cache:/root/.composer/cache:delegated
       - ./:/app:delegated
     ports:
-      - '8080:80'
+      - "8080:80"
     environment:
       - YII_ENV=dev
+      - YII_DEBUG
+      - PHP_ENABLE_XDEBUG=1 #enable xdebug
     depends_on:
       - db
     networks:
@@ -31,10 +33,10 @@ services:
     volumes:
       - db_data:/var/lib/mysql
     networks:
-      - app_network  # Liên kết dịch vụ db vào mạng app_network
+      - app_network # Liên kết dịch vụ db vào mạng app_network
 
 volumes:
   db_data:
 
 networks:
-  app_network:  # Định nghĩa mạng app_network
+  app_network: # Định nghĩa mạng app_network

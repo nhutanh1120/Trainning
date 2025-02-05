@@ -22,6 +22,10 @@
   ```
   docker-compose -p myapp up -d
   ```
+ - Lệnh dowload vendor
+  ```
+  docker-compose exec my-app composer install
+  ```
 
 # Note
  - Lệnh chạy lệnh sau để khởi động lại các container và kiểm tra lỗi:
