@@ -1,28 +1,30 @@
 <?php
 
-namespace app\modules\admin\infrastructure;
+namespace app\modules\admin\models;
 
 use Yii;
 
 /**
- * This is the model class for table "likes".
+ * This is the model class for table "comments".
  *
  * @property string $uuid
  * @property string $user_uuid
  * @property string $video_uuid
+ * @property string $comment
  * @property string|null $created_at
+ * @property string|null $updated_at
  *
  * @property Users $userUu
  * @property Videos $videoUu
  */
-class Likes extends \yii\db\ActiveRecord
+class Comments extends \yii\db\ActiveRecord
 {
     /**
      * {@inheritdoc}
      */
     public static function tableName()
     {
-        return 'likes';
+        return 'comments';
     }
 
     /**
@@ -31,8 +33,9 @@ class Likes extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['uuid', 'user_uuid', 'video_uuid'], 'required'],
-            [['created_at'], 'safe'],
+            [['uuid', 'user_uuid', 'video_uuid', 'comment'], 'required'],
+            [['comment'], 'string'],
+            [['created_at', 'updated_at'], 'safe'],
             [['uuid', 'user_uuid', 'video_uuid'], 'string', 'max' => 36],
             [['uuid'], 'unique'],
             [['user_uuid'], 'exist', 'skipOnError' => true, 'targetClass' => Users::class, 'targetAttribute' => ['user_uuid' => 'uuid']],
@@ -49,7 +52,9 @@ class Likes extends \yii\db\ActiveRecord
             'uuid' => 'Uuid',
             'user_uuid' => 'User Uuid',
             'video_uuid' => 'Video Uuid',
+            'comment' => 'Comment',
             'created_at' => 'Created At',
+            'updated_at' => 'Updated At',
         ];
     }
 

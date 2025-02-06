@@ -24,7 +24,7 @@
   ```
  - Lệnh dowload vendor
   ```
-  docker-compose exec my-app composer install
+  docker exec my-app composer install
   ```
 
 # Note

@@ -3,7 +3,7 @@
 namespace app\modules\admin\search;
 
 use yii\data\ActiveDataProvider;
-use app\modules\admin\infrastructure\Users;
+use app\modules\admin\models\Users;
 
 class UserSearch extends Users
 {
