@@ -5,7 +5,7 @@ namespace app\modules\admin\controllers;
 use Yii;
 use app\modules\admin\search\UserSearch;
 
-class UsersController extends CommonController
+class VideosController extends CommonController
 {
     public function actionSearch()
     {

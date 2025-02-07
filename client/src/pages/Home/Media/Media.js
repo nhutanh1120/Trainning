@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
 
-function Media() {
+function Media(props) {
     const videoRef = useRef(null);
     const [playing, setPlaying] = useState(false);
     const [muted, setMuted] = useState(false);
@@ -20,6 +20,8 @@ function Media() {
         videoRef.current.muted = !muted;
         setMuted(!muted);
     };
+
+    console.log(playing)
 
     const togglePlay = () => {
         if (playing) {
@@ -35,6 +37,8 @@ function Media() {
             setShowMediaPlaceholder(false);
         }, 500);
     };
+
+    console.log(props, "video")
 
     const togglePiP = async () => {
         if (!document.pictureInPictureElement) {

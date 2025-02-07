@@ -1,9 +1,10 @@
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import classNames from 'classnames/bind';
 import style from './Home.module.scss';
 
 import Media from './Media';
 import ActionBar from './ActionBar';
+import * as videosServices from '~/services/videoService';
 import { AngleUpIcon, AngleDownIcon, TiktokIcon } from '~/components/Icons';
 
 const cx = classNames.bind(style);
@@ -11,6 +12,7 @@ const cx = classNames.bind(style);
 function Home() {
     const articlesRef = useRef([]);
     const [currentIndex, setCurrentIndex] = useState(0);
+    const [videos, setVideos] = useState([]);
 
     const handleScroll = (direction) => {
         let nextIndex =
@@ -22,12 +24,22 @@ function Home() {
         setCurrentIndex(nextIndex);
     };
 
+    useEffect(() => {
+        const fetchApi = async () => {
+            const result = await videosServices.getVideos({ page: 1, type: 'for-you' });
+            setVideos(result);
+        };
+
+        fetchApi();
+    }, [])
+    
+
     return (
         <div className={cx('wrapper')}>
             <div className={cx('list-content')}>
-                {[...Array(5)].map((_, index) => (
+                {videos.map((video, index) => (
                     <article key={index} className={cx('content')} ref={(el) => (articlesRef.current[index] = el)}>
-                        <Media />
+                        <Media video={video} />
                         <ActionBar />
                     </article>
                 ))}
