@@ -2,7 +2,7 @@
 
 $params = require __DIR__ . '/params.php';
 $db = require __DIR__ . '/db.php';
-$routes = require __DIR__ . './../routes/routes.php';
+$routes = require __DIR__ . '/../routes/routes.php';
 
 $config = [
     'id' => 'basic',
@@ -16,6 +16,7 @@ $config = [
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'ZyCffxFo3LKbH7Vt83O4Ph-vhqOVMPqi',
+            'enableCsrfValidation' => false,
             // 'baseUrl' => '/api', // Để trống nếu dùng root domain
         ],
         'cache' => [

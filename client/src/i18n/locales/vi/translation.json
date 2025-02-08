@@ -46,6 +46,31 @@
                 "SECTION_3": "Trợ giúp An toàn Điều khoản Quyền riêng tư Cổng thông tin Nhà sáng tạo Hướng dẫn cộng đồng",
                 "COPYRIGHT": "© {{year}} TikTok"
             }
+        },
+        "AUTH": {
+            "LOGIN_TITLE": "Đăng nhập",
+            "": "Đăng ký",
+            "LOADING": "Đang xử lý...",
+            "FORGOT_PASSWORD_BUTTON": "Quên mật khẩu?",
+            "NO_ACCOUNT_TITLE": "Chưa có tài khoản?",
+            "HAVE_ACCOUNT_TITLE": "Đã có tài khoản?",
+            "FORM_ITEM": {
+                "USERNAME_FIELD": {
+                    "LABEL": "Email hoặc TikTok ID",
+                    "PLACEHOLDER": "Tên đăng nhập"
+                },
+                "PASSWORD_FIELD": {
+                    "PLACEHOLDER": "Mật khẩu"
+                },
+                "CONFIRM_PASSWORD_FIELD": {
+                    "PLACEHOLDER": "Nhập lại mật khẩu"
+                }
+            },
+            "ERROR": {
+                "PASSWORD_MISMATCH": "Mật khẩu không khớp",
+                "GENERIC": "Thao tác không thành công!",
+                "SERVER": "Không thể kết nối tới máy chủ. Vui lòng thử lại!"
+            }
         }
     }
 }

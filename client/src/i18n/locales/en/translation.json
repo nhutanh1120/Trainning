@@ -46,6 +46,31 @@
                 "SECTION_3": "Help Safety Terms Privacy Creator Portal Community Guidelines",
                 "COPYRIGHT": "© {{year}} TikTok"
             }
+        },
+        "AUTH": {
+            "LOGIN_TITLE": "Login",
+            "REGISTER_TITLE": "Register",
+            "LOADING": "Processing...",
+            "FORGOT_PASSWORD_BUTTON": "Forgot password?",
+            "NO_ACCOUNT_TITLE": "Don't have an account?",
+            "HAVE_ACCOUNT_TITLE": "Already have an account?",
+            "FORM_ITEM": {
+                "USERNAME_FIELD": {
+                    "LABEL": "Email or TikTok ID",
+                    "PLACEHOLDER": "Username"
+                },
+                "PASSWORD_FIELD": {
+                    "PLACEHOLDER": "Password"
+                },
+                "CONFIRM_PASSWORD_FIELD": {
+                    "PLACEHOLDER": "Confirm Password"
+                }
+            },
+            "ERROR": {
+                "PASSWORD_MISMATCH": "Passwords do not match",
+                "GENERIC": "Operation failed!",
+                "SERVER": "Cannot connect to the server. Please try again!"
+            }
         }
     }
 }

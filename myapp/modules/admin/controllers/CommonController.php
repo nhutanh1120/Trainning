@@ -2,6 +2,7 @@
 
 namespace app\modules\admin\controllers;
 
+use Yii;
 use yii\web\Controller;
 use yii\filters\Cors;
 use yii\filters\auth\HttpBearerAuth;
@@ -71,7 +72,7 @@ class CommonController extends Controller
             return false;
         }
 
-        \Yii::$app->response->on(Response::EVENT_BEFORE_SEND, function ($event) {
+        Yii::$app->response->on(Response::EVENT_BEFORE_SEND, function ($event) {
             $response = $event->sender;
             $data = $response->data;
 
@@ -81,6 +82,10 @@ class CommonController extends Controller
                 'code' => $response->statusCode,
                 'result' => $data,
             ];
+
+            // Thêm CSRF token vào header phản hồi
+            $csrfToken = Yii::$app->getRequest()->getCsrfToken();
+            $response->headers->set('X-CSRF-Token', $csrfToken);
         });
 
         return true;
