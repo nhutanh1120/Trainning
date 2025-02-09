@@ -82,7 +82,9 @@ function Header() {
                             </>
                         ) : (
                             <>
-                                <Button text>{t('LAYOUTS.HEADER.BUTTON.UPLOAD')}</Button>
+                                <Button text to="/upload">
+                                    {t('LAYOUTS.HEADER.BUTTON.UPLOAD')}
+                                </Button>
                                 <Button primary onClick={() => setIsAuthModalOpen(true)}>
                                     {t('LAYOUTS.HEADER.BUTTON.LOGIN')}
                                 </Button>

@@ -1,15 +1,17 @@
 import * as request from '~/utils/httpRequest';
 
-export const getSuggested = async ({ page = 1, perPage = 5 }) => {
+export const getSuggested = async ({ page = 1, pageSize = 5, type = 'new' }) => {
     try {
         const res = await request.get('users/suggested', {
             params: {
                 page,
-                per_page: perPage,
+                page_size: pageSize,
+                type, // foryou, popular, new
             },
         });
-        return res.data;
+        return res.result;
     } catch (error) {
         console.log(error);
+        return [];
     }
 };

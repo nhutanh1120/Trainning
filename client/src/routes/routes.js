@@ -18,7 +18,7 @@ const publicRoutes = [
     { path: config.routes.following, component: Following },
     { path: config.routes.live, component: Live },
     { path: config.routes.profile, component: Profile },
-    { path: config.routes.upload, component: Upload, layout: HeaderOnly },
+    { path: config.routes.upload, component: Upload },
     { path: config.routes.search, component: Search, layout: null },
     { path: config.routes.video, component: Video, layout: null },
 ];

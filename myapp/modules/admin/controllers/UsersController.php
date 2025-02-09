@@ -4,6 +4,7 @@ namespace app\modules\admin\controllers;
 
 use Yii;
 use app\modules\admin\search\UserSearch;
+use app\modules\admin\search\SuggestedSearch;
 
 class UsersController extends CommonController
 {
@@ -24,7 +25,7 @@ class UsersController extends CommonController
 
     public function actionSuggested()
     {
-        $searchModel = new UserSearch();
+        $searchModel = new SuggestedSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return [

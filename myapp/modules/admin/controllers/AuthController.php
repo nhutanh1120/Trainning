@@ -3,20 +3,21 @@
 namespace app\modules\admin\controllers;
 
 use Yii;
-use app\modules\admin\models\Users;
+use app\components\JwtHelper;
+use app\modules\admin\Response\UserReponse;
 
 class AuthController extends CommonController
 {
     public function actionRegister()
     {
-        $data = Yii::$app->request->post();
-        if (empty($data['email']) || empty($data['password'])) {
+        $request = json_decode(Yii::$app->request->getRawBody(), true);
+        if (empty($request['email']) || empty($request['password'])) {
             return ['success' => false, 'message' => 'Email và mật khẩu không thể trống'];
         }
 
-        $user = new Users();
-        $user->email = $data['email'];
-        $user->password = Yii::$app->security->generatePasswordHash($data['password']);
+        $user = new UserReponse();
+        $user->email = $request['email'];
+        $user->setPassword($request['password']);
 
         if ($user->save()) {
             return $this->asJson([
@@ -33,22 +34,33 @@ class AuthController extends CommonController
 
     public function actionLogin()
     {
-        // $data = Yii::$app->request->post();
-        $email = Yii::$app->request->post('email');
-        $password = Yii::$app->request->post('password');
+        $request = json_decode(Yii::$app->request->getRawBody(), true);
 
-        if (empty($email) || empty($password)) {
-            return ['status' => 'error', 'message' => 'Email và mật khẩu không thể trống'];
+        if (empty($request['email']) || empty($request['password'])) {
+            return ['success' => false, 'message' => 'Email và mật khẩu không thể trống'];
         }
 
-        // $user = Users::findByEmail($email);
-        // if ($user && $user->validatePassword($password)) {
-        //     return $this->asJson([
-        //         'success' => true,
-        //         'message' => 'Đăng nhập thành công',
-        //         'data' => Yii::$app->user->identity, // trả về thông tin người dùng sau khi đăng nhập
-        //     ]);
-        // }
+        $user = UserReponse::findOne(['email' => $request['email']]);
+        if ($user && $user->validatePassword($request['password'])) {
+            
+            $token = JwtHelper::generateToken($user);
+            Yii::$app->response->cookies->add(new \yii\web\Cookie([
+                'name' => 'auth_token', // Tên cookie
+                'value' => $token, // Giá trị cookie là token JWT
+                'expire' => time() + 3600 * 24, // Thời gian hết hạn cookie (1 ngày)
+                'path' => '/', // Đặt phạm vi cookie
+                'secure' => false, // Chỉ gửi cookie qua HTTPS
+                'httpOnly' => true, // Không thể truy cập cookie từ JavaScript
+                'sameSite' => 'Strict', // Thiết lập SameSite để bảo vệ khỏi CSRF
+            ]));
+
+            return $this->asJson([
+                'success' => true,
+                'message' => 'Đăng nhập thành công',
+                'token' => $token,
+                'user' => Yii::$app->user->identity,
+            ]);
+        }
 
         return $this->asJson([
             'success' => false,

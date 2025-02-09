@@ -8,7 +8,7 @@ const httpRequest = axios.create({
     baseURL: process.env.REACT_APP_BASE_URL,
     withCredentials: true,
     headers: {
-        'X-CSRF-Token': getCsrfToken(), // Thêm CSRF token vào header
+        'Content-Type': 'application/json',
     },
 });
 

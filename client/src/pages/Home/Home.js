@@ -1,15 +1,17 @@
 import { useRef, useState, useEffect } from 'react';
 import classNames from 'classnames/bind';
-import style from './Home.module.scss';
+import { useTranslation } from 'react-i18next';
 
 import Media from './Media';
 import ActionBar from './ActionBar';
 import * as videosServices from '~/services/videoService';
 import { AngleUpIcon, AngleDownIcon, TiktokIcon } from '~/components/Icons';
+import style from './Home.module.scss';
 
 const cx = classNames.bind(style);
 
 function Home() {
+    const { t } = useTranslation();
     const articlesRef = useRef([]);
     const [currentIndex, setCurrentIndex] = useState(0);
     const [videos, setVideos] = useState([]);
@@ -31,8 +33,7 @@ function Home() {
         };
 
         fetchApi();
-    }, [])
-    
+    }, []);
 
     return (
         <div className={cx('wrapper')}>
@@ -55,7 +56,7 @@ function Home() {
             <div className={cx('promotion')}>
                 <button className={cx('coin')}>
                     <TiktokIcon width="1.4rem" height="1.4rem" />
-                    nhận xu
+                    {t('HOME.GET_COINS')}
                 </button>
             </div>
         </div>

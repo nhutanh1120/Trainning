@@ -17,17 +17,47 @@ import * as userService from '~/services/userService';
 import config from '~/config';
 import About from './About';
 
+const PAGE_SIZE = 5;
 const cx = classNames.bind(styles);
 
 function Sidebar() {
     const { t } = useTranslation();
+    const [initialData, setInitialData] = useState([]);
     const [suggestedUsers, setSuggestedUsers] = useState([]);
+    const [page, setPage] = useState(1);
+    const [hasMore, setHasMore] = useState(true);
 
     useEffect(() => {
-        userService.getSuggested({ page: 1, perPage: 5 }).then((data) => {
-            setSuggestedUsers(data);
-        });
+        fetchSuggestedUsers(1);
     }, []);
+
+    const fetchSuggestedUsers = async (newPage) => {
+        if (initialData.length >= newPage * PAGE_SIZE) {
+            const newData = initialData.slice(0, newPage * PAGE_SIZE);
+            setSuggestedUsers(newData);
+            setHasMore(newData.length < initialData.length);
+            setPage(newPage);
+            return;
+        }
+        const data = await userService.getSuggested({ page: newPage, page_size: PAGE_SIZE });
+        const updatedData = [...initialData, ...data.items];
+
+        setInitialData(updatedData);
+        setSuggestedUsers(updatedData);
+
+        setPage(newPage);
+        setHasMore(updatedData.length < data.pagination.totalCount);
+    };
+
+    const handleShowMore = () => {
+        fetchSuggestedUsers(page + 1);
+    };
+
+    const handleCollapse = () => {
+        setSuggestedUsers(initialData.slice(0, PAGE_SIZE));
+        setPage(1);
+        setHasMore(true);
+    };
 
     return (
         <aside className={cx('wrapper')}>
@@ -52,7 +82,12 @@ function Sidebar() {
                 />
             </Menu>
 
-            <SuggestedAccounts label={t('LAYOUTS.SIDEBAR.SUGGESTED_ACCOUNTS')} data={suggestedUsers} />
+            <SuggestedAccounts
+                label={t('LAYOUTS.SIDEBAR.SUGGESTED_ACCOUNTS')}
+                data={suggestedUsers}
+                hasMore={hasMore}
+                onClick={hasMore ? handleShowMore : handleCollapse}
+            />
             <SuggestedAccounts label={t('LAYOUTS.SIDEBAR.FOLLOWING_ACCOUNTS')} />
 
             <About />

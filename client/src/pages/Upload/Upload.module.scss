@@ -1,0 +1,81 @@
+.wrapper {
+    width: 100%;
+    height: calc(100vh - var(--default-layout-header-height));
+    padding: 20px 45px;
+    background-color: #f8f8f8;
+}
+
+.upload-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 30px;
+    background-color: var(--white);
+    border-radius: 10px;
+    box-shadow: 0 2px 8px #0000000f;
+}
+
+.upload-box {
+    width: 100%;
+    height: 300px;
+    border: 2px dashed #ccc;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    text-align: center;
+    background-color: #f8f8f8;
+    transition: 0.3s;
+}
+
+.upload-box:hover {
+    background-color: #f1f1f1;
+}
+
+.upload-icon {
+    color: #ccc;
+    margin-bottom: 10px;
+}
+
+.upload-button {
+    margin: 20px;
+    padding: 10px 45px;
+}
+
+.upload-info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.info-item {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 10px;
+}
+
+.info-icon {
+    font-size: 2rem;
+    color: #888;
+    margin: 3px 8px 0 0;
+}
+
+.upload-info strong {
+    display: block;
+    width: max-content;
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: #000;
+    margin-bottom: 3px;
+}
+
+.upload-info p {
+    font-size: 1.4rem;
+    font-weight: 500;
+    color: #777;
+}

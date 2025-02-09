@@ -5,9 +5,11 @@ namespace app\modules\admin\controllers;
 use Yii;
 use yii\web\Controller;
 use yii\filters\Cors;
-use yii\filters\auth\HttpBearerAuth;
+// use yii\filters\auth\HttpBearerAuth;
 use yii\filters\VerbFilter;
+use yii\filters\ContentNegotiator;
 use yii\web\Response; 
+use app\components\JwtAuth;
 
 class CommonController extends Controller
 {
@@ -36,10 +38,19 @@ class CommonController extends Controller
             ],
         ];
 
-                // Cấu hình xác thực bằng Bearer Token
+        // Cấu hình xác thực bằng Bearer Token
         // $behaviors['authenticator'] = [
         //     'class' => HttpBearerAuth::class,
         // ];
+        $behaviors['authenticator'] = [
+			'class' => JwtAuth::class,
+			'except' => [
+				'login',
+				'register',
+				'search',
+				'suggested',
+			],
+		];
 
         // Cấu hình phương thức HTTP cho từng action
         $behaviors['verbs'] = [
@@ -53,7 +64,7 @@ class CommonController extends Controller
         ];
 
         $behaviors['contentNegotiator'] = [
-            'class' => \yii\filters\ContentNegotiator::class,
+            'class' => ContentNegotiator::class,
             'formats' => [
                 'application/json' => Response::FORMAT_JSON,
             ],

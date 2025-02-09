@@ -38,6 +38,7 @@
             "FOLLOWING": "Đang Follow",
             "LIVE": "LIVE",
             "SEE_ALL": "Xem thêm",
+            "SEE_LESS": "Thu gọn",
             "SUGGESTED_ACCOUNTS": "Tài khoản đề xuất",
             "FOLLOWING_ACCOUNTS": "Tài khoản đã follow",
             "ABOUT": {
@@ -72,5 +73,8 @@
                 "SERVER": "Không thể kết nối tới máy chủ. Vui lòng thử lại!"
             }
         }
+    },
+    "HOME": {
+        "GET_COINS": "Nhận xu"
     }
 }
