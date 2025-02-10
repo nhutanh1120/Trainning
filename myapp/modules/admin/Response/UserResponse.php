@@ -5,7 +5,7 @@ namespace app\modules\admin\Response;
 use Yii;
 use app\modules\admin\models\Users;
 
-class UserReponse extends Users
+class UserResponse extends Users
 {
     /**
      * setPassword
@@ -26,6 +26,6 @@ class UserReponse extends Users
      */
     public function validatePassword($password)
     {
-        return Yii::$app->security->validatePassword($password, $this->password_hash);
+        return Yii::$app->security->validatePassword($password, $this->password);
     }
 }

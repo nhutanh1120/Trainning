@@ -16,7 +16,7 @@ import Video from '~/pages/Video';
 const publicRoutes = [
     { path: config.routes.home, component: Home },
     { path: config.routes.following, component: Following },
-    { path: config.routes.live, component: Live },
+    { path: config.routes.live, component: Live, layout: HeaderOnly },
     { path: config.routes.profile, component: Profile },
     { path: config.routes.upload, component: Upload },
     { path: config.routes.search, component: Search, layout: null },

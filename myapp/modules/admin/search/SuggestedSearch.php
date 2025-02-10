@@ -4,9 +4,9 @@ namespace app\modules\admin\search;
 
 use Yii;
 use yii\data\ActiveDataProvider;
-use app\modules\admin\Response\UserReponse;
+use app\modules\admin\Response\UserResponse;
 
-class SuggestedSearch extends UserReponse
+class SuggestedSearch extends UserResponse
 {
     public $page;
     public $page_size;
@@ -22,7 +22,7 @@ class SuggestedSearch extends UserReponse
 
     public function search($params)
     {
-        $query = UserReponse::find();
+        $query = UserResponse::find();
 
         $this->load($params, '');
 

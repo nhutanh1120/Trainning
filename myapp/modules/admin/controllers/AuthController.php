@@ -4,7 +4,7 @@ namespace app\modules\admin\controllers;
 
 use Yii;
 use app\components\JwtHelper;
-use app\modules\admin\Response\UserReponse;
+use app\modules\admin\Response\UserResponse;
 
 class AuthController extends CommonController
 {
@@ -15,7 +15,7 @@ class AuthController extends CommonController
             return ['success' => false, 'message' => 'Email và mật khẩu không thể trống'];
         }
 
-        $user = new UserReponse();
+        $user = new UserResponse();
         $user->email = $request['email'];
         $user->setPassword($request['password']);
 
@@ -40,7 +40,7 @@ class AuthController extends CommonController
             return ['success' => false, 'message' => 'Email và mật khẩu không thể trống'];
         }
 
-        $user = UserReponse::findOne(['email' => $request['email']]);
+        $user = UserResponse::findOne(['email' => $request['email']]);
         if ($user && $user->validatePassword($request['password'])) {
             
             $token = JwtHelper::generateToken($user);
@@ -58,7 +58,7 @@ class AuthController extends CommonController
                 'success' => true,
                 'message' => 'Đăng nhập thành công',
                 'token' => $token,
-                'user' => Yii::$app->user->identity,
+                'user' => $user,
             ]);
         }
 
@@ -66,5 +66,27 @@ class AuthController extends CommonController
             'success' => false,
             'message' => 'Thông tin đăng nhập không đúng',
         ]);
+    }
+
+    public function actionMe()
+    {
+        $user = Yii::$app->user->identity; // Lấy user hiện tại
+
+        if ($user) {
+            return [
+                'success' => true,
+                'user' => [
+                    'id' => $user->uuid,
+                    'email' => $user->email,
+                    'full_name' => $user->full_name,
+                    'avatar' => $user->avatar,
+                ],
+            ];
+        }
+
+        return [
+            'success' => false,
+            'message' => 'User chưa đăng nhập.',
+        ];
     }
 }

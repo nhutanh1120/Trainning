@@ -40,6 +40,8 @@ function Sidebar() {
             return;
         }
         const data = await userService.getSuggested({ page: newPage, page_size: PAGE_SIZE });
+        if (!data) return;
+
         const updatedData = [...initialData, ...data.items];
 
         setInitialData(updatedData);

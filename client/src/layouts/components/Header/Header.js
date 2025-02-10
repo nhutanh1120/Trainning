@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
 import classNames from 'classnames/bind';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEllipsisVertical } from '@fortawesome/free-solid-svg-icons';
@@ -21,11 +22,12 @@ import { useMenuItems, useUserMenu } from './../Utils';
 const cx = classNames.bind(styles);
 
 function Header() {
-    const currentUser = false;
     const { t, i18n } = useTranslation();
     const menuItems = useMenuItems();
     const userMenu = useUserMenu();
     const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
+
+    const user = useSelector((state) => state.auth.user);
 
     // Handle logic
     const handleMenuChange = (menuItem) => {
@@ -49,7 +51,7 @@ function Header() {
                     <Search />
 
                     <div className={cx('actions')}>
-                        {currentUser ? (
+                        {user ? (
                             <>
                                 <Tippy
                                     delay={[0, 50]}
@@ -91,8 +93,8 @@ function Header() {
                             </>
                         )}
 
-                        <Menu items={currentUser ? userMenu : menuItems} onChange={handleMenuChange}>
-                            {currentUser ? (
+                        <Menu items={user ? userMenu : menuItems} onChange={handleMenuChange}>
+                            {user ? (
                                 <Image
                                     className={cx('user-avatar')}
                                     src="https://files.fullstack.edu.vn/f8-prod/user_avatars/1/623d4b2d95cec.png"

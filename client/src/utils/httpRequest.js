@@ -1,11 +1,8 @@
 import axios from 'axios';
 
-const getCsrfToken = () => {
-    return document.cookie.match(/(^|;) ?yii_csrf_token=([^;]*)(;|$)/)?.[2];
-};
-
 const httpRequest = axios.create({
     baseURL: process.env.REACT_APP_BASE_URL,
+    timeout: 5000, // Hủy request sau 5 giây
     withCredentials: true,
     headers: {
         'Content-Type': 'application/json',

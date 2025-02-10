@@ -3,9 +3,9 @@
 namespace app\modules\admin\search;
 
 use yii\data\ActiveDataProvider;
-use app\modules\admin\Response\UserReponse;
+use app\modules\admin\Response\UserResponse;
 
-class UserSearch extends UserReponse
+class UserSearch extends UserResponse
 {
     public $q;
 
@@ -18,7 +18,7 @@ class UserSearch extends UserReponse
 
     public function search($params)
     {
-        $query = UserReponse::find();
+        $query = UserResponse::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,

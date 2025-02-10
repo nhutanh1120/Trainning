@@ -1,16 +1,20 @@
 import { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import classNames from 'classnames/bind';
 import Button from '~/components/Button';
 import FormInput from './FormInput';
 import { CloseIcon } from '~/components/Icons';
-import { login, register } from '~/services/authService';
+// import { login, register } from '~/services/authService';
+import { loginUser, registerUser } from '~/redux/AuthSlice';
 import styles from './AuthModal.module.scss';
 
 const cx = classNames.bind(styles);
 
 function AuthModal({ isOpen, onClose }) {
     const { t } = useTranslation();
+    const dispatch = useDispatch();
+    const { loading, error } = useSelector((state) => state.auth);
     const [isLoginMode, setIsLoginMode] = useState(true); // true: Login, false: Register
 
     const [email, setEmail] = useState('');
@@ -18,15 +22,15 @@ function AuthModal({ isOpen, onClose }) {
     const [confirmPassword, setConfirmPassword] = useState('');
     const [confirmPasswordError, setConfirmPasswordError] = useState('');
 
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState('');
+    // const [loading, setLoading] = useState(false);
+    // const [error, setError] = useState('');
 
     // Reset state when switching between login and register modes
     useEffect(() => {
         setEmail('');
         setPassword('');
         setConfirmPassword('');
-        setError('');
+        // setError('');
         setConfirmPasswordError('');
     }, [isLoginMode]);
 
@@ -42,31 +46,51 @@ function AuthModal({ isOpen, onClose }) {
         setConfirmPasswordError(password !== confirmPassword ? t('LAYOUTS.AUTH.ERROR.PASSWORD_MISMATCH') : '');
     };
 
+    // const handleSubmit = async () => {
+    //     setLoading(true);
+    //     setError('');
+    //     try {
+    //         const payload = {
+    //             email,
+    //             password,
+    //         };
+
+    //         let response;
+    //         if (isLoginMode) {
+    //             response = await login(payload);
+    //         } else {
+    //             response = await register(payload);
+    //         }
+
+    //         if (response.data.success) {
+    //             onClose();
+    //         } else {
+    //             setError(response.data.message || t('LAYOUTS.AUTH.ERROR.GENERIC'));
+    //         }
+    //     } catch (error) {
+    //         setError(t('LAYOUTS.AUTH.ERROR.SERVER'));
+    //     } finally {
+    //         setLoading(false);
+    //     }
+    // };
+
     const handleSubmit = async () => {
-        setLoading(true);
-        setError('');
-        try {
-            const payload = {
-                email,
-                password,
-            };
+        const payload = { email, password };
 
-            let response;
-            if (isLoginMode) {
-                response = await login(payload);
-            } else {
-                response = await register(payload);
-            }
-
-            if (response.data.success) {
-                onClose();
-            } else {
-                setError(response.data.message || t('LAYOUTS.AUTH.ERROR.GENERIC'));
-            }
-        } catch (error) {
-            setError(t('LAYOUTS.AUTH.ERROR.SERVER'));
-        } finally {
-            setLoading(false);
+        if (isLoginMode) {
+            dispatch(loginUser(payload)).then((result) => {
+                if (result.meta.requestStatus === 'fulfilled') {
+                    localStorage.setItem('isLoginMode', 'true');
+                    onClose();
+                }
+            });
+        } else {
+            dispatch(registerUser(payload)).then((result) => {
+                if (result.meta.requestStatus === 'fulfilled') {
+                    localStorage.setItem('isLoginMode', 'true');
+                    onClose();
+                }
+            });
         }
     };
 
