@@ -1,0 +1,61 @@
+.uploadContainer {
+    width: 100%;
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px #0000000f;
+}
+
+.fileName {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.fileInfo {
+    font-size: 14px;
+    color: #555;
+    margin-top: 4px;
+}
+
+.progressText {
+    font-size: 14px;
+    color: #666;
+    margin-top: 8px;
+}
+
+.progressBar {
+    width: 100%;
+    height: 6px;
+    background: #e0e0e0;
+    border-radius: 4px;
+    margin-top: 10px;
+    overflow: hidden;
+}
+
+.progressFill {
+    height: 100%;
+    background: #00c39b;
+    transition: width 0.5s ease-in-out;
+}
+
+.progressFooter {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.cancelButton {
+    background: #ddd;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+
+    &:hover {
+        background: #bbb;
+    }
+}

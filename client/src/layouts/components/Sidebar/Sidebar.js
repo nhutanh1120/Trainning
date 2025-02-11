@@ -40,7 +40,7 @@ function Sidebar() {
             return;
         }
         const data = await userService.getSuggested({ page: newPage, page_size: PAGE_SIZE });
-        if (!data) return;
+        if (!data || data.length === 0) return;
 
         const updatedData = [...initialData, ...data.items];
 

@@ -2,7 +2,7 @@ import { Fragment, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { publicRoutes } from '~/routes';
-import { fetchUser } from '~/redux/AuthSlice';
+import { fetchUser } from '~/redux/authSlice';
 import DefaultLayout from '~/layouts';
 import '~/i18n/i18n';
 

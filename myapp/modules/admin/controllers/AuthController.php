@@ -42,7 +42,7 @@ class AuthController extends CommonController
 
         $user = UserResponse::findOne(['email' => $request['email']]);
         if ($user && $user->validatePassword($request['password'])) {
-            
+
             $token = JwtHelper::generateToken($user);
             Yii::$app->response->cookies->add(new \yii\web\Cookie([
                 'name' => 'auth_token', // Tên cookie
@@ -65,6 +65,16 @@ class AuthController extends CommonController
         return $this->asJson([
             'success' => false,
             'message' => 'Thông tin đăng nhập không đúng',
+        ]);
+    }
+
+    public function actionLogout()
+    {
+        Yii::$app->response->cookies->remove('auth_token'); // Xóa cookie chứa token
+
+        return $this->asJson([
+            'success' => true,
+            'message' => 'Đăng xuất thành công',
         ]);
     }
 

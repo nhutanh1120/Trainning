@@ -49,6 +49,7 @@ class CommonController extends Controller
 				'register',
 				'search',
 				'suggested',
+				'video',
 			],
 		];
 

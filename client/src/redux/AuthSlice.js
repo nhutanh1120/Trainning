@@ -33,6 +33,7 @@ export const fetchUser = createAsyncThunk('auth/fetchUser', async (_, { rejectWi
 
 // Thunk: Đăng xuất
 export const logoutUser = createAsyncThunk('auth/logoutUser', async () => {
+    localStorage.removeItem('authToken');
     await logout();
     return null;
 });

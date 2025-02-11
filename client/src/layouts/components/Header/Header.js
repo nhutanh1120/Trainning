@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEllipsisVertical } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css';
 
@@ -23,6 +24,7 @@ const cx = classNames.bind(styles);
 
 function Header() {
     const { t, i18n } = useTranslation();
+    const navigate = useNavigate();
     const menuItems = useMenuItems();
     const userMenu = useUserMenu();
     const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
@@ -58,7 +60,7 @@ function Header() {
                                     content={t('LAYOUTS.HEADER.BUTTON.UPLOAD_VIDEO.CONTENT')}
                                     placement="bottom"
                                 >
-                                    <button className={cx('action-btn')}>
+                                    <button onClick={() => navigate('/upload')} className={cx('action-btn')}>
                                         <UploadIcon />
                                     </button>
                                 </Tippy>

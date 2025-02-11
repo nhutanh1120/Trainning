@@ -6,7 +6,7 @@ import Button from '~/components/Button';
 import FormInput from './FormInput';
 import { CloseIcon } from '~/components/Icons';
 // import { login, register } from '~/services/authService';
-import { loginUser, registerUser } from '~/redux/AuthSlice';
+import { loginUser, registerUser } from '~/redux/authSlice';
 import styles from './AuthModal.module.scss';
 
 const cx = classNames.bind(styles);

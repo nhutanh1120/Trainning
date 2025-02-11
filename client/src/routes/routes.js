@@ -11,6 +11,7 @@ import Upload from '~/pages/Upload';
 import Search from '~/pages/Search';
 import Live from '~/pages/Live';
 import Video from '~/pages/Video';
+import Logout from '~/pages/Logout';
 
 // Public routes
 const publicRoutes = [
@@ -21,6 +22,7 @@ const publicRoutes = [
     { path: config.routes.upload, component: Upload },
     { path: config.routes.search, component: Search, layout: null },
     { path: config.routes.video, component: Video, layout: null },
+    { path: config.routes.logout, component: Logout, layout: null },
 ];
 
 const privateRoutes = [];

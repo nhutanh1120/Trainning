@@ -1,17 +1,21 @@
-import React, { useCallback } from 'react';
+import { useState, useCallback } from 'react';
 import classNames from 'classnames/bind';
 import { useDropzone } from 'react-dropzone';
 import { UploadIcon } from '~/components/Icons';
 import style from './Upload.module.scss';
 import Button from '~/components/Button';
+import UploadVideo from './UploadVideo';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faVideo } from '@fortawesome/free-solid-svg-icons';
 
 const cx = classNames.bind(style);
 
 function Upload() {
+    const [acceptedFiles, setAcceptedFiles] = useState(null);
+
     const onDrop = useCallback((acceptedFiles) => {
         console.log('Video đã chọn:', acceptedFiles);
+        setAcceptedFiles(acceptedFiles);
     }, []);
 
     const { getRootProps, getInputProps } = useDropzone({
@@ -20,12 +24,15 @@ function Upload() {
         maxSize: 1 * 1024 * 1024 * 1024, // 1GB
     });
 
+    if (acceptedFiles) {
+        return <UploadVideo file={acceptedFiles} />;
+    }
+
     return (
         <div className={cx('wrapper')}>
             <div className={cx('upload-container')}>
                 <div {...getRootProps()} className={cx('upload-box')}>
                     <input {...getInputProps()} />
-                    {/* <FaCloudUploadAlt size={50} className={cx('upload-icon')} /> */}
                     <UploadIcon width="8rem" height="8rem" className={cx('upload-icon')} />
                     <h2>Chọn video để tải lên</h2>
                     <span>Hoặc kéo và thả vào đây</span>
