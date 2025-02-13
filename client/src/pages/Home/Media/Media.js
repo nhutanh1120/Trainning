@@ -9,10 +9,10 @@ import { Link } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
 
-function Media(props) {
+function Media({ video }) {
     const videoRef = useRef(null);
     const [playing, setPlaying] = useState(false);
-    const [muted, setMuted] = useState(false);
+    const [muted, setMuted] = useState(true);
     const [isExpanded, setIsExpanded] = useState(false);
     const [showMediaPlaceholder, setShowMediaPlaceholder] = useState(false);
 
@@ -21,7 +21,7 @@ function Media(props) {
         setMuted(!muted);
     };
 
-    console.log(playing)
+    console.log(playing);
 
     const togglePlay = () => {
         if (playing) {
@@ -37,8 +37,6 @@ function Media(props) {
             setShowMediaPlaceholder(false);
         }, 500);
     };
-
-    console.log(props, "video")
 
     const togglePiP = async () => {
         if (!document.pictureInPictureElement) {
@@ -60,10 +58,7 @@ function Media(props) {
                         //  controls
                         ref={videoRef}
                     >
-                        <source
-                            src="https://files.fullstack.edu.vn/f8-tiktok/videos/3584-66608241175ad.mp4"
-                            type="video/mp4"
-                        />
+                        <source src={`http://localhost:8080${video.file_path}`} type="video/mp4" />
                     </video>
                 </div>
                 <div className={cx('media-controls-top')}>

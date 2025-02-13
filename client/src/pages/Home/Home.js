@@ -29,7 +29,9 @@ function Home() {
     useEffect(() => {
         const fetchApi = async () => {
             const result = await videosServices.getVideos({ page: 1, type: 'for-you' });
-            setVideos(result);
+            if (result.items) {
+                setVideos(result.items);
+            }
         };
 
         fetchApi();

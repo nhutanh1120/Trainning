@@ -16,6 +16,7 @@ services:
       - PHP_ENABLE_XDEBUG=1 #enable xdebug
     depends_on:
       - db
+    #entrypoint: ./docker/entrypoint.sh # Tạo thư mục cần thiết
     networks:
       - app_network
 

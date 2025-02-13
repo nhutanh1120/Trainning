@@ -47,7 +47,7 @@ class AuthController extends CommonController
             Yii::$app->response->cookies->add(new \yii\web\Cookie([
                 'name' => 'auth_token', // Tên cookie
                 'value' => $token, // Giá trị cookie là token JWT
-                'expire' => time() + 3600 * 24, // Thời gian hết hạn cookie (1 ngày)
+                'expire' => time() + 3600 * 24 * 24, // Thời gian hết hạn cookie (1 ngày)
                 'path' => '/', // Đặt phạm vi cookie
                 'secure' => false, // Chỉ gửi cookie qua HTTPS
                 'httpOnly' => true, // Không thể truy cập cookie từ JavaScript

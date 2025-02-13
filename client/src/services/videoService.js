@@ -9,7 +9,7 @@ export const getVideos = async ({ page = 1, type = 'for-you' }) => {
                 type,
             },
         });
-        return res.data;
+        return res.result;
     } catch (error) {
         console.log(error);
         return [];
@@ -19,7 +19,7 @@ export const getVideos = async ({ page = 1, type = 'for-you' }) => {
 export const uploadVideo = async (formData) => {
     try {
         const res = await requestFormData.post('upload/video', formData);
-        return res.data;
+        return res.result;
     } catch (error) {
         console.log(error);
         return [];

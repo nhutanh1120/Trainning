@@ -77,3 +77,13 @@
   docker exec your_php_service sh -c "yes | php yii fixture/load model_class"
   docker exec your_php_service sh -c "yes | php yii fixture/load '*'"
   ```
+ - 5. Lệnh tạo thư mục upload video
+  ```
+  docker exec -it my_yii2_container bash
+  mkdir -p /app/web/uploads/videos
+  chmod -R 775 /app/web/uploads/videos
+  chown -R www-data:www-data /app/web/uploads/videos
+  
+  volumes:
+    - ./uploads/videos:/app/web/uploads/videos
+  ```

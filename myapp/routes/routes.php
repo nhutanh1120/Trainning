@@ -2,7 +2,9 @@
 
 return [
     // Thêm 'api/' vào trước module admin
-    'api/admin/<controller:\w+>/<action:\w+>' => 'admin/<controller>/<action>',
+    #'api/admin/<controller:\w+>/<action:\w+>' => 'api/admin/<controller>/<action>',
+    #'api/admin/<controller:\w+>' => 'api/admin/<controller>/index', // Nếu bỏ action
+
     
     'GET admin/user' => 'admin/user/index',
     'user/<id:\d+>' => 'user/view',         // URL: user/123 -> actionView, param: id=123
