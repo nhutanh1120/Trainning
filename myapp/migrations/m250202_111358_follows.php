@@ -16,9 +16,9 @@ class m250202_111358_follows extends Migration
             'uuid' => $this->string(36)->notNull()->unique(),  // UUID as the primary key
             'follower_uuid' => $this->string(36)->notNull(),  // Foreign key to "users" table (follower)
             'following_uuid' => $this->string(36)->notNull(),  // Foreign key to "users" table (following)
-            'accepted_at' => $this->timestamp()->defaultValue(null),  // Timestamp when the follow request was accepted
-            'created_at' => $this->timestamp()->defaultExpression('CURRENT_TIMESTAMP'),
-            'updated_at' => $this->timestamp()->defaultExpression('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'),
+            'accepted_at' => $this->integer()->defaultValue(null),  // Timestamp when the follow request was accepted
+            'created_at' => $this->integer()->notNull(),
+            'updated_at' => $this->integer()->notNull(),
         ]);
 
         $this->addPrimaryKey('pk_follows_uuid', 'follows', 'uuid');
@@ -51,7 +51,6 @@ class m250202_111358_follows extends Migration
      */
     public function safeDown()
     {
-
         $this->dropForeignKey('fk-follows-follower_uuid', 'follows');
         $this->dropForeignKey('fk-follows-following_uuid', 'follows');
 

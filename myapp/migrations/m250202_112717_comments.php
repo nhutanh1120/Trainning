@@ -17,8 +17,8 @@ class m250202_112717_comments extends Migration
             'user_uuid' => $this->string(36)->notNull(),  // Foreign key to "users" table (user who commented)
             'video_uuid' => $this->string(36)->notNull(),  // Foreign key to "videos" table (video being commented)
             'comment' => $this->text()->notNull(),  // The comment content
-            'created_at' => $this->timestamp()->defaultExpression('CURRENT_TIMESTAMP'),
-            'updated_at' => $this->timestamp()->defaultExpression('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'),
+            'created_at' => $this->integer()->notNull(),
+            'updated_at' => $this->integer()->notNull(),
         ]);
 
         $this->addPrimaryKey('pk_comments_uuid', 'comments', 'uuid');

@@ -4,9 +4,9 @@ namespace app\modules\admin\search;
 
 use Yii;
 use yii\data\ActiveDataProvider;
-use app\modules\admin\models\Videos;
+use app\modules\admin\Response\VideosResponse;
 
-class VideosSearch extends Videos
+class VideosSearch extends VideosResponse
 {
     public $page;
     public $page_size;
@@ -22,7 +22,7 @@ class VideosSearch extends Videos
 
     public function search($params)
     {
-        $query = Videos::find();
+        $query = VideosResponse::find();
 
         $this->load($params);
 

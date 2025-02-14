@@ -2,8 +2,7 @@ import { useState, useEffect } from 'react';
 import classNames from 'classnames/bind';
 import { useTranslation } from 'react-i18next';
 
-import styles from './Sidebar.module.scss';
-import Menu, { MenuItem } from './Menu';
+import * as userService from '~/services/userService';
 import {
     HomeIcon,
     HomeActiveIcon,
@@ -12,10 +11,12 @@ import {
     LiveIcon,
     LiveActiveIcon,
 } from '~/components/Icons';
+import Menu, { MenuItem } from './Menu';
 import SuggestedAccounts from '~/components/SuggestedAccounts';
-import * as userService from '~/services/userService';
+import LoadingOverlay from '~/components/LoadingOverlay';
 import config from '~/config';
 import About from './About';
+import styles from './Sidebar.module.scss';
 
 const PAGE_SIZE = 5;
 const cx = classNames.bind(styles);
@@ -26,6 +27,7 @@ function Sidebar() {
     const [suggestedUsers, setSuggestedUsers] = useState([]);
     const [page, setPage] = useState(1);
     const [hasMore, setHasMore] = useState(true);
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         fetchSuggestedUsers(1);
@@ -39,6 +41,7 @@ function Sidebar() {
             setPage(newPage);
             return;
         }
+        setLoading(true);
         const data = await userService.getSuggested({ page: newPage, page_size: PAGE_SIZE });
         if (!data || data.length === 0) return;
 
@@ -49,6 +52,8 @@ function Sidebar() {
 
         setPage(newPage);
         setHasMore(updatedData.length < data.pagination.totalCount);
+
+        setLoading(false);
     };
 
     const handleShowMore = () => {
@@ -84,12 +89,15 @@ function Sidebar() {
                 />
             </Menu>
 
-            <SuggestedAccounts
-                label={t('LAYOUTS.SIDEBAR.SUGGESTED_ACCOUNTS')}
-                data={suggestedUsers}
-                hasMore={hasMore}
-                onClick={hasMore ? handleShowMore : handleCollapse}
-            />
+            <LoadingOverlay loading={loading} fullScreen={false}>
+                <SuggestedAccounts
+                    label={t('LAYOUTS.SIDEBAR.SUGGESTED_ACCOUNTS')}
+                    data={suggestedUsers}
+                    hasMore={hasMore}
+                    onClick={hasMore ? handleShowMore : handleCollapse}
+                />
+            </LoadingOverlay>
+
             <SuggestedAccounts label={t('LAYOUTS.SIDEBAR.FOLLOWING_ACCOUNTS')} />
 
             <About />

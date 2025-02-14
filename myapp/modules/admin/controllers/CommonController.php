@@ -8,7 +8,7 @@ use yii\filters\Cors;
 // use yii\filters\auth\HttpBearerAuth;
 use yii\filters\VerbFilter;
 use yii\filters\ContentNegotiator;
-use yii\web\Response; 
+use yii\web\Response;
 use app\components\JwtAuth;
 
 class CommonController extends Controller
@@ -43,14 +43,15 @@ class CommonController extends Controller
         //     'class' => HttpBearerAuth::class,
         // ];
         $behaviors['authenticator'] = [
-			'class' => JwtAuth::class,
-			'except' => [
-				'login',
-				'register',
-				'search',
-				'suggested',
-			],
-		];
+            'class' => JwtAuth::class,
+            'except' => [
+                'login',
+                'register',
+                'search',
+                'suggested',
+                'index',
+            ],
+        ];
 
         // Cấu hình phương thức HTTP cho từng action
         $behaviors['verbs'] = [

@@ -1,8 +1,8 @@
 import * as request from '~/utils/httpRequest';
 
-export const login = async ({ email, password }) => {
+export const login = async ({ username, password }) => {
     try {
-        const res = await request.post('auth/login', { email, password });
+        const res = await request.post('auth/login', { username, password });
         return res.result;
     } catch (error) {
         console.error('Lỗi đăng nhập:', error);
@@ -10,9 +10,9 @@ export const login = async ({ email, password }) => {
     }
 };
 
-export const register = async ({ email, password }) => {
+export const register = async ({ username, password }) => {
     try {
-        const res = await request.post('auth/register', { email, password });
+        const res = await request.post('auth/register', { username, password });
         return res.result;
     } catch (error) {
         console.error('Lỗi đăng ký:', error);

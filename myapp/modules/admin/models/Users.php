@@ -3,6 +3,8 @@
 namespace app\modules\admin\models;
 
 use Yii;
+use yii\db\ActiveRecord;
+use yii\behaviors\TimestampBehavior;
 
 /**
  * This is the model class for table "users".
@@ -15,8 +17,9 @@ use Yii;
  * @property string|null $avatar
  * @property string|null $gender
  * @property string|null $bio
- * @property string|null $date_of_birth
- * @property string $email
+ * @property int|null $date_of_birth
+ * @property string|null $email
+ * @property string $username
  * @property string $password
  * @property string|null $website_url
  * @property string|null $facebook_url
@@ -24,10 +27,11 @@ use Yii;
  * @property string|null $twitter_url
  * @property string|null $instagram_url
  * @property int|null $tick
- * @property string|null $created_at
- * @property string|null $updated_at
+ * @property int|null $is_deleted
+ * @property int|null $created_at
+ * @property int|null $updated_at
  */
-class Users extends \yii\db\ActiveRecord
+class Users extends ActiveRecord
 {
     /**
      * {@inheritdoc}
@@ -40,21 +44,34 @@ class Users extends \yii\db\ActiveRecord
     /**
      * {@inheritdoc}
      */
+    public function behaviors()
+    {
+        return [
+            [
+                'class' => TimestampBehavior::class,
+            ],
+        ];
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function rules()
     {
         return [
-            [['uuid', 'email', 'password'], 'required'],
+            [['uuid', 'username', 'password'], 'required'],
             [['bio'], 'string'],
-            [['date_of_birth', 'created_at', 'updated_at'], 'safe'],
-            [['tick'], 'integer'],
+            [['date_of_birth', 'created_at', 'updated_at', 'is_deleted'], 'safe'],
+            [['tick', 'is_deleted'], 'integer'],
             [['uuid'], 'string', 'max' => 36],
-            [['first_name', 'last_name', 'nickname'], 'string', 'max' => 50],
+            [['first_name', 'last_name', 'nickname', 'username'], 'string', 'max' => 50],
             [['full_name', 'email'], 'string', 'max' => 100],
             [['avatar', 'password', 'website_url', 'facebook_url', 'youtube_url', 'twitter_url', 'instagram_url'], 'string', 'max' => 255],
             [['gender'], 'string', 'max' => 10],
             [['uuid'], 'unique'],
             [['email'], 'unique'],
             [['nickname'], 'unique'],
+            [['username'], 'unique'],
         ];
     }
 
@@ -74,6 +91,7 @@ class Users extends \yii\db\ActiveRecord
             'bio' => 'Bio',
             'date_of_birth' => 'Date Of Birth',
             'email' => 'Email',
+            'username' => 'Username',
             'password' => 'Password',
             'website_url' => 'Website Url',
             'facebook_url' => 'Facebook Url',
@@ -81,6 +99,7 @@ class Users extends \yii\db\ActiveRecord
             'twitter_url' => 'Twitter Url',
             'instagram_url' => 'Instagram Url',
             'tick' => 'Tick',
+            'is_deleted' => 'Is Deleted',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
         ];

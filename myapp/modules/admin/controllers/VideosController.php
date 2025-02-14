@@ -13,7 +13,9 @@ class VideosController extends CommonController
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return [
-            'items' => $dataProvider->getModels(),
+            'items' => array_map(function ($video) {
+                return $video->toResponse();
+            }, $dataProvider->getModels()),
             'pagination' => [
                 'totalCount' => $dataProvider->getTotalCount(),
                 'pageSize' => $dataProvider->pagination->pageSize,

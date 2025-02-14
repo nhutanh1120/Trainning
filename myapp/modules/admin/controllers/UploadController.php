@@ -45,6 +45,7 @@ class UploadController extends CommonController
                     ];
                 }
             } else {
+                var_dump($file->error); // xem mã lỗi
                 return [
                     'success' => false, 
                     'message' => 'Failed to upload video.'

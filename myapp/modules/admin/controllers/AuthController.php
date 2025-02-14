@@ -11,12 +11,12 @@ class AuthController extends CommonController
     public function actionRegister()
     {
         $request = json_decode(Yii::$app->request->getRawBody(), true);
-        if (empty($request['email']) || empty($request['password'])) {
-            return ['success' => false, 'message' => 'Email và mật khẩu không thể trống'];
+        if (empty($request['username']) || empty($request['password'])) {
+            return ['success' => false, 'message' => 'Username và mật khẩu không thể trống'];
         }
 
         $user = new UserResponse();
-        $user->email = $request['email'];
+        $user->username = $request['username'];
         $user->setPassword($request['password']);
 
         if ($user->save()) {
@@ -36,11 +36,11 @@ class AuthController extends CommonController
     {
         $request = json_decode(Yii::$app->request->getRawBody(), true);
 
-        if (empty($request['email']) || empty($request['password'])) {
-            return ['success' => false, 'message' => 'Email và mật khẩu không thể trống'];
+        if (empty($request['username']) || empty($request['password'])) {
+            return ['success' => false, 'message' => 'Username và mật khẩu không thể trống'];
         }
 
-        $user = UserResponse::findOne(['email' => $request['email']]);
+        $user = UserResponse::getUserByUsername($request['username']);
         if ($user && $user->validatePassword($request['password'])) {
 
             $token = JwtHelper::generateToken($user);
@@ -87,7 +87,7 @@ class AuthController extends CommonController
                 'success' => true,
                 'user' => [
                     'id' => $user->uuid,
-                    'email' => $user->email,
+                    'username' => $user->username,
                     'full_name' => $user->full_name,
                     'avatar' => $user->avatar,
                 ],

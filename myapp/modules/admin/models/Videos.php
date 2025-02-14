@@ -3,6 +3,8 @@
 namespace app\modules\admin\models;
 
 use Yii;
+use yii\db\ActiveRecord;
+use yii\behaviors\TimestampBehavior;
 
 /**
  * This is the model class for table "videos".
@@ -22,9 +24,9 @@ use Yii;
  *
  * @property Comments[] $comments
  * @property Likes[] $likes
- * @property Users $userUu
+ * @property Users $user
  */
-class Videos extends \yii\db\ActiveRecord
+class Videos extends ActiveRecord
 {
     /**
      * {@inheritdoc}
@@ -32,6 +34,16 @@ class Videos extends \yii\db\ActiveRecord
     public static function tableName()
     {
         return 'videos';
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function behaviors()
+    {
+        return [
+            TimestampBehavior::class,
+        ];
     }
 
     /**
@@ -92,11 +104,11 @@ class Videos extends \yii\db\ActiveRecord
     }
 
     /**
-     * Gets query for [[UserUu]].
+     * Gets query for [[User]].
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getUserUu()
+    public function getUser()
     {
         return $this->hasOne(Users::class, ['uuid' => 'user_uuid']);
     }

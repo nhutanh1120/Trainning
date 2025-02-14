@@ -3,6 +3,8 @@
 namespace app\modules\admin\models;
 
 use Yii;
+use yii\db\ActiveRecord;
+use yii\behaviors\TimestampBehavior;
 
 /**
  * This is the model class for table "follows".
@@ -14,10 +16,10 @@ use Yii;
  * @property string|null $created_at
  * @property string|null $updated_at
  *
- * @property Users $followerUu
- * @property Users $followingUu
+ * @property Users $follower
+ * @property Users $following
  */
-class Follows extends \yii\db\ActiveRecord
+class Follows extends ActiveRecord
 {
     /**
      * {@inheritdoc}
@@ -25,6 +27,16 @@ class Follows extends \yii\db\ActiveRecord
     public static function tableName()
     {
         return 'follows';
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function behaviors()
+    {
+        return [
+            TimestampBehavior::class,
+        ];
     }
 
     /**
@@ -58,21 +70,21 @@ class Follows extends \yii\db\ActiveRecord
     }
 
     /**
-     * Gets query for [[FollowerUu]].
+     * Gets query for [[Follower]].
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getFollowerUu()
+    public function getFollower()
     {
         return $this->hasOne(Users::class, ['uuid' => 'follower_uuid']);
     }
 
     /**
-     * Gets query for [[FollowingUu]].
+     * Gets query for [[Following]].
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getFollowingUu()
+    public function getFollowing()
     {
         return $this->hasOne(Users::class, ['uuid' => 'following_uuid']);
     }

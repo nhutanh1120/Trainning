@@ -22,9 +22,9 @@ class m250202_111340_videos extends Migration
             'meta' => $this->json(),
             'allows' => $this->boolean()->defaultValue(true),
             'viewable' => $this->boolean()->defaultValue(true),
-            'published_at' => $this->timestamp()->defaultValue(null),
-            'created_at' => $this->timestamp()->defaultExpression('CURRENT_TIMESTAMP'),
-            'updated_at' => $this->timestamp()->defaultExpression('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'),
+            'published_at' => $this->integer()->defaultValue(null),
+            'created_at' => $this->integer()->notNull(),
+            'updated_at' => $this->integer()->notNull(),
         ]);
 
         $this->addPrimaryKey('pk_videos_uuid', 'videos', 'uuid');

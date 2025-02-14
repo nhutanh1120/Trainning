@@ -12,6 +12,7 @@ return [
         'bio' => 'Software Developer',
         'date_of_birth' => '1990-01-01',
         'email' => 'john.doe@example.com',
+        'username' => 'johndoe90',
         'password' => Yii::$app->security->generatePasswordHash('password123'),
         'website_url' => 'https://johndoe.com',
         'facebook_url' => 'https://facebook.com/johndoe',
@@ -19,8 +20,9 @@ return [
         'twitter_url' => 'https://twitter.com/johndoe',
         'instagram_url' => 'https://instagram.com/johndoe',
         'tick' => true,
-        'created_at' => '2024-01-01 10:00:00',
-        'updated_at' => '2024-01-01 10:00:00',
+        'is_deleted' => false,
+        'created_at' => 1704103200, // Unix timestamp for '2024-01-01 10:00:00'
+        'updated_at' => 1704103200, // Unix timestamp for '2024-01-01 10:00:00'
     ],
     [
         'uuid' => '223e4567-e89b-12d3-a456-426614174001',
@@ -33,6 +35,7 @@ return [
         'bio' => 'Graphic Designer',
         'date_of_birth' => '1988-05-15',
         'email' => 'jane.smith@example.com',
+        'username' => 'janesmith88',
         'password' => Yii::$app->security->generatePasswordHash('password456'),
         'website_url' => 'https://janesmith.com',
         'facebook_url' => 'https://facebook.com/janesmith',
@@ -40,8 +43,9 @@ return [
         'twitter_url' => 'https://twitter.com/janesmith',
         'instagram_url' => 'https://instagram.com/janesmith',
         'tick' => false,
-        'created_at' => '2024-02-01 12:00:00',
-        'updated_at' => '2024-02-01 12:00:00',
+        'is_deleted' => false,
+        'created_at' => 1706781600, // Unix timestamp for '2024-02-01 12:00:00'
+        'updated_at' => 1706781600, // Unix timestamp for '2024-02-01 12:00:00'
     ],
     [
         'uuid' => '323e4567-e89b-12d3-a456-426614174002',
@@ -54,6 +58,7 @@ return [
         'bio' => 'Project Manager',
         'date_of_birth' => '1985-09-20',
         'email' => 'michael.brown@example.com',
+        'username' => 'mikebrown85',
         'password' => Yii::$app->security->generatePasswordHash('password789'),
         'website_url' => 'https://michaelbrown.com',
         'facebook_url' => 'https://facebook.com/michaelbrown',
@@ -61,8 +66,9 @@ return [
         'twitter_url' => 'https://twitter.com/michaelbrown',
         'instagram_url' => 'https://instagram.com/michaelbrown',
         'tick' => true,
-        'created_at' => '2024-03-01 14:00:00',
-        'updated_at' => '2024-03-01 14:00:00',
+        'is_deleted' => false,
+        'created_at' => 1709373600, // Unix timestamp for '2024-03-01 14:00:00'
+        'updated_at' => 1709373600, // Unix timestamp for '2024-03-01 14:00:00'
     ],
     [
         'uuid' => '423e4567-e89b-12d3-a456-426614174003',
@@ -75,6 +81,7 @@ return [
         'bio' => 'Content Writer',
         'date_of_birth' => '1992-07-12',
         'email' => 'emily.johnson@example.com',
+        'username' => 'emilyj92',
         'password' => Yii::$app->security->generatePasswordHash('password321'),
         'website_url' => 'https://emilyjohnson.com',
         'facebook_url' => 'https://facebook.com/emilyjohnson',
@@ -82,8 +89,9 @@ return [
         'twitter_url' => 'https://twitter.com/emilyjohnson',
         'instagram_url' => 'https://instagram.com/emilyjohnson',
         'tick' => false,
-        'created_at' => '2024-04-01 16:00:00',
-        'updated_at' => '2024-04-01 16:00:00',
+        'is_deleted' => false,
+        'created_at' => 1712052000, // Unix timestamp for '2024-04-01 16:00:00'
+        'updated_at' => 1712052000, // Unix timestamp for '2024-04-01 16:00:00'
     ],
     [
         'uuid' => '523e4567-e89b-12d3-a456-426614174004',
@@ -96,6 +104,7 @@ return [
         'bio' => 'Marketing Specialist',
         'date_of_birth' => '1995-11-23',
         'email' => 'david.williams@example.com',
+        'username' => 'davew95',
         'password' => Yii::$app->security->generatePasswordHash('password654'),
         'website_url' => 'https://davidwilliams.com',
         'facebook_url' => 'https://facebook.com/davidwilliams',
@@ -103,8 +112,9 @@ return [
         'twitter_url' => 'https://twitter.com/davidwilliams',
         'instagram_url' => 'https://instagram.com/davidwilliams',
         'tick' => true,
-        'created_at' => '2024-05-01 18:00:00',
-        'updated_at' => '2024-05-01 18:00:00',
+        'is_deleted' => false,
+        'created_at' => 1714644000, // Unix timestamp for '2024-05-01 18:00:00'
+        'updated_at' => 1714644000, // Unix timestamp for '2024-05-01 18:00:00'
     ],
     [
         'uuid' => '623e4567-e89b-12d3-a456-426614174005',
@@ -117,6 +127,7 @@ return [
         'bio' => 'UX Designer',
         'date_of_birth' => '1991-03-30',
         'email' => 'olivia.martinez@example.com',
+        'username' => 'oliviam91',
         'password' => Yii::$app->security->generatePasswordHash('password987'),
         'website_url' => 'https://oliviamartinez.com',
         'facebook_url' => 'https://facebook.com/oliviamartinez',
@@ -124,8 +135,9 @@ return [
         'twitter_url' => 'https://twitter.com/oliviamartinez',
         'instagram_url' => 'https://instagram.com/oliviamartinez',
         'tick' => false,
-        'created_at' => '2024-06-01 20:00:00',
-        'updated_at' => '2024-06-01 20:00:00',
+        'is_deleted' => false,
+        'created_at' => 1717322400, // Unix timestamp for '2024-06-01 20:00:00'
+        'updated_at' => 1717322400, // Unix timestamp for '2024-06-01 20:00:00'
     ],
     [
         'uuid' => '723e4567-e89b-12d3-a456-426614174006',
@@ -138,6 +150,7 @@ return [
         'bio' => 'Full Stack Developer',
         'date_of_birth' => '1989-08-14',
         'email' => 'daniel.lee@example.com',
+        'username' => 'danlee89',
         'password' => Yii::$app->security->generatePasswordHash('password111'),
         'website_url' => 'https://daniellee.com',
         'facebook_url' => 'https://facebook.com/daniellee',
@@ -145,8 +158,9 @@ return [
         'twitter_url' => 'https://twitter.com/daniellee',
         'instagram_url' => 'https://instagram.com/daniellee',
         'tick' => true,
-        'created_at' => '2024-07-01 22:00:00',
-        'updated_at' => '2024-07-01 22:00:00',
+        'is_deleted' => false,
+        'created_at' => 1719914400, // Unix timestamp for '2024-07-01 22:00:00'
+        'updated_at' => 1719914400, // Unix timestamp for '2024-07-01 22:00:00'
     ],
     [
         'uuid' => '823e4567-e89b-12d3-a456-426614174007',
@@ -159,6 +173,7 @@ return [
         'bio' => 'SEO Specialist',
         'date_of_birth' => '1993-10-05',
         'email' => 'sophia.garcia@example.com',
+        'username' => 'sophiag93',
         'password' => Yii::$app->security->generatePasswordHash('password222'),
         'website_url' => 'https://sophiagarcia.com',
         'facebook_url' => 'https://facebook.com/sophiagarcia',
@@ -166,8 +181,9 @@ return [
         'twitter_url' => 'https://twitter.com/sophiagarcia',
         'instagram_url' => 'https://instagram.com/sophiagarcia',
         'tick' => false,
-        'created_at' => '2024-08-01 23:00:00',
-        'updated_at' => '2024-08-01 23:00:00',
+        'is_deleted' => false,
+        'created_at' => 1722592800, // Unix timestamp for '2024-08-01 23:00:00'
+        'updated_at' => 1722592800, // Unix timestamp for '2024-08-01 23:00:00'
     ],
     [
         'uuid' => '923e4567-e89b-12d3-a456-426614174008',
@@ -180,6 +196,7 @@ return [
         'bio' => 'Data Analyst',
         'date_of_birth' => '1987-04-18',
         'email' => 'james.anderson@example.com',
+        'username' => 'jamesa87',
         'password' => Yii::$app->security->generatePasswordHash('password333'),
         'website_url' => 'https://jamesanderson.com',
         'facebook_url' => 'https://facebook.com/jamesanderson',
@@ -187,8 +204,9 @@ return [
         'twitter_url' => 'https://twitter.com/jamesanderson',
         'instagram_url' => 'https://instagram.com/jamesanderson',
         'tick' => true,
-        'created_at' => '2024-09-01 09:00:00',
-        'updated_at' => '2024-09-01 09:00:00',
+        'is_deleted' => false,
+        'created_at' => 1725271200, // Unix timestamp for '2024-09-01 09:00:00'
+        'updated_at' => 1725271200, // Unix timestamp for '2024-09-01 09:00:00'
     ],
     [
         'uuid' => 'a23e4567-e89b-12d3-a456-426614174009',
@@ -201,6 +219,7 @@ return [
         'bio' => 'Product Manager',
         'date_of_birth' => '1994-12-25',
         'email' => 'isabella.clark@example.com',
+        'username' => 'isaclark94',
         'password' => Yii::$app->security->generatePasswordHash('password444'),
         'website_url' => 'https://isabellaclark.com',
         'facebook_url' => 'https://facebook.com/isabellaclark',
@@ -208,7 +227,8 @@ return [
         'twitter_url' => 'https://twitter.com/isabellaclark',
         'instagram_url' => 'https://instagram.com/isabellaclark',
         'tick' => false,
-        'created_at' => '2024-10-01 11:00:00',
-        'updated_at' => '2024-10-01 11:00:00',
+        'is_deleted' => false,
+        'created_at' => 1727953200, // Unix timestamp for '2024-10-01 11:00:00'
+        'updated_at' => 1727953200, // Unix timestamp for '2024-10-01 11:00:00'
     ],
 ];

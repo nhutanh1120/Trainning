@@ -3,6 +3,9 @@
 namespace app\modules\admin\models;
 
 use Yii;
+use yii\db\ActiveRecord;
+use yii\db\Expression;
+use yii\behaviors\TimestampBehavior;
 
 /**
  * This is the model class for table "likes".
@@ -12,10 +15,10 @@ use Yii;
  * @property string $video_uuid
  * @property string|null $created_at
  *
- * @property Users $userUu
- * @property Videos $videoUu
+ * @property Users $user
+ * @property Videos $video
  */
-class Likes extends \yii\db\ActiveRecord
+class Likes extends ActiveRecord
 {
     /**
      * {@inheritdoc}
@@ -23,6 +26,21 @@ class Likes extends \yii\db\ActiveRecord
     public static function tableName()
     {
         return 'likes';
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function behaviors()
+    {
+        return [
+            [
+                'class' => TimestampBehavior::class,
+                'createdAtAttribute' => 'created_at',
+                'updatedAtAttribute' => false,
+                'value' => new Expression('UNIX_TIMESTAMP()'),
+            ],
+        ];
     }
 
     /**
@@ -54,21 +72,21 @@ class Likes extends \yii\db\ActiveRecord
     }
 
     /**
-     * Gets query for [[UserUu]].
+     * Gets query for [[User]].
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getUserUu()
+    public function getUser()
     {
         return $this->hasOne(Users::class, ['uuid' => 'user_uuid']);
     }
 
     /**
-     * Gets query for [[VideoUu]].
+     * Gets query for [[Video]].
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getVideoUu()
+    public function getVideo()
     {
         return $this->hasOne(Videos::class, ['uuid' => 'video_uuid']);
     }

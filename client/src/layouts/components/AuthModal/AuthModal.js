@@ -17,7 +17,7 @@ function AuthModal({ isOpen, onClose }) {
     const { loading, error } = useSelector((state) => state.auth);
     const [isLoginMode, setIsLoginMode] = useState(true); // true: Login, false: Register
 
-    const [email, setEmail] = useState('');
+    const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [confirmPasswordError, setConfirmPasswordError] = useState('');
@@ -27,7 +27,7 @@ function AuthModal({ isOpen, onClose }) {
 
     // Reset state when switching between login and register modes
     useEffect(() => {
-        setEmail('');
+        setUsername('');
         setPassword('');
         setConfirmPassword('');
         // setError('');
@@ -36,9 +36,9 @@ function AuthModal({ isOpen, onClose }) {
 
     const isFormValid = () => {
         if (isLoginMode) {
-            return email && password;
+            return username && password;
         } else {
-            return email && password && confirmPassword && password === confirmPassword;
+            return username && password && confirmPassword && password === confirmPassword;
         }
     };
 
@@ -51,7 +51,7 @@ function AuthModal({ isOpen, onClose }) {
     //     setError('');
     //     try {
     //         const payload = {
-    //             email,
+    //             username,
     //             password,
     //         };
 
@@ -75,7 +75,7 @@ function AuthModal({ isOpen, onClose }) {
     // };
 
     const handleSubmit = async () => {
-        const payload = { email, password };
+        const payload = { username, password };
 
         if (isLoginMode) {
             dispatch(loginUser(payload)).then((result) => {
@@ -109,9 +109,9 @@ function AuthModal({ isOpen, onClose }) {
                         <div className={cx('label')}>{t('LAYOUTS.AUTH.FORM_ITEM.USERNAME_FIELD.LABEL')}</div>
                         <FormInput
                             type="text"
-                            value={email}
+                            value={username}
                             placeholder={t('LAYOUTS.AUTH.FORM_ITEM.USERNAME_FIELD.PLACEHOLDER')}
-                            onChange={(e) => setEmail(e.target.value)}
+                            onChange={(e) => setUsername(e.target.value)}
                         />
                         <FormInput
                             type="password"

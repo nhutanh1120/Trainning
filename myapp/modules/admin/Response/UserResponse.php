@@ -7,6 +7,18 @@ use app\modules\admin\models\Users;
 
 class UserResponse extends Users
 {
+    
+    /**
+     * getUserByUsername
+     * 
+     * @param string $username
+     * @return UserResponse|null
+     */
+    public static function getUserByUsername($username)
+    {
+        return self::findOne(['username' => $username]);
+    }
+
     /**
      * setPassword
      * 

@@ -83,7 +83,7 @@ function Media({ video }) {
                                     active: isExpanded,
                                 })}
                             >
-                                <p className={cx('text')}>mo ta video</p>
+                                <p className={cx('text')}>{video.description}</p>
                                 <div className={cx('tag')}>
                                     <Link to="/tag/a">#a</Link>
                                     <Link to="/tag/b">#b</Link>

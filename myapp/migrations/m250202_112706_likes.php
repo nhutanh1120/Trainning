@@ -16,7 +16,7 @@ class m250202_112706_likes extends Migration
             'uuid' => $this->string(36)->notNull()->unique(),  // UUID as the primary key
             'user_uuid' => $this->string(36)->notNull(),  // Foreign key to "users" table (user who liked)
             'video_uuid' => $this->string(36)->notNull(),  // Foreign key to "videos" table (video being liked)
-            'created_at' => $this->timestamp()->defaultExpression('CURRENT_TIMESTAMP'),
+            'created_at' => $this->integer()->notNull(),
         ]);
 
         $this->addPrimaryKey('pk_likes_uuid', 'likes', 'uuid');

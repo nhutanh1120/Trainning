@@ -10,6 +10,7 @@ function Logout() {
     useEffect(() => {
         dispatch(logoutUser());
         navigate('/');
+        localStorage.removeItem('isLoginMode');
     }, [dispatch, navigate]);
 
     return <h2>Đang đăng xuất...</h2>;
