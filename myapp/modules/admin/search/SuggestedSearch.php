@@ -34,6 +34,11 @@ class SuggestedSearch extends UserResponse
             ]);
         }
 
+        if (!Yii::$app->user->isGuest) {
+            $currentUserUuid = Yii::$app->user->identity->uuid;
+            $query->andWhere(['!=', 'uuid', $currentUserUuid]);
+        }
+
         if ($this->type === 'foryou') {
             $query->innerJoin('follows', 'follows.followed_user_id = users.id')
                   ->where(['follows.follower_user_id' => Yii::$app->user->identity->uuid]);

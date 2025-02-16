@@ -47,6 +47,15 @@
         background-color: #0000000d;
         border-radius: 50%;
         cursor: pointer;
+
+        &:hover {
+            background-color: #0000001f;
+        }
+
+        &:disabled {
+            cursor: not-allowed;
+            opacity: 0.4;
+        }
     }
 }
 

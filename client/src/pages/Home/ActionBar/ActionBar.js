@@ -6,17 +6,66 @@ import HeadlessTippy from '@tippyjs/react/headless';
 import ButtonIcon from './ButtonAction';
 import { Wrapper as PopperWrapper } from '~/components/Popper';
 import Button from '~/components/Button';
+import { follows } from '~/services/userService';
+import { likes } from '~/services/videoService';
 import styles from './ActionBar.module.scss';
 
-function ActionBar() {
+function ActionBar({ data }) {
     const [showBookmark, setShowBookmark] = useState(false);
     const [showShare, setShowShare] = useState(false);
 
+    const [isFollowed, setIsFollowed] = useState(data.is_followed || false);
+
+    const [isLiked, setIsLiked] = useState(data.is_liked || false);
+    const [likesCount, setLikesCount] = useState(data.likes_count || 0);
+
+    const handleFollows = async () => {
+        if (data.user.uuid === undefined) {
+            return;
+        }
+
+        const result = await follows(data.user.uuid);
+        if (result.success) {
+            setIsFollowed(result.is_followed);
+        }
+    };
+
+    const handleLikes = async () => {
+        if (data.uuid === undefined) {
+            return;
+        }
+
+        const result = await likes(data.uuid);
+        if (result.success) {
+            setIsLiked(result.is_liked);
+            setLikesCount(result.likes_count);
+        }
+    };
+
     return (
         <section className="wrapper">
-            <ButtonIcon type="img" src="https://files.fullstack.edu.vn/f8-tiktok/users/6767/6669bebac4812.jpg" />
-            <ButtonIcon type="icon" icon={<FontAwesomeIcon icon={faHeart} />} count="12M" />
-            <ButtonIcon type="icon" icon={<FontAwesomeIcon icon={faCommentDots} />} to="/video/" count="12M" />
+            <ButtonIcon
+                type="img"
+                active={isFollowed === 1}
+                showIcon={data.user.allows_followers === 1}
+                onClick={handleFollows}
+                src={data.user.avatar}
+            />
+
+            <ButtonIcon
+                type="icon"
+                active={isLiked === 1}
+                onClick={handleLikes}
+                icon={<FontAwesomeIcon icon={faHeart} />}
+                count={likesCount}
+            />
+
+            <ButtonIcon
+                type="icon"
+                to="/video/"
+                count={data.comments_count || 0}
+                icon={<FontAwesomeIcon icon={faCommentDots} />}
+            />
 
             <HeadlessTippy
                 interactive
@@ -36,7 +85,7 @@ function ActionBar() {
                 <ButtonIcon
                     type="icon"
                     icon={<FontAwesomeIcon icon={faBookmark} />}
-                    count="12M"
+                    count={data.bookmarks_count || 0}
                     onClick={() => setShowBookmark((prev) => !prev)}
                 />
             </HeadlessTippy>
@@ -52,9 +101,9 @@ function ActionBar() {
             >
                 <ButtonIcon
                     type="icon"
-                    icon={<FontAwesomeIcon icon={faShare} />}
-                    count="12M"
+                    count={data.shares_count || 0}
                     onClick={() => setShowShare((prev) => !prev)}
+                    icon={<FontAwesomeIcon icon={faShare} />}
                 />
             </HeadlessTippy>
         </section>

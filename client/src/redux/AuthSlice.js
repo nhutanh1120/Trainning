@@ -50,17 +50,14 @@ const authSlice = createSlice({
         builder
             // Xử lý login
             .addCase(loginUser.pending, (state) => {
-                console.log(loginUser, 'pending');
                 state.loading = true;
                 state.error = null;
             })
             .addCase(loginUser.fulfilled, (state, action) => {
-                console.log(loginUser, 'fulfilled');
                 state.loading = false;
                 state.user = action.payload;
             })
             .addCase(loginUser.rejected, (state, action) => {
-                console.log(loginUser, 'rejected');
                 state.loading = false;
                 state.error = action.payload;
             })

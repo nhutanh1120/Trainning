@@ -15,3 +15,15 @@ export const getSuggested = async ({ page = 1, pageSize = 5, type = 'new' }) => 
         return [];
     }
 };
+
+export const follows = async (uuid) => {
+    try {
+        const res = await request.post('users/follows', {
+            uuid,
+        });
+        return res.result;
+    } catch (error) {
+        console.log(error);
+        return [];
+    }
+};

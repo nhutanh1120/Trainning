@@ -104,4 +104,24 @@ class Users extends ActiveRecord
             'updated_at' => 'Updated At',
         ];
     }
+
+    /**
+     * Gets query for [[Followers]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getFollowers()
+    {
+        return $this->hasMany(Follows::class, ['following_uuid' => 'uuid']);
+    }
+
+    /**
+     * Gets query for [[Followings]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getFollowings()
+    {
+        return $this->hasMany(Follows::class, ['follower_uuid' => 'uuid']);
+    }
 }

@@ -26,7 +26,8 @@ function Sidebar() {
     const [initialData, setInitialData] = useState([]);
     const [suggestedUsers, setSuggestedUsers] = useState([]);
     const [page, setPage] = useState(1);
-    const [hasMore, setHasMore] = useState(true);
+    const [totalCount, setTotalCount] = useState(0);
+    const [hasMore, setHasMore] = useState(false);
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
@@ -34,26 +35,30 @@ function Sidebar() {
     }, []);
 
     const fetchSuggestedUsers = async (newPage) => {
-        if (initialData.length >= newPage * PAGE_SIZE) {
+        if (0 < totalCount && totalCount <= initialData.length) {
             const newData = initialData.slice(0, newPage * PAGE_SIZE);
+            setPage(newPage);
             setSuggestedUsers(newData);
             setHasMore(newData.length < initialData.length);
-            setPage(newPage);
             return;
         }
+
         setLoading(true);
         const data = await userService.getSuggested({ page: newPage, page_size: PAGE_SIZE });
-        if (!data || data.length === 0) return;
+        setLoading(false);
+
+        if (!data || data.length === 0) {
+            setHasMore(false);
+            return;
+        }
 
         const updatedData = [...initialData, ...data.items];
-
         setInitialData(updatedData);
         setSuggestedUsers(updatedData);
 
         setPage(newPage);
+        setTotalCount(data.pagination.totalCount);
         setHasMore(updatedData.length < data.pagination.totalCount);
-
-        setLoading(false);
     };
 
     const handleShowMore = () => {
@@ -61,9 +66,9 @@ function Sidebar() {
     };
 
     const handleCollapse = () => {
-        setSuggestedUsers(initialData.slice(0, PAGE_SIZE));
         setPage(1);
         setHasMore(true);
+        setSuggestedUsers(initialData.slice(0, PAGE_SIZE));
     };
 
     return (

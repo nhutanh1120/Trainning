@@ -1,11 +1,11 @@
 import { useRef, useState } from 'react';
 import classNames from 'classnames/bind';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
-import styles from './Media.module.scss';
-import { VolumeMuteIcon, VolumeUpIcon, PictureToPictureIcon } from '~/components/Icons';
-import { faPause, faPlay } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPause, faPlay } from '@fortawesome/free-solid-svg-icons';
+
+import { VolumeMuteIcon, VolumeUpIcon, PictureToPictureIcon } from '~/components/Icons';
+import styles from './Media.module.scss';
 
 const cx = classNames.bind(styles);
 
@@ -20,8 +20,6 @@ function Media({ video }) {
         videoRef.current.muted = !muted;
         setMuted(!muted);
     };
-
-    console.log(playing);
 
     const togglePlay = () => {
         if (playing) {

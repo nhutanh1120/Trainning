@@ -48,8 +48,10 @@ class CommonController extends Controller
                 'login',
                 'register',
                 'search',
-                'suggested',
+            ],
+            'optional' => [
                 'index',
+                'suggested',
             ],
         ];
 

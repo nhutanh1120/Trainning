@@ -8,6 +8,7 @@ import * as videosServices from '~/services/videoService';
 import { AngleUpIcon, AngleDownIcon, TiktokIcon } from '~/components/Icons';
 import style from './Home.module.scss';
 
+const PAGE_SIZE = 10;
 const cx = classNames.bind(style);
 
 function Home() {
@@ -15,6 +16,9 @@ function Home() {
     const articlesRef = useRef([]);
     const [currentIndex, setCurrentIndex] = useState(0);
     const [videos, setVideos] = useState([]);
+    const [page, setPage] = useState(1);
+    const [totalCount, setTotalCount] = useState(0);
+    const [loading, setLoading] = useState(false);
 
     const handleScroll = (direction) => {
         let nextIndex =
@@ -27,15 +31,24 @@ function Home() {
     };
 
     useEffect(() => {
+        if (currentIndex > 0 && (currentIndex + 5) % 10 === 0 && videos.length < totalCount) {
+            setPage((prevPage) => prevPage + 1);
+        }
+    }, [currentIndex, videos.length, totalCount]);
+
+    useEffect(() => {
         const fetchApi = async () => {
-            const result = await videosServices.getVideos({ page: 1, type: 'for-you' });
+            setLoading(true);
+            const result = await videosServices.getVideos({ page, pageSize: PAGE_SIZE, type: 'for-you' });
+            setLoading(false);
             if (result.items) {
-                setVideos(result.items);
+                setVideos((prevVideos) => [...prevVideos, ...result.items]);
+                setTotalCount(result.pagination.totalCount);
             }
         };
 
         fetchApi();
-    }, []);
+    }, [page]);
 
     return (
         <div className={cx('wrapper')}>
@@ -43,15 +56,15 @@ function Home() {
                 {videos.map((video, index) => (
                     <article key={index} className={cx('content')} ref={(el) => (articlesRef.current[index] = el)}>
                         <Media video={video} />
-                        <ActionBar />
+                        <ActionBar data={video} />
                     </article>
                 ))}
             </div>
             <div className={cx('navigation')}>
-                <button onClick={() => handleScroll('up')}>
+                <button disabled={loading || currentIndex === 0} onClick={() => handleScroll('up')}>
                     <AngleUpIcon width="2.4rem" height="2.4rem" />
                 </button>
-                <button onClick={() => handleScroll('down')}>
+                <button disabled={loading || currentIndex === videos.length - 1} onClick={() => handleScroll('down')}>
                     <AngleDownIcon width="2.4rem" height="2.4rem" />
                 </button>
             </div>
