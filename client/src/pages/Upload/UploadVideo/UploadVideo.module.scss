@@ -3,6 +3,7 @@
     height: calc(100vh - var(--default-layout-header-height));
     padding: 20px 45px;
     background-color: #f8f8f8;
+    overflow-y: scroll;
 }
 
 .container {
@@ -11,6 +12,7 @@
     margin-top: 20px;
     background: white;
     border-radius: 8px;
+    box-shadow: 0 2px 8px #0000000f;
 }
 
 .section {
@@ -27,18 +29,25 @@
     width: 100%;
     height: 60px;
     padding: 10px;
-    border: 1px solid #ddd;
+    font-size: 1.4rem;
+    border: none;
+    outline: none;
     border-radius: 8px;
     background: #f3f3f3;
     resize: none;
 }
 
-.metaInfo {
+.meta {
     display: flex;
     justify-content: space-between;
-    font-size: 12px;
+    font-size: 1.3rem;
     color: gray;
     margin-top: 5px;
+
+    button {
+        background: none;
+        cursor: pointer;
+    }
 }
 
 .thumbnailWrapper {
@@ -71,4 +80,15 @@
     background: none;
     border: none;
     cursor: pointer;
+}
+
+.cancel {
+    background-color: #0000000d;
+    color: #353232;
+    border-color: transparent;
+
+    &:hover {
+        background-color: #0000001f;
+        border-color: transparent;
+    }
 }

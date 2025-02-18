@@ -33,6 +33,8 @@ class VideosSearch extends VideosResponse
             $query->where(['user_uuid' => Yii::$app->user->identity->uuid]);
         }
 
+        $query->orderBy(['updated_at' => SORT_DESC]);
+
         return new ActiveDataProvider([
             'query' => $query,
             'pagination' => [

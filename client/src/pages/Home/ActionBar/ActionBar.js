@@ -14,7 +14,7 @@ function ActionBar({ data }) {
     const [showBookmark, setShowBookmark] = useState(false);
     const [showShare, setShowShare] = useState(false);
 
-    const [isFollowed, setIsFollowed] = useState(data.is_followed || false);
+    const [isFollowed, setIsFollowed] = useState(data.user.is_followed || false);
 
     const [isLiked, setIsLiked] = useState(data.is_liked || false);
     const [likesCount, setLikesCount] = useState(data.likes_count || 0);

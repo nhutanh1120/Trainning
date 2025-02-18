@@ -95,13 +95,16 @@
     &.active {
         max-height: unset;
     }
+}
 
-    .tag a {
-        color: var(--color-media);
-        margin-right: 8px;
-    }
+.tag,
+.mention {
+    color: var(--color-media);
+    margin: 0 4px;
+    font-weight: 600;
+    cursor: pointer;
 
-    .tag a:hover {
+    &:hover {
         text-decoration: underline;
     }
 }

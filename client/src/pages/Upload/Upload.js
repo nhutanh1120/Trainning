@@ -24,8 +24,12 @@ function Upload() {
         maxSize: 1 * 1024 * 1024 * 1024, // 1GB
     });
 
+    const handleCancel = () => {
+        setAcceptedFiles(null);
+    };
+
     if (acceptedFiles) {
-        return <UploadVideo file={acceptedFiles} />;
+        return <UploadVideo file={acceptedFiles[0]} handleCancel={handleCancel} />;
     }
 
     return (

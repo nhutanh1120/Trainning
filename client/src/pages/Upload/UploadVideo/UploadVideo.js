@@ -10,10 +10,11 @@ import styles from './UploadVideo.module.scss';
 
 const cx = classNames.bind(styles);
 
-function UploadVideo({ file }) {
-    const [description, setDescription] = useState('3584-66608241175ad');
+function UploadVideo({ file, handleCancel }) {
+    const [description, setDescription] = useState('');
     const [thumbnail, setThumbnail] = useState('https://files.fullstack.edu.vn/f8-tiktok/users/4854/646231eb7a517.png');
     const [message, setMessage] = useState('');
+    const [charCount, setCharCount] = useState(0);
 
     const handleUpload = async () => {
         if (!file) {
@@ -22,47 +23,56 @@ function UploadVideo({ file }) {
         }
 
         const formData = new FormData();
-        formData.append('file', file[0]);
+        formData.append('file', file);
         formData.append('description', description);
 
-        try {
-            const response = await uploadVideo(formData, {
-                headers: {
-                    'Content-Type': 'multipart/form-data', // Đảm bảo sử dụng đúng Content-Type
-                },
-            });
-
-            if (response.status === 'success') {
-                setMessage('Video uploaded successfully!');
-            } else {
-                setMessage('Failed to upload video.');
-            }
-        } catch (error) {
-            setMessage('Error uploading video: ' + error.message);
+        const response = await uploadVideo(formData);
+        if (response.success === true) {
+            setMessage('Video uploaded successfully!');
+        } else {
+            setMessage('Failed to upload video.');
         }
     };
+
+    const handleAddHashtag = () => {
+        if (charCount < 4000) {
+            setDescription((prev) => prev + '#');
+        }
+    };
+
+    const handleAddMention = () => {
+        if (charCount < 4000) {
+            setDescription((prev) => prev + '@');
+        }
+    };
+
+    const handleDescriptionChange = (e) => {
+        const value = e.target.value;
+        if (value.length <= 4000) {
+            setDescription(value);
+            setCharCount(value.length);
+        }
+    };
+
+    useEffect(() => {
+        setCharCount(description.length);
+    }, [description]);
 
     return (
         <div className={cx('wrapper')}>
             <UploadProgress file={file} />
 
             <div className={cx('container')}>
-                {/* Mô tả */}
                 <div className={cx('section')}>
                     <label className={cx('label')}>Mô tả</label>
-                    <textarea
-                        className={cx('textarea')}
-                        value={description}
-                        onChange={(e) => setDescription(e.target.value)}
-                    />
-                    <div className={cx('metaInfo')}>
-                        <span># Hashtag</span>
-                        <span>@ Nhắc đến</span>
-                        <span>18/4000</span>
+                    <textarea className={cx('textarea')} value={description} onChange={handleDescriptionChange} />
+                    <div className={cx('meta')}>
+                        <button onClick={handleAddHashtag}># Hashtag</button>
+                        <button onClick={handleAddMention}>@ Nhắc đến</button>
+                        <span>{charCount}/4000</span>
                     </div>
                 </div>
 
-                {/* Ảnh bìa */}
                 <div className={cx('section')}>
                     <label className={styles.label}>
                         Ảnh bìa <FontAwesomeIcon icon={faCircleInfo} />
@@ -79,7 +89,7 @@ function UploadVideo({ file }) {
                     <Button primary onClick={handleUpload}>
                         Đăng video
                     </Button>
-                    <Button primary disabled>
+                    <Button primary className={cx('cancel')} onClick={handleCancel}>
                         Hủy bỏ
                     </Button>
                 </div>

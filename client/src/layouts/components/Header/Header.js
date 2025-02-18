@@ -6,6 +6,7 @@ import { faEllipsisVertical } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
+import moment from 'moment';
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css';
 
@@ -36,7 +37,9 @@ function Header() {
         switch (menuItem.type) {
             case 'language':
                 // Handle change language
+                moment.locale(menuItem.code);
                 i18n.changeLanguage(menuItem.code);
+                localStorage.setItem('language', menuItem.code);
                 break;
             default:
         }

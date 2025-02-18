@@ -1,5 +1,6 @@
 import { useRef, useState } from 'react';
 import classNames from 'classnames/bind';
+import moment from 'moment';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPause, faPlay } from '@fortawesome/free-solid-svg-icons';
@@ -44,6 +45,27 @@ function Media({ video }) {
         }
     };
 
+    const renderDescription = (text) => {
+        const parts = text.split(/(#\w+|@\w+)/g);
+        return parts.map((part, index) => {
+            if (part.startsWith('#')) {
+                return (
+                    <Link key={index} to={`/tag/${part.substring(1)}`} className={cx('tag')}>
+                        {part}
+                    </Link>
+                );
+            } else if (part.startsWith('@')) {
+                return (
+                    <Link key={index} to={`/user/${part.substring(1)}`} className={cx('mention')}>
+                        {part}
+                    </Link>
+                );
+            } else {
+                return part;
+            }
+        });
+    };
+
     return (
         <section className={cx('wrapper')}>
             <div className={cx('container')}>
@@ -71,22 +93,17 @@ function Media({ video }) {
                 <div className={cx('media-controls-bottom')}>
                     <div className={cx('description')}>
                         <div className={cx('info')}>
-                            <Link to="/about" className={cx('author')}>
-                                <h3 className={cx('name')}>author</h3>
+                            <Link to={`/user/${video.user.uuid}`} className={cx('author')}>
+                                <h3 className={cx('name')}>{video.user.full_name}</h3>
                                 <span className={cx('dot')}>·</span>
-                                <span className={cx('date')}>4 ngay truoc</span>
+                                <span className={cx('date')}>{moment.unix(video.updated_at).fromNow()}</span>
                             </Link>
                             <div
                                 className={cx('content', {
                                     active: isExpanded,
                                 })}
                             >
-                                <p className={cx('text')}>{video.description}</p>
-                                <div className={cx('tag')}>
-                                    <Link to="/tag/a">#a</Link>
-                                    <Link to="/tag/b">#b</Link>
-                                    <Link to="/tag/c">#c</Link>
-                                </div>
+                                <p>{renderDescription(video.description)}</p>
                             </div>
                         </div>
                         <button onClick={() => setIsExpanded(!isExpanded)}>{isExpanded ? 'Ẩn bớt' : 'Thêm'}</button>
