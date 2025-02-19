@@ -76,5 +76,26 @@
     },
     "HOME": {
         "GET_COINS": "Get coins"
+    },
+    "UPLOAD": {
+        "SELECT_VIDEO": "Select video to upload",
+        "OR_DRAG_DROP": "Or drag and drop it here",
+        "CHOOSE_VIDEO": "Select video",
+        "SIZE_DURATION": {
+            "TITLE": "Size and duration",
+            "DESCRIPTION": "Maximum size: 1 GB, video duration: 60 minutes."
+        },
+        "FILE_FORMAT": {
+            "TITLE": "File formats",
+            "DESCRIPTION": "Recommended: \".mp4\". Other major formats are supported."
+        },
+        "VIDEO_RESOLUTION": {
+            "TITLE": "Video resolutions",
+            "DESCRIPTION": "Minimum resolution: 720p. Supports 2K and 4K."
+        },
+        "ASPECT_RATIO": {
+            "TITLE": "Aspect ratios",
+            "DESCRIPTION": "Recommended: 16:9 for landscape, 9:16 for vertical."
+        }
     }
 }

@@ -1,0 +1,18 @@
+.videoCard {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    width: 65%;
+    height: 100%;
+    padding: 0 80px;
+    background-color: #1618230f;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    overflow: hidden;
+}
+
+.video {
+    width: 500px;
+}

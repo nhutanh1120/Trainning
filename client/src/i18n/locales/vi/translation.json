@@ -50,7 +50,7 @@
         },
         "AUTH": {
             "LOGIN_TITLE": "Đăng nhập",
-            "": "Đăng ký",
+            "REGISTER_TITLE": "Đăng ký",
             "LOADING": "Đang xử lý...",
             "FORGOT_PASSWORD_BUTTON": "Quên mật khẩu?",
             "NO_ACCOUNT_TITLE": "Chưa có tài khoản?",
@@ -76,5 +76,26 @@
     },
     "HOME": {
         "GET_COINS": "Nhận xu"
+    },
+    "UPLOAD": {
+        "SELECT_VIDEO": "Chọn video để tải lên",
+        "OR_DRAG_DROP": "Hoặc kéo và thả vào đây",
+        "CHOOSE_VIDEO": "Chọn video",
+        "SIZE_DURATION": {
+            "TITLE": "Dung lượng và thời lượng",
+            "DESCRIPTION": "Dung lượng tối đa: 1 GB, thời lượng video: 60 phút."
+        },
+        "FILE_FORMAT": {
+            "TITLE": "Định dạng tập tin",
+            "DESCRIPTION": "Đề xuất: \".mp4\". Có hỗ trợ các định dạng chính khác."
+        },
+        "VIDEO_RESOLUTION": {
+            "TITLE": "Độ phân giải video",
+            "DESCRIPTION": "Độ phân giải tối thiểu: 720p. Có hỗ trợ 2K và 4K."
+        },
+        "ASPECT_RATIO": {
+            "TITLE": "Tỷ lệ khung hình",
+            "DESCRIPTION": "Đề xuất: 16:9 cho chế độ ngang, 9:16 cho chế độ dọc."
+        }
     }
 }

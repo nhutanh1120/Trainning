@@ -1,16 +1,19 @@
 import { useState, useCallback } from 'react';
 import classNames from 'classnames/bind';
+import { useTranslation } from 'react-i18next';
 import { useDropzone } from 'react-dropzone';
-import { UploadIcon } from '~/components/Icons';
-import style from './Upload.module.scss';
-import Button from '~/components/Button';
-import UploadVideo from './UploadVideo';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faVideo } from '@fortawesome/free-solid-svg-icons';
+
+import { UploadIcon } from '~/components/Icons';
+import Button from '~/components/Button';
+import UploadVideo from './UploadVideo';
+import style from './Upload.module.scss';
 
 const cx = classNames.bind(style);
 
 function Upload() {
+    const { t } = useTranslation();
     const [acceptedFiles, setAcceptedFiles] = useState(null);
 
     const onDrop = useCallback((acceptedFiles) => {
@@ -38,10 +41,10 @@ function Upload() {
                 <div {...getRootProps()} className={cx('upload-box')}>
                     <input {...getInputProps()} />
                     <UploadIcon width="8rem" height="8rem" className={cx('upload-icon')} />
-                    <h2>Chọn video để tải lên</h2>
-                    <span>Hoặc kéo và thả vào đây</span>
+                    <h2>{t('UPLOAD.SELECT_VIDEO')}</h2>
+                    <span>{t('UPLOAD.OR_DRAG_DROP')}</span>
                     <Button primary className={cx('upload-button')}>
-                        Chọn video
+                        {t('UPLOAD.CHOOSE_VIDEO')}
                     </Button>
                 </div>
 
@@ -49,32 +52,32 @@ function Upload() {
                     <div className={cx('info-item')}>
                         <FontAwesomeIcon icon={faVideo} className={cx('info-icon')} />
                         <div>
-                            <strong>Dung lượng và thời lượng</strong>
-                            <p>Dung lượng tối đa: 1 GB, thời lượng video: 60 phút.</p>
+                            <strong>{t('UPLOAD.SIZE_DURATION.TITLE')}</strong>
+                            <p>{t('UPLOAD.SIZE_DURATION.DESCRIPTION')}</p>
                         </div>
                     </div>
 
                     <div className={cx('info-item')}>
                         <FontAwesomeIcon icon={faVideo} className={cx('info-icon')} />
                         <div>
-                            <strong>Định dạng tập tin</strong>
-                            <p>Đề xuất: ".mp4". Có hỗ trợ các định dạng chính khác.</p>
+                            <strong>{t('UPLOAD.FILE_FORMAT.TITLE')}</strong>
+                            <p>{t('UPLOAD.FILE_FORMAT.DESCRIPTION')}</p>
                         </div>
                     </div>
 
                     <div className={cx('info-item')}>
                         <FontAwesomeIcon icon={faVideo} className={cx('info-icon')} />
                         <div>
-                            <strong>Độ phân giải video</strong>
-                            <p>Độ phân giải tối thiểu: 720p. Có hỗ trợ 2K và 4K.</p>
+                            <strong>{t('UPLOAD.VIDEO_RESOLUTION.TITLE')}</strong>
+                            <p>{t('UPLOAD.VIDEO_RESOLUTION.DESCRIPTION')}</p>
                         </div>
                     </div>
 
                     <div className={cx('info-item')}>
                         <FontAwesomeIcon icon={faVideo} className={cx('info-icon')} />
                         <div>
-                            <strong>Tỷ lệ khung hình</strong>
-                            <p>Đề xuất: 16:9 cho chế độ ngang, 9:16 cho chế độ dọc.</p>
+                            <strong>{t('UPLOAD.ASPECT_RATIO.TITLE')}</strong>
+                            <p>{t('UPLOAD.ASPECT_RATIO.DESCRIPTION')}</p>
                         </div>
                     </div>
                 </div>

@@ -62,7 +62,7 @@ function ActionBar({ data }) {
 
             <ButtonIcon
                 type="icon"
-                to="/video/"
+                to={`/video/${data.uuid}`}
                 count={data.comments_count || 0}
                 icon={<FontAwesomeIcon icon={faCommentDots} />}
             />
