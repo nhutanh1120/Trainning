@@ -5,6 +5,7 @@ return [
     #'api/admin/<controller:\w+>/<action:\w+>' => 'api/admin/<controller>/<action>',
     #'api/admin/<controller:\w+>' => 'api/admin/<controller>/index', // Nếu bỏ action
 
+    'GET admin/videos/view/<uuid>' => 'admin/videos/view',
     
     'GET admin/user' => 'admin/user/index',
     'user/<id:\d+>' => 'user/view',         // URL: user/123 -> actionView, param: id=123

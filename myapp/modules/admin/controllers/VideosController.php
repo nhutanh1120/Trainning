@@ -6,6 +6,7 @@ use Yii;
 use app\modules\admin\search\VideosSearch;
 use app\modules\admin\models\Videos;
 use app\modules\admin\models\Likes;
+use app\modules\admin\Response\VideosResponse;
 
 class VideosController extends CommonController
 {
@@ -66,6 +67,22 @@ class VideosController extends CommonController
             'success' => true,
             'is_liked' => $isLiked,
             'likes_count' => $likesCount,
+        ];
+    }
+
+    public function actionView($uuid)
+    {
+        $video = VideosResponse::findVideo($uuid);
+        if (!$video) {
+            return [
+                'success' => false,
+                'message' => 'Video not found.',
+            ];
+        }
+
+        return [
+            'success' => true,
+            'data' => $video->toResponse(),
         ];
     }
 }

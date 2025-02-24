@@ -6,13 +6,39 @@
     width: 65%;
     height: 100%;
     padding: 0 80px;
-    background-color: #1618230f;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center center;
+    background-color: #0d0d0d;
     overflow: hidden;
 }
 
 .video {
-    width: 500px;
+    width: auto;
+    height: 100vh;
+    max-width: 70%;
+}
+
+.video-background {
+    position: absolute;
+    width: 10%;
+    height: 10%;
+    filter: blur(2px);
+    left: 50%;
+    top: 50%;
+    transform: scale(11);
+    opacity: 0.3;
+
+    & img {
+        position: absolute;
+        inset: 0px;
+        box-sizing: border-box;
+        padding: 0px;
+        border: none;
+        margin: auto;
+        display: block;
+        width: 0px;
+        height: 0px;
+        min-width: 100%;
+        max-width: 100%;
+        min-height: 100%;
+        max-height: 100%;
+    }
 }

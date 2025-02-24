@@ -18,6 +18,8 @@ class VideosResponse extends Videos
     {
         $user = (new UserResponse($this->user))->toResponse();
         return array_merge($this->toArray(), [
+            'file_path'=> Yii::$app->request->hostInfo . $this->file_path,
+            'thumb_path'=> Yii::$app->request->hostInfo . $this->thumb_path,
             'is_liked' => $this->isLiked,
             'likes_count' => count($this->likes),
             'comments_count' => count($this->comments),
@@ -42,5 +44,16 @@ class VideosResponse extends Videos
         $like = Likes::findOne(['user_uuid' => $userUuid, 'video_uuid' => $this->uuid]);
 
         return $like ? 1 : 0;
+    }
+
+    /**
+     * findVideo
+     * 
+     * @param string $uuid
+     * @return VideosResponse|null
+     */
+    public static function findVideo($uuid)
+    {
+        return self::findOne(['uuid' => $uuid]);
     }
 }

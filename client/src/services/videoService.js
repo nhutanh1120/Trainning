@@ -38,3 +38,13 @@ export const uploadVideo = async (formData) => {
         return [];
     }
 };
+
+export const getVideoByUuid = async (uuid) => {
+    try {
+        const res = await request.get(`videos/view/${uuid}`);
+        return res.result;
+    } catch (error) {
+        console.log(error);
+        return null;
+    }
+};

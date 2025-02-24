@@ -78,7 +78,7 @@ function Media({ video }) {
                         //  controls
                         ref={videoRef}
                     >
-                        <source src={`http://localhost:8080${video.file_path}`} type="video/mp4" />
+                        <source src={video.file_path} type="video/mp4" />
                     </video>
                 </div>
                 <div className={cx('media-controls-top')}>
