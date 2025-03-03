@@ -13,7 +13,7 @@ class m250202_111358_follows extends Migration
     public function safeUp()
     {
         $this->createTable('follows', [
-            'uuid' => $this->string(36)->notNull()->unique(),  // UUID as the primary key
+            'uuid' => $this->string(36)->notNull(),  // UUID as the primary key
             'follower_uuid' => $this->string(36)->notNull(),  // Foreign key to "users" table (follower)
             'following_uuid' => $this->string(36)->notNull(),  // Foreign key to "users" table (following)
             'accepted_at' => $this->integer()->defaultValue(null),  // Timestamp when the follow request was accepted

@@ -12,7 +12,7 @@ use yii\behaviors\TimestampBehavior;
  * @property string $uuid
  * @property string $user_uuid
  * @property string $video_uuid
- * @property string $comment
+ * @property string $content
  * @property string|null $created_at
  * @property string|null $updated_at
  *
@@ -45,8 +45,8 @@ class Comments extends ActiveRecord
     public function rules()
     {
         return [
-            [['uuid', 'user_uuid', 'video_uuid', 'comment'], 'required'],
-            [['comment'], 'string'],
+            [['uuid', 'user_uuid', 'video_uuid', 'content'], 'required'],
+            [['content'], 'string'],
             [['created_at', 'updated_at'], 'safe'],
             [['uuid', 'user_uuid', 'video_uuid'], 'string', 'max' => 36],
             [['uuid'], 'unique'],
@@ -64,7 +64,7 @@ class Comments extends ActiveRecord
             'uuid' => 'Uuid',
             'user_uuid' => 'User Uuid',
             'video_uuid' => 'Video Uuid',
-            'comment' => 'Comment',
+            'content' => 'content',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
         ];

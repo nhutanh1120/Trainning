@@ -13,7 +13,7 @@ class m250202_111340_videos extends Migration
     public function safeUp()
     {
         $this->createTable('videos', [
-            'uuid' => $this->string(36)->notNull()->unique(),
+            'uuid' => $this->string(36)->notNull(),
             'user_uuid' => $this->string(36)->notNull(),
             'file_path' => $this->text()->notNull(),
             'thumb_path' => $this->text()->notNull(),

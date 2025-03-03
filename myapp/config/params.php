@@ -8,6 +8,6 @@ return [
         'key' => 'your-secret-key',
         'issuer' => 'http://localhost:8080/',
         'audience' => 'http://localhost:3000/',
-        'expire' => 3600,
+        'expire' => 360000,
     ],
 ];

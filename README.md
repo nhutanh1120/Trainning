@@ -87,3 +87,61 @@
   volumes:
     - ./uploads/videos:/app/web/uploads/videos
   ```
+  ## Setup source với xampp
+
+1. Sửa cấu hình php file /xampp/apache/conf/httpd
+
+  ```
+  Listen 127.0.0.1:port
+  DocumentRoot "path your_app /myapp/web"
+  <Directory "path your_app /myapp/web">
+  ```
+
+2. Sửa cấu hình mysql file \xampp\mysql\bin\my.ini
+
+  ```
+  [client]
+  port=:port
+  [mysqld]
+  port=:port
+  ```
+
+  Sửa cấu hình file \xampp\php\php.ini
+
+  ```
+  mysql.default_port=:port
+  ```
+
+  Sửa cấu hình file \xampp\phpMyAdmin\config.inc.php
+
+  ```
+  $cfg['Servers'][$i]['host'] = '127.0.0.1:3307';
+  ```
+
+3. Chạy lệnh tạo database
+
+  ```
+  CREATE DATABASE yii2app;
+  CREATE USER 'yii2user'@'localhost' IDENTIFIED BY 'yii2pass';
+  GRANT ALL PRIVILEGES ON yii2app.* TO 'yii2user'@'localhost';
+  FLUSH PRIVILEGES;
+  EXIT;
+  ```
+
+4. Sửa file myapp\config\db.php
+
+  ```
+  'dsn' => 'mysql:host=127.0.0.1;port=:port;dbname=yii2app',
+  ```
+
+5. Truy cập vào thư mục dự án chạy lệnh
+
+  ```
+  php yii migrate/up
+  ```
+
+6. Chạy lệnh tạo data
+
+  ```
+  php yii fixture/load '*'
+  ```

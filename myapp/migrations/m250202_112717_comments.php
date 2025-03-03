@@ -13,10 +13,10 @@ class m250202_112717_comments extends Migration
     public function safeUp()
     {
         $this->createTable('comments', [
-            'uuid' => $this->string(36)->notNull()->unique(),  // UUID as the primary key
+            'uuid' => $this->string(36)->notNull(),  // UUID as the primary key
             'user_uuid' => $this->string(36)->notNull(),  // Foreign key to "users" table (user who commented)
             'video_uuid' => $this->string(36)->notNull(),  // Foreign key to "videos" table (video being commented)
-            'comment' => $this->text()->notNull(),  // The comment content
+            'content' => $this->text()->notNull(),  // The comment content
             'created_at' => $this->integer()->notNull(),
             'updated_at' => $this->integer()->notNull(),
         ]);

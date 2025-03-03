@@ -13,7 +13,7 @@ class m250202_112706_likes extends Migration
     public function safeUp()
     {
         $this->createTable('likes', [
-            'uuid' => $this->string(36)->notNull()->unique(),  // UUID as the primary key
+            'uuid' => $this->string(36)->notNull(),  // UUID as the primary key
             'user_uuid' => $this->string(36)->notNull(),  // Foreign key to "users" table (user who liked)
             'video_uuid' => $this->string(36)->notNull(),  // Foreign key to "videos" table (video being liked)
             'created_at' => $this->integer()->notNull(),

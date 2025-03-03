@@ -13,7 +13,7 @@ class m250202_110645_users extends Migration
     public function safeUp()
     {
         $this->createTable('users', [
-            'uuid' => $this->string(36)->notNull()->unique(), // UUID as the primary key
+            'uuid' => $this->string(36)->notNull(), // UUID as the primary key
             'first_name' => $this->string(50),
             'last_name' => $this->string(50),
             'full_name' => $this->string(100),
