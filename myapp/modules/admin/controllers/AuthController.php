@@ -16,13 +16,28 @@ class AuthController extends CommonController
         }
 
         $user = new UserResponse();
+        $user->uuid = Yii::$app->security->generateRandomString(36);
+        $user->full_name = $request['username'];
         $user->username = $request['username'];
         $user->setPassword($request['password']);
 
         if ($user->save()) {
+            $token = JwtHelper::generateToken($user);
+            Yii::$app->response->cookies->add(new \yii\web\Cookie([
+                'name' => 'auth_token', // Tên cookie
+                'value' => $token, // Giá trị cookie là token JWT
+                'expire' => time() + 3600 * 24 * 24, // Thời gian hết hạn cookie (1 ngày)
+                'path' => '/', // Đặt phạm vi cookie
+                'secure' => false, // Chỉ gửi cookie qua HTTPS
+                'httpOnly' => true, // Không thể truy cập cookie từ JavaScript
+                'sameSite' => 'Strict', // Thiết lập SameSite để bảo vệ khỏi CSRF
+            ]));
+
             return $this->asJson([
                 'success' => true,
                 'message' => 'Đăng ký thành công.',
+                'token' => $token,
+                'user' => $user,
             ]);
         }
 

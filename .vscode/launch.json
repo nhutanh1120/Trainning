@@ -10,7 +10,8 @@
             "request": "launch",
             "port": 9005,
             "pathMappings": {
-                "/app": "${workspaceFolder}/myapp"
+                // "/app": "${workspaceFolder}/myapp"
+                "/var/www/myapp": "C:/Users/nhuta/Documents/Trainning/myapp/web"
             }
         },
         {

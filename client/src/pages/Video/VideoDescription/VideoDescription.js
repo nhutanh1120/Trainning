@@ -12,14 +12,14 @@ import styles from './VideoDescription.module.scss';
 const cx = classNames.bind(styles);
 const commentsData = [
     {
-        id: 1,
+        uuid: 1,
         user: 'Minh Tuấn',
         content: 'Cuối tuần rồi, mọi người có kế hoạch gì chưa?',
         time: '3h ago',
         likes: 5,
         replies: [
             {
-                id: 11,
+                uuid: 11,
                 user: 'Linh Cute 🦋',
                 content: 'Đi cafe chém gió thôi anh ơi!',
                 time: '2h ago',
@@ -28,14 +28,14 @@ const commentsData = [
         ],
     },
     {
-        id: 2,
+        uuid: 2,
         user: 'Thanh Hương',
         content: 'Tết này có ai đi du lịch không nhỉ?',
         time: '1d ago',
         likes: 8,
         replies: [
             {
-                id: 12,
+                uuid: 12,
                 user: 'Văn Hậu ✈️',
                 content: 'Mình định đi Đà Lạt, có ai chung team không?',
                 time: '20h ago',
@@ -44,7 +44,7 @@ const commentsData = [
         ],
     },
     {
-        id: 3,
+        uuid: 3,
         user: 'Bảo Long',
         content: 'Hôm nay trời đẹp quá, đúng kiểu thời tiết để ra đường!',
         time: '2d ago',
@@ -52,14 +52,14 @@ const commentsData = [
         replies: [],
     },
     {
-        id: 4,
+        uuid: 4,
         user: 'Hải Nam',
         content: 'Ai có bộ phim nào hay không, cuối tuần muốn cày phim?',
         time: '3d ago',
         likes: 4,
         replies: [
             {
-                id: 13,
+                uuid: 13,
                 user: 'Ngọc Trinh 🌸',
                 content: 'Xem "Money Heist" đi, đảm bảo không thất vọng!',
                 time: '2d ago',
@@ -68,14 +68,14 @@ const commentsData = [
         ],
     },
     {
-        id: 5,
+        uuid: 5,
         user: 'Hạnh Nguyên',
         content: 'Hôm nay đi làm mà muốn nghỉ quá 😭',
         time: '4d ago',
         likes: 10,
         replies: [
             {
-                id: 14,
+                uuid: 14,
                 user: 'Tuấn Anh',
                 content: 'Cố lên! Cuối tháng nhận lương là vui ngay!',
                 time: '3d ago',
@@ -92,6 +92,8 @@ function VideoDescription({ videoData }) {
     const [loading, setLoading] = useState(false);
 
     const [replyVisible, setReplyVisible] = useState({});
+    const [replyContent, setReplyContent] = useState({});
+    const [showReplies, setShowReplies] = useState({});
     const [activeTab, setActiveTab] = useState('comments');
 
     useEffect(() => {
@@ -112,6 +114,13 @@ function VideoDescription({ videoData }) {
         }));
     };
 
+    const toggleShowReplies = (commentUuid) => {
+        setShowReplies((prev) => ({
+            ...prev,
+            [commentUuid]: !prev[commentUuid],
+        }));
+    };
+
     const handlePostComment = async () => {
         if (!newComment.trim()) return;
         setLoading(true);
@@ -125,6 +134,30 @@ function VideoDescription({ videoData }) {
             setNewComment('');
         } else {
             setError('Không thể gửi bình luận. Vui lòng thử lại!');
+        }
+
+        setLoading(false);
+    };
+
+    const handlePostReply = async (commentUuid) => {
+        const replyText = replyContent[commentUuid];
+        if (!replyText.trim()) return;
+        setLoading(true);
+        setError(null); // Xóa lỗi cũ nếu có
+
+        const newReply = await createComment(videoData.uuid, replyText);
+
+        if (newReply) {
+            setComments((prevComments) =>
+                prevComments.map((comment) =>
+                    comment.uuid === commentUuid
+                        ? { ...comment, replies: [newReply.items, ...comment.replies] }
+                        : comment,
+                ),
+            );
+            setReplyContent((prev) => ({ ...prev, [commentUuid]: '' }));
+        } else {
+            setError('Không thể gửi phản hồi. Vui lòng thử lại!');
         }
 
         setLoading(false);
@@ -187,7 +220,7 @@ function VideoDescription({ videoData }) {
                                 <strong>{comment.user}</strong>
                                 <p>{comment.content}</p>
                                 <span className={cx('comment-time')}>{comment.time}</span>
-                                <span className={cx('reply-btn')} onClick={() => toggleReply(comment.id)}>
+                                <span className={cx('reply-btn')} onClick={() => toggleReply(comment.uuid)}>
                                     Reply
                                 </span>
                             </div>
@@ -196,7 +229,29 @@ function VideoDescription({ videoData }) {
                             </span>
                         </div>
 
-                        {replyVisible[comment.uuid] && comment.replies.length > 0 && (
+                        {replyVisible[comment.uuid] && (
+                            <div className={cx('comment-input-reply')}>
+                                <input
+                                    type="text"
+                                    placeholder="Add reply..."
+                                    value={replyContent[comment.uuid] || ''}
+                                    onChange={(e) =>
+                                        setReplyContent((prev) => ({ ...prev, [comment.uuid]: e.target.value }))
+                                    }
+                                />
+                                <button onClick={() => handlePostReply(comment.uuid)} disabled={loading}>
+                                    {loading ? 'Posting...' : 'Post'}
+                                </button>
+                            </div>
+                        )}
+
+                        {comment.replies.length > 0 && !showReplies[comment.uuid] && (
+                            <button className={cx('show-more-btn')} onClick={() => toggleShowReplies(comment.uuid)}>
+                                Show more
+                            </button>
+                        )}
+
+                        {showReplies[comment.uuid] && (
                             <div className={cx('replies')}>
                                 {comment.replies.map((reply) => (
                                     <div key={reply.uuid} className={cx('reply-comment')}>

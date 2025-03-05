@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import classNames from 'classnames/bind';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleInfo } from '@fortawesome/free-solid-svg-icons';
@@ -15,6 +15,8 @@ function UploadVideo({ file, handleCancel }) {
     const [thumbnail, setThumbnail] = useState('https://files.fullstack.edu.vn/f8-tiktok/users/4854/646231eb7a517.png');
     const [message, setMessage] = useState('');
     const [charCount, setCharCount] = useState(0);
+
+    const textareaRef = useRef(null);
 
     const handleUpload = async () => {
         if (!file) {
@@ -37,12 +39,14 @@ function UploadVideo({ file, handleCancel }) {
     const handleAddHashtag = () => {
         if (charCount < 4000) {
             setDescription((prev) => prev + '#');
+            textareaRef.current?.focus();
         }
     };
 
     const handleAddMention = () => {
         if (charCount < 4000) {
             setDescription((prev) => prev + '@');
+            textareaRef.current?.focus();
         }
     };
 
@@ -65,7 +69,12 @@ function UploadVideo({ file, handleCancel }) {
             <div className={cx('container')}>
                 <div className={cx('section')}>
                     <label className={cx('label')}>Mô tả</label>
-                    <textarea className={cx('textarea')} value={description} onChange={handleDescriptionChange} />
+                    <textarea
+                        ref={textareaRef}
+                        className={cx('textarea')}
+                        value={description}
+                        onChange={handleDescriptionChange}
+                    />
                     <div className={cx('meta')}>
                         <button onClick={handleAddHashtag}># Hashtag</button>
                         <button onClick={handleAddMention}>@ Nhắc đến</button>
