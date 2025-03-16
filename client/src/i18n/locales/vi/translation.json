@@ -1,4 +1,7 @@
 {
+    "COMMON": {
+        "EMPTY_TEXT": "Không có dữ liệu"
+    },
     "LAYOUTS": {
         "HEADER": {
             "LOGO": {

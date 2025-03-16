@@ -23,6 +23,9 @@ const publicRoutes = [
     { path: config.routes.search, component: Search, layout: null },
     { path: config.routes.video, component: Video, layout: null },
     { path: config.routes.logout, component: Logout, layout: null },
+    { path: config.routes.feedback, component: Profile, layout: null },
+    { path: config.routes.settings, component: Profile, layout: null },
+    { path: config.routes.coin, component: Profile, layout: null },
 ];
 
 const privateRoutes = [];

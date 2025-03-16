@@ -101,7 +101,7 @@ class AuthController extends CommonController
             return [
                 'success' => true,
                 'user' => [
-                    'id' => $user->uuid,
+                    'uuid' => $user->uuid,
                     'username' => $user->username,
                     'full_name' => $user->full_name,
                     'avatar' => $user->avatar,

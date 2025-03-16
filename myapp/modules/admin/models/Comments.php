@@ -12,12 +12,15 @@ use yii\behaviors\TimestampBehavior;
  * @property string $uuid
  * @property string $user_uuid
  * @property string $video_uuid
+ * @property string $parent_uuid
  * @property string $content
  * @property string|null $created_at
  * @property string|null $updated_at
  *
  * @property Users $user
  * @property Videos $video
+ * @property Comments $parent
+ * @property Comments[] $replies
  */
 class Comments extends ActiveRecord
 {
@@ -48,10 +51,11 @@ class Comments extends ActiveRecord
             [['uuid', 'user_uuid', 'video_uuid', 'content'], 'required'],
             [['content'], 'string'],
             [['created_at', 'updated_at'], 'safe'],
-            [['uuid', 'user_uuid', 'video_uuid'], 'string', 'max' => 36],
+            [['uuid', 'user_uuid', 'video_uuid', 'parent_uuid'], 'string', 'max' => 36],
             [['uuid'], 'unique'],
             [['user_uuid'], 'exist', 'skipOnError' => true, 'targetClass' => Users::class, 'targetAttribute' => ['user_uuid' => 'uuid']],
             [['video_uuid'], 'exist', 'skipOnError' => true, 'targetClass' => Videos::class, 'targetAttribute' => ['video_uuid' => 'uuid']],
+            [['parent_uuid'], 'exist', 'skipOnError' => true, 'targetClass' => Comments::class, 'targetAttribute' => ['parent_uuid' => 'uuid']],
         ];
     }
 
@@ -64,7 +68,8 @@ class Comments extends ActiveRecord
             'uuid' => 'Uuid',
             'user_uuid' => 'User Uuid',
             'video_uuid' => 'Video Uuid',
-            'content' => 'content',
+            'parent_uuid' => 'Parent Uuid',
+            'content' => 'Content',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
         ];
@@ -88,5 +93,25 @@ class Comments extends ActiveRecord
     public function getVideo()
     {
         return $this->hasOne(Videos::class, ['uuid' => 'video_uuid']);
+    }
+
+    /**
+     * Gets query for [[Parent]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getParent()
+    {
+        return $this->hasOne(Comments::class, ['uuid' => 'parent_uuid']);
+    }
+
+    /**
+     * Gets query for [[Replies]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getReplies()
+    {
+        return $this->hasMany(Comments::class, ['parent_uuid' => 'uuid']);
     }
 }

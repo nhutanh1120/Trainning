@@ -17,19 +17,23 @@ class CommentResponse extends Comments
         return array_merge(
             $this->toArray(),
             [
-                'user' => $this->getUser()->toResponse(),
+                'user' => $this->getUser()->one()->toArray(),
+                'replies' => array_map(function ($reply) {
+                    return (new CommentResponse($reply->attributes))->toResponse();
+                }, $this->getReplies()->all()),
+                'likes_count' => 0,
             ]
         );
     }
 
     /**
-     * findCommentByUuid
+     * findCommentsByVideoUuid
      * 
-     * @param string $uuid
-     * @return CommentResponse|null
+     * @param string $videoUuid
+     * @return CommentResponse[]
      */
-    public static function findCommentByUuid($uuid)
+    public static function findCommentsByVideoUuid($videoUuid)
     {
-        return self::findOne(['uuid' => $uuid]);
+        return self::findAll(['video_uuid' => $videoUuid]);
     }
 }

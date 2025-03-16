@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -10,6 +11,8 @@ import {
     faSignOut,
     faUser,
 } from '@fortawesome/free-solid-svg-icons';
+
+import config from '~/config';
 
 export const getMenuItems = (t, activeLanguage) => [
     {
@@ -36,7 +39,7 @@ export const getMenuItems = (t, activeLanguage) => [
     {
         icon: <FontAwesomeIcon icon={faCircleQuestion} />,
         title: t('LAYOUTS.HEADER.MENU.FEEDBACK_HELP'),
-        to: '/feedback',
+        to: config.routes.feedback,
     },
     {
         icon: <FontAwesomeIcon icon={faKeyboard} />,
@@ -55,38 +58,41 @@ export const useMenuItems = () => {
     return menuItems;
 };
 
-export const getUserMenu = (t, activeLanguage) => [
+export const getUserMenu = (uuid, t, activeLanguage) => [
     {
         icon: <FontAwesomeIcon icon={faUser} />,
         title: t('LAYOUTS.HEADER.MENU.VIEW_PROFILE'),
-        to: '/@hoaa',
+        to: `${config.routes.coin}${uuid}`,
     },
     {
         icon: <FontAwesomeIcon icon={faCoins} />,
         title: t('LAYOUTS.HEADER.MENU.GET_COINS'),
-        to: '/coin',
+        to: config.routes.coin,
     },
     {
         icon: <FontAwesomeIcon icon={faGear} />,
         title: t('LAYOUTS.HEADER.MENU.SETTINGS'),
-        to: '/settings',
+        to: config.routes.settings,
     },
     ...getMenuItems(t, activeLanguage),
     {
         icon: <FontAwesomeIcon icon={faSignOut} />,
         title: t('LAYOUTS.HEADER.MENU.LOGOUT'),
-        to: '/logout',
+        to: config.routes.logout,
         separate: true,
     },
 ];
 
 export const useUserMenu = () => {
+    const user = useSelector((state) => state.auth.user);
     const { t, i18n } = useTranslation();
     const [userMenu, setUserMenu] = useState([]);
 
     useEffect(() => {
-        setUserMenu(getUserMenu(t, i18n.language));
-    }, [t, i18n.language]);
+        if (user?.uuid) {
+            setUserMenu(getUserMenu(user.uuid, t, i18n.language));
+        }
+    }, [user, t, i18n.language]);
 
     return userMenu;
 };

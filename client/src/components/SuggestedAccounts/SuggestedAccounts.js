@@ -11,7 +11,13 @@ function SuggestedAccounts({ label, data = [], hasMore, onClick }) {
     const { t } = useTranslation();
 
     if (!data.length) {
-        return null;
+        return (
+            <div className={cx('wrapper')}>
+                <p className={cx('label')}>{label}</p>
+
+                <div className={cx('empty')}>{t('COMMON.EMPTY_TEXT')}</div>
+            </div>
+        );
     }
 
     return (

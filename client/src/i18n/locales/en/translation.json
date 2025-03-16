@@ -1,4 +1,7 @@
 {
+    "COMMON": {
+        "EMPTY_TEXT": "Empty data"
+    },
     "LAYOUTS": {
         "HEADER": {
             "LOGO": {

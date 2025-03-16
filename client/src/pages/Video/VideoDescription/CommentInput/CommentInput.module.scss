@@ -1,0 +1,19 @@
+.wrapper {
+    width: 100%;
+    background-color: #fff;
+
+    & input {
+        width: calc(100% - 80px);
+        padding: 8px;
+        background-color: #f1f1f2;
+        border: 1px solid #eee;
+        border-radius: 8px;
+    }
+
+    & button {
+        width: 75px;
+        margin-left: 5px;
+        background: none;
+        cursor: pointer;
+    }
+}

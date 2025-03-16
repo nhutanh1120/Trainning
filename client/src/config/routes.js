@@ -7,6 +7,9 @@ const routes = {
     live: '/live',
     logout: '/logout',
     video: '/video/:uuid',
+    feedback: '/feedback',
+    settings: '/settings',
+    coin: '/coin',
 };
 
 export default routes;
