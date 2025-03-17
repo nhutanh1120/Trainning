@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import Media from './Media';
 import ActionBar from './ActionBar';
 import * as videosServices from '~/services/videoService';
+import LoadingOverlay from '~/components/LoadingOverlay';
 import { AngleUpIcon, AngleDownIcon, TiktokIcon } from '~/components/Icons';
 import style from './Home.module.scss';
 
@@ -53,12 +54,14 @@ function Home() {
     return (
         <div className={cx('wrapper')}>
             <div className={cx('list-content')}>
-                {videos.map((video, index) => (
-                    <article key={index} className={cx('content')} ref={(el) => (articlesRef.current[index] = el)}>
-                        <Media video={video} />
-                        <ActionBar data={video} />
-                    </article>
-                ))}
+                <LoadingOverlay loading={loading} fullScreen={false}>
+                    {videos.map((video, index) => (
+                        <article key={index} className={cx('content')} ref={(el) => (articlesRef.current[index] = el)}>
+                            <Media video={video} />
+                            <ActionBar data={video} />
+                        </article>
+                    ))}
+                </LoadingOverlay>
             </div>
             <div className={cx('navigation')}>
                 <button disabled={loading || currentIndex === 0} onClick={() => handleScroll('up')}>

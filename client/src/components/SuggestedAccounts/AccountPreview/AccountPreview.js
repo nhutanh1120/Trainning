@@ -5,16 +5,24 @@ import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 
 import Button from '~/components/Button';
 import Image from '~/components/Image';
+import { follows } from '~/services/userService';
 import styles from './AccountPreview.module.scss';
 
 const cx = classNames.bind(styles);
 
 function AccountPreview({ data }) {
+    const handleFollows = async () => {
+        if (data.uuid === undefined) {
+            return;
+        }
+
+        await follows(data.uuid);
+    };
     return (
         <div className={cx('wrapper')}>
             <div className={cx('header')}>
                 <Image className={cx('avatar')} src={data.avatar} alt={data.nickname} />
-                <Button className={cx('follow-btn')} primary>
+                <Button primary className={cx('follow-btn')} onClick={handleFollows}>
                     Follow
                 </Button>
             </div>

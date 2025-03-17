@@ -4,7 +4,7 @@ import styles from './LoadingOverlay.module.scss';
 
 const cx = classNames.bind(styles);
 
-function LoadingOverlay({ loading = false, fullScreen = false, children }) {
+function LoadingOverlay({ loading = false, fullScreen = false, className, children }) {
     if (fullScreen && loading) {
         return (
             <div className={cx('overlay', 'fullScreen')}>
@@ -14,7 +14,7 @@ function LoadingOverlay({ loading = false, fullScreen = false, children }) {
     }
 
     return (
-        <div className={cx('wrapper')}>
+        <div className={cx('wrapper', className)}>
             {children}
 
             {loading && (

@@ -1,6 +1,8 @@
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+
+import config from '~/config';
 import { logoutUser } from '~/redux/authSlice';
 
 function Logout() {
@@ -9,7 +11,7 @@ function Logout() {
 
     useEffect(() => {
         dispatch(logoutUser());
-        navigate('/');
+        navigate(config.routes.home);
         localStorage.removeItem('isLoginMode');
     }, [dispatch, navigate]);
 

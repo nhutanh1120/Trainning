@@ -63,7 +63,7 @@ function Header() {
                                     content={t('LAYOUTS.HEADER.BUTTON.UPLOAD_VIDEO.CONTENT')}
                                     placement="bottom"
                                 >
-                                    <button onClick={() => navigate('/upload')} className={cx('action-btn')}>
+                                    <button onClick={() => navigate(config.routes.upload)} className={cx('action-btn')}>
                                         <UploadIcon />
                                     </button>
                                 </Tippy>
@@ -89,7 +89,7 @@ function Header() {
                             </>
                         ) : (
                             <>
-                                <Button text to="/upload">
+                                <Button text onClick={() => setIsAuthModalOpen(true)}>
                                     {t('LAYOUTS.HEADER.BUTTON.UPLOAD')}
                                 </Button>
                                 <Button primary onClick={() => setIsAuthModalOpen(true)}>

@@ -8,6 +8,7 @@ import Image from '~/components/Image';
 import Button from '~/components/Button';
 import Comment from './Comment';
 import CommentInput from './CommentInput';
+import LoadingOverlay from '~/components/LoadingOverlay';
 import { createComment, createReplyComment, getComments } from '~/services/CommentService';
 import styles from './VideoDescription.module.scss';
 
@@ -17,12 +18,15 @@ function VideoDescription({ videoData }) {
     const [comments, setComments] = useState([]);
     const [commentCount, setCommentCount] = useState(videoData.comments_count);
     const [activeTab, setActiveTab] = useState('comments');
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         if (!videoData.uuid) return;
 
         const fetchComments = async () => {
+            setLoading(true);
             const fetchedComments = await getComments(videoData.uuid);
+            setLoading(false);
             setComments(fetchedComments.items);
         };
 
@@ -97,9 +101,11 @@ function VideoDescription({ videoData }) {
             </div>
 
             <div className={cx('comments-section')}>
-                {comments.map((comment) => (
-                    <Comment key={comment.uuid} comment={comment} handlePostReply={handlePostReply(comment.uuid)} />
-                ))}
+                <LoadingOverlay loading={loading} fullScreen={false}>
+                    {comments.map((comment) => (
+                        <Comment key={comment.uuid} comment={comment} handlePostReply={handlePostReply(comment.uuid)} />
+                    ))}
+                </LoadingOverlay>
             </div>
 
             <CommentInput onPost={handlePostComment} className={cx('comment-input')} />

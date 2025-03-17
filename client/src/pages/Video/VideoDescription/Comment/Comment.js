@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import moment from 'moment';
 import classNames from 'classnames/bind';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -12,21 +12,6 @@ import styles from './Comment.module.scss';
 
 const cx = classNames.bind(styles);
 
-const ReplyItem = ({ reply }) => (
-    <div className={cx('comment')}>
-        <Image src={reply?.user?.avatar} className={cx('avatar')} alt={reply?.user?.full_name} />
-        <div className={cx('content')}>
-            <strong>{reply?.user?.full_name}</strong>
-            <p>{reply?.content}</p>
-            <span className={cx('time')}>{moment.unix(reply?.updated_at).fromNow()}</span>
-        </div>
-        <span className={cx('likes')}>
-            <FontAwesomeIcon icon={faHeart} />
-            &nbsp;{reply?.likes_count}
-        </span>
-    </div>
-);
-
 function Comment({ comment, handlePostReply }) {
     const [replyVisible, setReplyVisible] = useState(false);
     const [showReplies, setShowReplies] = useState(false);
@@ -38,10 +23,6 @@ function Comment({ comment, handlePostReply }) {
     const toggleShowReplies = () => {
         setShowReplies(!showReplies);
     };
-
-    useEffect(() => {
-        setShowReplies(true);
-    }, [comment.replies]);
 
     return (
         <div key={comment.uuid} className={cx('wrapper')}>
