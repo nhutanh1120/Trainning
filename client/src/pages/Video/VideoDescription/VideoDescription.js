@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import classNames from 'classnames/bind';
 import moment from 'moment';
+import { useTranslation } from 'react-i18next';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBookmark, faCommentDots, faHeart, faLink } from '@fortawesome/free-solid-svg-icons';
 
@@ -15,6 +16,7 @@ import styles from './VideoDescription.module.scss';
 const cx = classNames.bind(styles);
 
 function VideoDescription({ videoData }) {
+    const { t } = useTranslation();
     const [comments, setComments] = useState([]);
     const [commentCount, setCommentCount] = useState(videoData.comments_count);
     const [activeTab, setActiveTab] = useState('comments');
@@ -67,7 +69,7 @@ function VideoDescription({ videoData }) {
                     </span>
                     <p>{videoData.description}</p>
                 </div>
-                <Button className={cx('follow')}>Follow</Button>
+                <Button className={cx('follow')}>{t('VIDEO.VIDEO_DESCRIPTION.FOLLOW')}</Button>
             </div>
 
             <div className={cx('actions')}>
@@ -81,7 +83,8 @@ function VideoDescription({ videoData }) {
                     <FontAwesomeIcon icon={faBookmark} /> {videoData.bookmarks_count}
                 </div>
                 <div>
-                    <FontAwesomeIcon icon={faLink} /> Copy link
+                    <FontAwesomeIcon icon={faLink} />
+                    {t('VIDEO.VIDEO_DESCRIPTION.COPY_LINK')}
                 </div>
             </div>
 
@@ -90,13 +93,13 @@ function VideoDescription({ videoData }) {
                     className={cx('tab', 'tab-comments', { active: activeTab === 'comments' })}
                     onClick={() => setActiveTab('comments')}
                 >
-                    Comments ({commentCount})
+                    {t('VIDEO.VIDEO_DESCRIPTION.COMMENT')} ({commentCount})
                 </div>
                 <div
                     className={cx('tab', 'tab-creator-videos', { active: activeTab === 'creatorVideos' })}
                     onClick={() => setActiveTab('creatorVideos')}
                 >
-                    Creator videos
+                    {t('VIDEO.VIDEO_DESCRIPTION.CREATOR')}
                 </div>
             </div>
 

@@ -9,10 +9,13 @@ class UserSearch extends UserResponse
 {
     public $q;
 
+    public $type;
+
     public function rules()
     {
         return [
-            [['q'], 'safe'],
+            [['q', 'type'], 'safe'],
+            [['q', 'type'], 'string'],
         ];
     }
 
@@ -20,23 +23,14 @@ class UserSearch extends UserResponse
     {
         $query = UserResponse::find();
 
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-            'pagination' => [
-                'pageSize' => 10, 
-            ],
-            // 'sort' => [
-            //     'defaultOrder' => [
-            //         'uuid' => SORT_DESC, 
-            //     ],
-            // ],
-        ]);
-
-        $this->load($params);
+        $this->load($params, '');
 
         if (!$this->validate()) {
             $query->where('0=1');
-            return $dataProvider;
+            return new ActiveDataProvider([
+                'query' => $query,
+                'pagination' => false,
+            ]);
         }
 
         if (!empty($this->q)) {
@@ -47,6 +41,12 @@ class UserSearch extends UserResponse
             ]);
         }
 
-        return $dataProvider;
+        return new ActiveDataProvider([
+            'query' => $query,
+            'pagination' => [
+                'pageSize' => 10,
+                // 'page' => $currentPage,
+            ],
+        ]);
     }
 }

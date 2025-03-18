@@ -17,7 +17,6 @@ function Upload() {
     const [acceptedFiles, setAcceptedFiles] = useState(null);
 
     const onDrop = useCallback((acceptedFiles) => {
-        console.log('Video đã chọn:', acceptedFiles);
         setAcceptedFiles(acceptedFiles);
     }, []);
 

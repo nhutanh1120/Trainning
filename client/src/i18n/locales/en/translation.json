@@ -80,6 +80,21 @@
     "HOME": {
         "GET_COINS": "Get coins"
     },
+    "VIDEO": {
+        "VIDEO_DESCRIPTION": {
+            "FOLLOW": "Follow",
+            "COPY_LINK": "Copy link",
+            "COMMENT": "Comments",
+            "CREATOR": "Creator videos",
+            "REPLY": "Reply",
+            "SHOW_MORE": "Show more",
+            "COMMENT_INPUT": {
+                "POST": "Post",
+                "POSTING": "Posting...",
+                "PLACEHOLDER": "Add a comment..."
+            }
+        }
+    },
     "UPLOAD": {
         "SELECT_VIDEO": "Select video to upload",
         "OR_DRAG_DROP": "Or drag and drop it here",

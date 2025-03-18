@@ -1,10 +1,13 @@
 import { useState } from 'react';
 import classNames from 'classnames/bind';
+import { useTranslation } from 'react-i18next';
+
 import styles from './CommentInput.module.scss';
 
 const cx = classNames.bind(styles);
 
-function CommentInput({ onPost, placeholder = 'Add a comment...', className }) {
+function CommentInput({ onPost, placeholder, className }) {
+    const { t } = useTranslation();
     const [comment, setComment] = useState('');
     const [isLoading, setIsLoading] = useState(false);
 
@@ -18,9 +21,16 @@ function CommentInput({ onPost, placeholder = 'Add a comment...', className }) {
 
     return (
         <div className={cx('wrapper', className)}>
-            <input type="text" placeholder={placeholder} value={comment} onChange={(e) => setComment(e.target.value)} />
+            <input
+                type="text"
+                placeholder={placeholder || t('VIDEO.VIDEO_DESCRIPTION.COMMENT_INPUT.PLACEHOLDER')}
+                value={comment}
+                onChange={(e) => setComment(e.target.value)}
+            />
             <button onClick={handlePost} disabled={isLoading}>
-                {isLoading ? 'Posting...' : 'Post'}
+                {isLoading
+                    ? t('VIDEO.VIDEO_DESCRIPTION.COMMENT_INPUT.POSTING')
+                    : t('VIDEO.VIDEO_DESCRIPTION.COMMENT_INPUT.POST')}
             </button>
         </div>
     );

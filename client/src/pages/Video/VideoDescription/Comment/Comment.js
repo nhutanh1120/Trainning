@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import moment from 'moment';
 import classNames from 'classnames/bind';
+import { useTranslation } from 'react-i18next';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleDown } from '@fortawesome/free-solid-svg-icons';
 import { faHeart } from '@fortawesome/free-regular-svg-icons';
@@ -13,6 +14,7 @@ import styles from './Comment.module.scss';
 const cx = classNames.bind(styles);
 
 function Comment({ comment, handlePostReply }) {
+    const { t } = useTranslation();
     const [replyVisible, setReplyVisible] = useState(false);
     const [showReplies, setShowReplies] = useState(false);
 
@@ -33,7 +35,7 @@ function Comment({ comment, handlePostReply }) {
                     <p>{comment.content}</p>
                     <span className={cx('time')}>{moment.unix(comment.updated_at).fromNow()}</span>
                     <span className={cx('reply-btn')} onClick={toggleReply}>
-                        Reply
+                        {t('VIDEO.VIDEO_DESCRIPTION.REPLY')}
                     </span>
                 </div>
                 <span className={cx('likes')}>
@@ -51,7 +53,7 @@ function Comment({ comment, handlePostReply }) {
                     className={cx('show-more')}
                     onClick={toggleShowReplies}
                 >
-                    Show more
+                    {t('VIDEO.VIDEO_DESCRIPTION.SHOW_MORE')}
                 </Button>
             )}
 

@@ -80,6 +80,21 @@
     "HOME": {
         "GET_COINS": "Nhận xu"
     },
+    "VIDEO": {
+        "VIDEO_DESCRIPTION": {
+            "FOLLOW": "Follow",
+            "COPY_LINK": "Sao chép liên kết",
+            "COMMENT": "Bình luận",
+            "CREATOR": "Video của nhà sáng tạo",
+            "REPLY": "Trả lời",
+            "SHOW_MORE": "Xem thêm",
+            "COMMENT_INPUT": {
+                "POST": "Đăng",
+                "POSTING": "Đăng...",
+                "PLACEHOLDER": "Thêm bình luận..."
+            }
+        }
+    },
     "UPLOAD": {
         "SELECT_VIDEO": "Chọn video để tải lên",
         "OR_DRAG_DROP": "Hoặc kéo và thả vào đây",
