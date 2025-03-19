@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import classNames from 'classnames/bind';
+
 import Button from '~/components/Button';
 import FormInput from './FormInput';
 import { CloseIcon } from '~/components/Icons';

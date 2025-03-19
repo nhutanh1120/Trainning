@@ -31,8 +31,10 @@ function UploadVideo({ file, handleCancel }) {
         const response = await uploadVideo(formData);
         if (response.success === true) {
             setMessage('Video uploaded successfully!');
+            alert('Video uploaded successfully!');
         } else {
             setMessage('Failed to upload video.');
+            alert('Failed to upload video.');
         }
     };
 

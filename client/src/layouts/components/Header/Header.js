@@ -12,14 +12,14 @@ import 'tippy.js/dist/tippy.css';
 
 import config from '~/config';
 import Button from '~/components/Button';
-import styles from './Header.module.scss';
 import images from '~/assets/images';
 import Menu from '~/components/Popper/Menu';
-import { InboxIcon, MessageIcon, UploadIcon } from '~/components/Icons';
 import Image from '~/components/Image';
 import Search from './../Search';
 import AuthModal from './../AuthModal';
 import { useMenuItems, useUserMenu } from './../Utils';
+import { InboxIcon, MessageIcon, UploadIcon } from '~/components/Icons';
+import styles from './Header.module.scss';
 
 const cx = classNames.bind(styles);
 

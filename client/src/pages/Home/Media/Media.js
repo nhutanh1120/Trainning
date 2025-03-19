@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import moment from 'moment';
 import classNames from 'classnames/bind';
 import { Link } from 'react-router-dom';
@@ -10,16 +10,23 @@ import styles from './Media.module.scss';
 
 const cx = classNames.bind(styles);
 
-function Media({ video }) {
+function Media({
+    index,
+    currentIndex,
+    playing,
+    muted,
+    handleTogglePlay,
+    handleToggleMute,
+    handleSetCurrentIndex,
+    video,
+}) {
     const videoRef = useRef(null);
-    const [playing, setPlaying] = useState(false);
-    const [muted, setMuted] = useState(true);
     const [isExpanded, setIsExpanded] = useState(false);
     const [showMediaPlaceholder, setShowMediaPlaceholder] = useState(false);
 
     const toggleMute = () => {
         videoRef.current.muted = !muted;
-        setMuted(!muted);
+        handleToggleMute();
     };
 
     const togglePlay = () => {
@@ -28,7 +35,7 @@ function Media({ video }) {
         } else {
             videoRef.current.play();
         }
-        setPlaying(!playing);
+        handleTogglePlay();
 
         // Display .media-placeholder for 2 seconds
         setShowMediaPlaceholder(true);
@@ -65,6 +72,45 @@ function Media({ video }) {
             }
         });
     };
+
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                if (entry.isIntersecting) {
+                    handleSetCurrentIndex(index); // Cập nhật video hiện tại
+                }
+            },
+            { threshold: 0.7 }, // Chỉ kích hoạt khi 70% video vào màn hình
+        );
+
+        if (videoRef.current) {
+            observer.observe(videoRef.current);
+        }
+
+        return () => {
+            if (videoRef.current) {
+                observer.unobserve(videoRef.current);
+            }
+        };
+    }, [index, handleSetCurrentIndex]);
+
+    useEffect(() => {
+        if (videoRef.current && currentIndex === index) {
+            if (videoRef.current.readyState >= 3) {
+                if (playing) {
+                    videoRef.current.play();
+                } else {
+                    videoRef.current.pause();
+                }
+            }
+            videoRef.current.muted = muted;
+        } else {
+            if (videoRef.current.readyState >= 3) {
+                videoRef.current.pause();
+            }
+            videoRef.current.muted = true;
+        }
+    }, [index, currentIndex, playing, muted]);
 
     return (
         <section className={cx('wrapper')}>

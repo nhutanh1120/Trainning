@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBookmark, faCommentDots, faHeart, faPlus, faShare } from '@fortawesome/free-solid-svg-icons';
 import HeadlessTippy from '@tippyjs/react/headless';
@@ -11,6 +12,7 @@ import { likes } from '~/services/videoService';
 import styles from './ActionBar.module.scss';
 
 function ActionBar({ data }) {
+    const user = useSelector((state) => state.auth.user);
     const [showBookmark, setShowBookmark] = useState(false);
     const [showShare, setShowShare] = useState(false);
 
@@ -46,8 +48,8 @@ function ActionBar({ data }) {
         <section className="wrapper">
             <ButtonIcon
                 type="img"
-                active={isFollowed === 1}
-                showIcon={data.user.allows_followers === 1}
+                active={user && isFollowed === 1}
+                showIcon={!user || (data.user.allows_followers === 1 && data.user.uuid !== user.uuid)}
                 onClick={handleFollows}
                 src={data.user.avatar}
             />

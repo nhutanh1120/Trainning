@@ -15,11 +15,27 @@ const cx = classNames.bind(style);
 function Home() {
     const { t } = useTranslation();
     const articlesRef = useRef([]);
-    const [currentIndex, setCurrentIndex] = useState(0);
     const [videos, setVideos] = useState([]);
     const [page, setPage] = useState(1);
     const [totalCount, setTotalCount] = useState(0);
+
+    const [currentIndex, setCurrentIndex] = useState(0);
+    const [playing, setPlaying] = useState(true);
+    const [muted, setMuted] = useState(true);
+
     const [loading, setLoading] = useState(false);
+
+    const handleTogglePlay = () => {
+        setPlaying((prev) => !prev);
+    };
+
+    const handleToggleMute = () => {
+        setMuted((prev) => !prev);
+    };
+
+    const handleSetCurrentIndex = (index) => {
+        setCurrentIndex(index);
+    };
 
     const handleScroll = (direction) => {
         let nextIndex =
@@ -57,7 +73,16 @@ function Home() {
                 <LoadingOverlay loading={loading} fullScreen={false}>
                     {videos.map((video, index) => (
                         <article key={index} className={cx('content')} ref={(el) => (articlesRef.current[index] = el)}>
-                            <Media video={video} />
+                            <Media
+                                index={index}
+                                currentIndex={currentIndex}
+                                playing={playing}
+                                muted={muted}
+                                handleSetCurrentIndex={handleSetCurrentIndex}
+                                handleTogglePlay={handleTogglePlay}
+                                handleToggleMute={handleToggleMute}
+                                video={video}
+                            />
                             <ActionBar data={video} />
                         </article>
                     ))}

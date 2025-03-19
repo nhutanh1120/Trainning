@@ -1,6 +1,6 @@
 import classNames from 'classnames/bind';
-import styles from './About.module.scss';
 import { useTranslation } from 'react-i18next';
+import styles from './About.module.scss';
 
 const cx = classNames.bind(styles);
 
