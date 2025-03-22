@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import classNames from 'classnames/bind';
-import moment from 'moment';
+import dayjs from 'dayjs';
 import { useTranslation } from 'react-i18next';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBookmark, faCommentDots, faHeart, faLink } from '@fortawesome/free-solid-svg-icons';
@@ -10,6 +10,7 @@ import Button from '~/components/Button';
 import Comment from './Comment';
 import CommentInput from './CommentInput';
 import LoadingOverlay from '~/components/LoadingOverlay';
+import { useAuthModal } from '~/contexts/AuthModalContext';
 import { createComment, createReplyComment, getComments } from '~/services/CommentService';
 import styles from './VideoDescription.module.scss';
 
@@ -17,6 +18,8 @@ const cx = classNames.bind(styles);
 
 function VideoDescription({ videoData }) {
     const { t } = useTranslation();
+    const { openAuthModal } = useAuthModal();
+
     const [comments, setComments] = useState([]);
     const [commentCount, setCommentCount] = useState(videoData.comments_count);
     const [activeTab, setActiveTab] = useState('comments');
@@ -65,11 +68,13 @@ function VideoDescription({ videoData }) {
                 <div className={cx('info')}>
                     <h3 className={cx('username')}>{videoData.user.nickname}</h3>
                     <span className={cx('nickname')}>
-                        {videoData.user.full_name} · {moment.unix(videoData.updated_at).fromNow()}
+                        {videoData.user.full_name} · {dayjs.unix(videoData.updated_at).fromNow()}
                     </span>
                     <p>{videoData.description}</p>
                 </div>
-                <Button className={cx('follow')}>{t('VIDEO.VIDEO_DESCRIPTION.FOLLOW')}</Button>
+                <Button className={cx('follow')} onClick={openAuthModal}>
+                    {t('VIDEO.VIDEO_DESCRIPTION.FOLLOW')}
+                </Button>
             </div>
 
             <div className={cx('actions')}>

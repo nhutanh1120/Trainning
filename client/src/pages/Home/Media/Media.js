@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import moment from 'moment';
+import dayjs from 'dayjs';
 import classNames from 'classnames/bind';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -142,7 +142,7 @@ function Media({
                             <Link to={`/user/${video.user.uuid}`} className={cx('author')}>
                                 <h3 className={cx('name')}>{video.user.full_name}</h3>
                                 <span className={cx('dot')}>·</span>
-                                <span className={cx('date')}>{moment.unix(video.updated_at).fromNow()}</span>
+                                <span className={cx('date')}>{dayjs.unix(video.updated_at).fromNow()}</span>
                             </Link>
                             <div
                                 className={cx('content', {

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import moment from 'moment';
+import dayjs from 'dayjs';
 import classNames from 'classnames/bind';
 import { useTranslation } from 'react-i18next';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -33,7 +33,7 @@ function Comment({ comment, handlePostReply }) {
                 <div className={cx('content')}>
                     <strong>{comment.user.full_name}</strong>
                     <p>{comment.content}</p>
-                    <span className={cx('time')}>{moment.unix(comment.updated_at).fromNow()}</span>
+                    <span className={cx('time')}>{dayjs.unix(comment.updated_at).fromNow()}</span>
                     <span className={cx('reply-btn')} onClick={toggleReply}>
                         {t('VIDEO.VIDEO_DESCRIPTION.REPLY')}
                     </span>
@@ -65,7 +65,7 @@ function Comment({ comment, handlePostReply }) {
                             <div className={cx('content')}>
                                 <strong>{reply.user.full_name}</strong>
                                 <p>{reply.content}</p>
-                                <span className={cx('time')}>{moment.unix(reply.updated_at).fromNow()}</span>
+                                <span className={cx('time')}>{dayjs.unix(reply.updated_at).fromNow()}</span>
                             </div>
                             <span className={cx('likes')}>
                                 <FontAwesomeIcon icon={faHeart} />

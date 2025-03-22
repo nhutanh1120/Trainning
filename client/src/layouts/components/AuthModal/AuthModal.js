@@ -5,16 +5,18 @@ import classNames from 'classnames/bind';
 
 import Button from '~/components/Button';
 import FormInput from './FormInput';
-import { CloseIcon } from '~/components/Icons';
-// import { login, register } from '~/services/authService';
+import { useAuthModal } from '~/contexts/AuthModalContext';
 import { loginUser, registerUser } from '~/redux/authSlice';
+// import { login, register } from '~/services/authService';
+import { CloseIcon } from '~/components/Icons';
 import styles from './AuthModal.module.scss';
 
 const cx = classNames.bind(styles);
 
-function AuthModal({ isOpen, onClose }) {
+function AuthModal() {
     const { t } = useTranslation();
     const dispatch = useDispatch();
+    const { isAuthModalOpen, closeAuthModal } = useAuthModal();
     const { loading, error } = useSelector((state) => state.auth);
     const [isLoginMode, setIsLoginMode] = useState(true); // true: Login, false: Register
 
@@ -64,7 +66,7 @@ function AuthModal({ isOpen, onClose }) {
     //         }
 
     //         if (response.data.success) {
-    //             onClose();
+    //             closeAuthModal();
     //         } else {
     //             setError(response.data.message || t('LAYOUTS.AUTH.ERROR.GENERIC'));
     //         }
@@ -82,20 +84,20 @@ function AuthModal({ isOpen, onClose }) {
             dispatch(loginUser(payload)).then((result) => {
                 if (result.meta.requestStatus === 'fulfilled') {
                     localStorage.setItem('isLoginMode', 'true');
-                    onClose();
+                    closeAuthModal();
                 }
             });
         } else {
             dispatch(registerUser(payload)).then((result) => {
                 if (result.meta.requestStatus === 'fulfilled') {
                     localStorage.setItem('isLoginMode', 'true');
-                    onClose();
+                    closeAuthModal();
                 }
             });
         }
     };
 
-    if (!isOpen) return null;
+    if (!isAuthModalOpen) return null;
 
     return (
         <div className={cx('modal-overlay')}>
@@ -156,7 +158,7 @@ function AuthModal({ isOpen, onClose }) {
                     {/* Error message */}
                     {error && <div className={cx('error-message')}>{error}</div>}
 
-                    <button className={cx('close-button')} onClick={onClose}>
+                    <button className={cx('close-button')} onClick={closeAuthModal}>
                         <CloseIcon width="2.4rem" height="2.4rem" />
                     </button>
                 </div>

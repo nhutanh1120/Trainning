@@ -4,15 +4,17 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBookmark, faCommentDots, faHeart, faPlus, faShare } from '@fortawesome/free-solid-svg-icons';
 import HeadlessTippy from '@tippyjs/react/headless';
 
-import ButtonIcon from './ButtonAction';
-import { Wrapper as PopperWrapper } from '~/components/Popper';
 import Button from '~/components/Button';
+import ButtonIcon from './ButtonAction';
+import { useAuthModal } from '~/contexts/AuthModalContext';
+import { Wrapper as PopperWrapper } from '~/components/Popper';
 import { follows } from '~/services/userService';
 import { likes } from '~/services/videoService';
 import styles from './ActionBar.module.scss';
 
 function ActionBar({ data }) {
     const user = useSelector((state) => state.auth.user);
+    const { openAuthModal } = useAuthModal();
     const [showBookmark, setShowBookmark] = useState(false);
     const [showShare, setShowShare] = useState(false);
 
@@ -50,14 +52,14 @@ function ActionBar({ data }) {
                 type="img"
                 active={user && isFollowed === 1}
                 showIcon={!user || (data.user.allows_followers === 1 && data.user.uuid !== user.uuid)}
-                onClick={handleFollows}
+                onClick={user ? handleFollows : openAuthModal}
                 src={data.user.avatar}
             />
 
             <ButtonIcon
                 type="icon"
                 active={isLiked === 1}
-                onClick={handleLikes}
+                onClick={user ? handleLikes : openAuthModal}
                 icon={<FontAwesomeIcon icon={faHeart} />}
                 count={likesCount}
             />
