@@ -4,19 +4,47 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleInfo } from '@fortawesome/free-solid-svg-icons';
 
 import UploadProgress from './UploadProgress';
-import { uploadVideo } from '~/services/videoService';
+import { uploadVideo } from '~/services/uploadService';
+import { createVideo } from '~/services/videoService';
 import Button from '~/components/Button';
 import styles from './UploadVideo.module.scss';
 
 const cx = classNames.bind(styles);
 
 function UploadVideo({ file, handleCancel }) {
+    const [videoPath, setVideoPath] = useState('');
     const [description, setDescription] = useState('');
     const [thumbnail, setThumbnail] = useState('https://files.fullstack.edu.vn/f8-tiktok/users/4854/646231eb7a517.png');
     const [message, setMessage] = useState('');
+
+    const [isUploading, setIsUploading] = useState(false);
     const [charCount, setCharCount] = useState(0);
 
+    const [percent, setPercent] = useState(0);
+    const [uploadedSize, setUploadedSize] = useState(0);
+    const [remainingTime, setRemainingTime] = useState(0);
+
     const textareaRef = useRef(null);
+
+    const handleProgress = (startTime) => (progressEvent) => {
+        const now = Date.now();
+        const elapsedTime = (now - startTime) / 1000;
+        const loaded = progressEvent.loaded;
+        const total = progressEvent.total;
+
+        const percent = Math.round((loaded * 100) / total);
+        const uploadedSize = (loaded / (1024 * 1024)).toFixed(2);
+
+        let remainingTime = null;
+        if (elapsedTime > 0 && loaded > 0) {
+            const speed = loaded / elapsedTime;
+            const remainingBytes = total - loaded;
+            remainingTime = remainingBytes / speed;
+        }
+        setPercent(percent);
+        setRemainingTime(remainingTime);
+        setUploadedSize(uploadedSize);
+    };
 
     const handleUpload = async () => {
         if (!file) {
@@ -26,15 +54,25 @@ function UploadVideo({ file, handleCancel }) {
 
         const formData = new FormData();
         formData.append('file', file);
-        formData.append('description', description);
 
-        const response = await uploadVideo(formData);
-        if (response.success === true) {
+        setIsUploading(true);
+        const startTime = Date.now();
+        const response = await uploadVideo(formData, handleProgress(startTime));
+        if (response.success) {
+            setVideoPath(response.path);
             setMessage('Video uploaded successfully!');
-            alert('Video uploaded successfully!');
         } else {
             setMessage('Failed to upload video.');
-            alert('Failed to upload video.');
+        }
+        setIsUploading(false);
+    };
+
+    const handleCreateVideo = async () => {
+        const response = await createVideo(videoPath, description);
+        if (response.success) {
+            setMessage('Video uploaded successfully!');
+        } else {
+            setMessage('Failed to upload video.');
         }
     };
 
@@ -64,9 +102,14 @@ function UploadVideo({ file, handleCancel }) {
         setCharCount(description.length);
     }, [description]);
 
+    useEffect(() => {
+        if (!file) return;
+        handleUpload();
+    }, [file]);
+
     return (
         <div className={cx('wrapper')}>
-            <UploadProgress file={file} />
+            <UploadProgress file={file} progress={percent} uploadedSize={uploadedSize} remainingTime={remainingTime} />
 
             <div className={cx('container')}>
                 <div className={cx('section')}>
@@ -97,7 +140,7 @@ function UploadVideo({ file, handleCancel }) {
                 </div>
 
                 <div className={cx('section')}>
-                    <Button primary onClick={handleUpload}>
+                    <Button primary onClick={handleCreateVideo} disabled={isUploading}>
                         Đăng video
                     </Button>
                     <Button primary className={cx('cancel')} onClick={handleCancel}>

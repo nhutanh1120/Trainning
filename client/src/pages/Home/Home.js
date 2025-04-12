@@ -68,9 +68,9 @@ function Home() {
     }, [page]);
 
     return (
-        <div className={cx('wrapper')}>
-            <div className={cx('list-content')}>
-                <LoadingOverlay loading={loading} fullScreen={false}>
+        <LoadingOverlay loading={loading} fullScreen={false}>
+            <div className={cx('wrapper')}>
+                <div className={cx('list-content')}>
                     {videos.map((video, index) => (
                         <article key={index} className={cx('content')} ref={(el) => (articlesRef.current[index] = el)}>
                             <Media
@@ -86,23 +86,26 @@ function Home() {
                             <ActionBar data={video} />
                         </article>
                     ))}
-                </LoadingOverlay>
+                </div>
+                <div className={cx('navigation')}>
+                    <button disabled={loading || currentIndex === 0} onClick={() => handleScroll('up')}>
+                        <AngleUpIcon width="2.4rem" height="2.4rem" />
+                    </button>
+                    <button
+                        disabled={loading || currentIndex === videos.length - 1}
+                        onClick={() => handleScroll('down')}
+                    >
+                        <AngleDownIcon width="2.4rem" height="2.4rem" />
+                    </button>
+                </div>
+                <div className={cx('promotion')}>
+                    <button className={cx('coin')}>
+                        <TiktokIcon width="1.4rem" height="1.4rem" />
+                        {t('HOME.GET_COINS')}
+                    </button>
+                </div>
             </div>
-            <div className={cx('navigation')}>
-                <button disabled={loading || currentIndex === 0} onClick={() => handleScroll('up')}>
-                    <AngleUpIcon width="2.4rem" height="2.4rem" />
-                </button>
-                <button disabled={loading || currentIndex === videos.length - 1} onClick={() => handleScroll('down')}>
-                    <AngleDownIcon width="2.4rem" height="2.4rem" />
-                </button>
-            </div>
-            <div className={cx('promotion')}>
-                <button className={cx('coin')}>
-                    <TiktokIcon width="1.4rem" height="1.4rem" />
-                    {t('HOME.GET_COINS')}
-                </button>
-            </div>
-        </div>
+        </LoadingOverlay>
     );
 }
 

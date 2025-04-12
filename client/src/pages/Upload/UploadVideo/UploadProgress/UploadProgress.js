@@ -4,15 +4,11 @@ import styles from './UploadProgress.module.scss';
 
 const cx = classNames.bind(styles);
 
-const UploadProgress = ({ file }) => {
-    const [progress, setProgress] = useState(0); // Tiến trình tải lên ban đầu (%)
-    const [uploadedSize, setUploadedSize] = useState(0); // MB đã tải lên
-    const [remainingTime, setRemainingTime] = useState(0); // Thời gian còn lại (giây)
+const UploadProgress = ({ file, progress, uploadedSize, remainingTime }) => {
     const [duration, setDuration] = useState(''); // Thời lượng video
 
     const totalSize = (file.size / (1024 * 1024)).toFixed(2); // Tổng dung lượng file (MB)
     const fileName = file.name; // Tên file
-    const uploadSpeed = 0.5; // Tốc độ tải lên (MB/s)
 
     useEffect(() => {
         const url = URL.createObjectURL(file);
@@ -31,29 +27,6 @@ const UploadProgress = ({ file }) => {
             setDuration(`${minutes} phút ${seconds} giây`);
         };
     }, [file]);
-
-    useEffect(() => {
-        const totalSizeMB = parseFloat(totalSize);
-        const initialRemainingTime = (totalSizeMB / uploadSpeed).toFixed(0); // Thời gian còn lại ban đầu (giây)
-        setRemainingTime(initialRemainingTime);
-
-        const interval = setInterval(() => {
-            setProgress((prev) => {
-                if (prev >= 100) {
-                    clearInterval(interval);
-                    return 100;
-                }
-                const newProgress = Math.min(prev + (uploadSpeed / totalSizeMB) * 100, 100);
-                const newUploadedSize = ((newProgress / 100) * totalSizeMB).toFixed(2);
-                const newRemainingTime = Math.max(((totalSizeMB - newUploadedSize) / uploadSpeed).toFixed(0), 0);
-                setUploadedSize(newUploadedSize);
-                setRemainingTime(newRemainingTime);
-                return newProgress;
-            });
-        }, 1000);
-
-        return () => clearInterval(interval);
-    }, [totalSize, uploadSpeed]);
 
     return (
         <div className={cx('uploadContainer')}>
@@ -78,7 +51,7 @@ const UploadProgress = ({ file }) => {
 
             {/* Phần trăm & nút Hủy */}
             <div className={cx('progressFooter')}>
-                <span>{progress.toFixed(2)}%</span>
+                <span>{progress}%</span>
                 <button className={cx('cancelButton')}>Hủy</button>
             </div>
         </div>

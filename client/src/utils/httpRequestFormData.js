@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const httpRequestFormData = axios.create({
     baseURL: process.env.REACT_APP_BASE_URL,
-    timeout: 10000, // Hủy request sau 10 giây
+    timeout: 120000, // Hủy request sau 120 giây
     withCredentials: true,
     headers: {
         'Content-Type': 'multipart/form-data',

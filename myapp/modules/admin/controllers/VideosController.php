@@ -10,6 +10,8 @@ use app\modules\admin\Response\VideosResponse;
 
 class VideosController extends CommonController
 {
+    const UPLOAD_DIR = '@webroot/uploads/videos/';
+
     public function actionIndex()
     {
         $searchModel = new VideosSearch();
@@ -45,7 +47,7 @@ class VideosController extends CommonController
                 'message' => 'Video not found.',
             ];
         }
-        
+
         $userUuid = Yii::$app->user->identity->uuid;
         $like = Likes::findOne(['user_uuid' => $userUuid, 'video_uuid' => $request['uuid']]);
 
@@ -84,5 +86,36 @@ class VideosController extends CommonController
             'success' => true,
             'data' => $video->toResponse(),
         ];
+    }
+
+    public function actionCreate()
+    {
+        $request = json_decode(Yii::$app->request->getRawBody(), true);
+
+        $tempPath = Yii::getAlias('@webroot') . $request['path'];
+        $filename = basename($tempPath);
+        $newPath = Yii::getAlias(self::UPLOAD_DIR) . $filename;
+        $relativeNewPath = '/uploads/videos/' . $filename;
+
+        // Di chuyển file
+        if (!rename($tempPath, $newPath)) {
+            return $this->asJson(['success' => false, 'message' => 'Không thể di chuyển video']);
+        }
+
+        $video = new Videos();
+        $video->uuid = Yii::$app->security->generateRandomString(36);
+        $video->user_uuid = Yii::$app->user->identity->uuid;
+        $video->file_path = $relativeNewPath;
+        $video->thumb_path = '/uploads/thumbs/.jpg';
+        $video->description = $request['description'];
+        // $video->music = $music;
+        // $video->allows = $allows;
+        // $video->viewable = $viewable;
+
+        if ($video->save()) {
+            return ['success' => true, 'items' => (new VideosResponse($video->attributes))->toResponse()];
+        }
+
+        return ['success' => false, 'errors' => $video->errors];
     }
 }

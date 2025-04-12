@@ -1,6 +1,5 @@
 import { Fragment, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { useTranslation } from 'react-i18next';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import AuthModal from '~/layouts/components/AuthModal';
@@ -11,7 +10,6 @@ import '~/i18n/i18n';
 
 function App() {
     const dispatch = useDispatch();
-    const { i18n } = useTranslation();
 
     useEffect(() => {
         const isLoginMode = localStorage.getItem('isLoginMode');
@@ -20,13 +18,6 @@ function App() {
             dispatch(fetchUser());
         }
     }, [dispatch]);
-
-    useEffect(() => {
-        const language = localStorage.getItem('language');
-        if (language) {
-            i18n.changeLanguage(language);
-        }
-    }, [i18n]);
 
     return (
         <Router>

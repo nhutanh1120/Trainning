@@ -11,7 +11,7 @@ import Comment from './Comment';
 import CommentInput from './CommentInput';
 import LoadingOverlay from '~/components/LoadingOverlay';
 import { useAuthModal } from '~/contexts/AuthModalContext';
-import { createComment, createReplyComment, getComments } from '~/services/CommentService';
+import { createComment, createReplyComment, getComments } from '~/services/commentService';
 import styles from './VideoDescription.module.scss';
 
 const cx = classNames.bind(styles);

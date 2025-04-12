@@ -36,7 +36,6 @@ function Header() {
             case 'language':
                 // Handle change language
                 i18n.changeLanguage(menuItem.code);
-                localStorage.setItem('language', menuItem.code);
                 break;
             default:
         }

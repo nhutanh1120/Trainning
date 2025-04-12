@@ -1,10 +1,22 @@
 import * as request from '~/utils/httpRequest';
-import * as requestFormData from '~/utils/httpRequestFormData';
 
 export const likes = async (uuid) => {
     try {
         const res = await request.post('videos/likes', {
             uuid,
+        });
+        return res.result;
+    } catch (error) {
+        console.log(error);
+        return [];
+    }
+};
+
+export const createVideo = async (path, description) => {
+    try {
+        const res = await request.post('videos/create', {
+            path,
+            description,
         });
         return res.result;
     } catch (error) {
@@ -22,16 +34,6 @@ export const getVideos = async ({ page = 1, pageSize = 5, type = 'for-you' }) =>
                 type,
             },
         });
-        return res.result;
-    } catch (error) {
-        console.log(error);
-        return [];
-    }
-};
-
-export const uploadVideo = async (formData) => {
-    try {
-        const res = await requestFormData.post('upload/video', formData);
         return res.result;
     } catch (error) {
         console.log(error);
