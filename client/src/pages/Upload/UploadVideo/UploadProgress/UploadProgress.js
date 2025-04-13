@@ -4,7 +4,7 @@ import styles from './UploadProgress.module.scss';
 
 const cx = classNames.bind(styles);
 
-const UploadProgress = ({ file, progress, uploadedSize, remainingTime }) => {
+const UploadProgress = ({ file, progress, uploadedSize, remainingTime, handleCancel }) => {
     const [duration, setDuration] = useState(''); // Thời lượng video
 
     const totalSize = (file.size / (1024 * 1024)).toFixed(2); // Tổng dung lượng file (MB)
@@ -52,7 +52,9 @@ const UploadProgress = ({ file, progress, uploadedSize, remainingTime }) => {
             {/* Phần trăm & nút Hủy */}
             <div className={cx('progressFooter')}>
                 <span>{progress}%</span>
-                <button className={cx('cancelButton')}>Hủy</button>
+                <button className={cx('cancelButton')} onClick={handleCancel}>
+                    Hủy
+                </button>
             </div>
         </div>
     );

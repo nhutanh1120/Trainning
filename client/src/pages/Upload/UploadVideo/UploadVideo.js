@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import classNames from 'classnames/bind';
+import { useTranslation } from 'react-i18next';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleInfo } from '@fortawesome/free-solid-svg-icons';
 
@@ -12,6 +13,7 @@ import styles from './UploadVideo.module.scss';
 const cx = classNames.bind(styles);
 
 function UploadVideo({ file, handleCancel }) {
+    const { t } = useTranslation();
     const [videoPath, setVideoPath] = useState('');
     const [description, setDescription] = useState('');
     const [thumbnail, setThumbnail] = useState('https://files.fullstack.edu.vn/f8-tiktok/users/4854/646231eb7a517.png');
@@ -39,7 +41,7 @@ function UploadVideo({ file, handleCancel }) {
         if (elapsedTime > 0 && loaded > 0) {
             const speed = loaded / elapsedTime;
             const remainingBytes = total - loaded;
-            remainingTime = remainingBytes / speed;
+            remainingTime = Math.round(remainingBytes / speed);
         }
         setPercent(percent);
         setRemainingTime(remainingTime);
@@ -109,11 +111,17 @@ function UploadVideo({ file, handleCancel }) {
 
     return (
         <div className={cx('wrapper')}>
-            <UploadProgress file={file} progress={percent} uploadedSize={uploadedSize} remainingTime={remainingTime} />
+            <UploadProgress
+                file={file}
+                progress={percent}
+                uploadedSize={uploadedSize}
+                remainingTime={remainingTime}
+                handleCancel={handleCancel}
+            />
 
             <div className={cx('container')}>
                 <div className={cx('section')}>
-                    <label className={cx('label')}>Mô tả</label>
+                    <label className={cx('label')}>{t('UPLOAD.UPLOAD_VIDEO.DESCRIPTION')}</label>
                     <textarea
                         ref={textareaRef}
                         className={cx('textarea')}
@@ -121,7 +129,7 @@ function UploadVideo({ file, handleCancel }) {
                         onChange={handleDescriptionChange}
                     />
                     <div className={cx('meta')}>
-                        <button onClick={handleAddHashtag}># Hashtag</button>
+                        <button onClick={handleAddHashtag}>{t('UPLOAD.UPLOAD_VIDEO.HASHTAG')}</button>
                         <button onClick={handleAddMention}>@ Nhắc đến</button>
                         <span>{charCount}/4000</span>
                     </div>

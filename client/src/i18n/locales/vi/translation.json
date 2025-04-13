@@ -114,6 +114,10 @@
         "ASPECT_RATIO": {
             "TITLE": "Tỷ lệ khung hình",
             "DESCRIPTION": "Đề xuất: 16:9 cho chế độ ngang, 9:16 cho chế độ dọc."
+        },
+        "UPLOAD_VIDEO": {
+            "DESCRIPTION": "Mô tả",
+            "HASHTAG": "# Hashtag"
         }
     }
 }

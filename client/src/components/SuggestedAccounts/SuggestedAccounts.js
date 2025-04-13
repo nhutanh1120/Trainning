@@ -32,9 +32,11 @@ function SuggestedAccounts({ loading = false, label, data = [], hasMore, onClick
                     <AccountItem key={account.uuid} data={account} />
                 ))}
 
-                <p className={cx('more-btn')} onClick={onClick}>
-                    {hasMore ? t('LAYOUTS.SIDEBAR.SEE_ALL') : t('LAYOUTS.SIDEBAR.SEE_LESS')}
-                </p>
+                {data.length >= 5 && (
+                    <p className={cx('more-btn')} onClick={onClick}>
+                        {hasMore ? t('LAYOUTS.SIDEBAR.SEE_ALL') : t('LAYOUTS.SIDEBAR.SEE_LESS')}
+                    </p>
+                )}
             </LoadingOverlay>
         </div>
     );

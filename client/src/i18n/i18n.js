@@ -29,6 +29,9 @@ i18n.use(Backend)
         interpolation: {
             escapeValue: false,
         },
+    })
+    .then(() => {
+        dayjs.locale(i18n.language);
     });
 
 // config dayjs
