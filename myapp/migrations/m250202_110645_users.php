@@ -22,7 +22,7 @@ class m250202_110645_users extends Migration
             'gender' => $this->string(10), // Example: male, female, other
             'bio' => $this->text(),
             'date_of_birth' => $this->integer(),
-            'email' => $this->string(100)->notNull()->unique(),
+            'email' => $this->string(100),
             'username' => $this->string(50)->notNull()->unique(),
             'password' => $this->string(255)->notNull(), // Store password hash
             'website_url' => $this->string(255),

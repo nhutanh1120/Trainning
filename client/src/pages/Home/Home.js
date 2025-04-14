@@ -83,7 +83,7 @@ function Home() {
                                 handleToggleMute={handleToggleMute}
                                 video={video}
                             />
-                            <ActionBar data={video} />
+                            <ActionBar videoData={video} />
                         </article>
                     ))}
                 </div>

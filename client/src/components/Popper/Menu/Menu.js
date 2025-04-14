@@ -28,7 +28,7 @@ function Menu({ children, items = [], hideOnClick = false, onChange = defaultFn 
             return (
                 <MenuItem
                     key={index}
-                    data={item}
+                    menuItem={item}
                     onClick={() => {
                         if (isParent) {
                             setHistory((prev) => [...prev, item.children]);

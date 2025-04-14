@@ -12,34 +12,34 @@ import { follows } from '~/services/userService';
 import { likes } from '~/services/videoService';
 import styles from './ActionBar.module.scss';
 
-function ActionBar({ data }) {
+function ActionBar({ videoData }) {
     const user = useSelector((state) => state.auth.user);
     const { openAuthModal } = useAuthModal();
     const [showBookmark, setShowBookmark] = useState(false);
     const [showShare, setShowShare] = useState(false);
 
-    const [isFollowed, setIsFollowed] = useState(data.user.is_followed || false);
+    const [isFollowed, setIsFollowed] = useState(videoData.user.is_followed || false);
 
-    const [isLiked, setIsLiked] = useState(data.is_liked || false);
-    const [likesCount, setLikesCount] = useState(data.likes_count || 0);
+    const [isLiked, setIsLiked] = useState(videoData.is_liked || false);
+    const [likesCount, setLikesCount] = useState(videoData.likes_count || 0);
 
     const handleFollows = async () => {
-        if (data.user.uuid === undefined) {
+        if (videoData.user.uuid === undefined) {
             return;
         }
 
-        const result = await follows(data.user.uuid);
+        const result = await follows(videoData.user.uuid);
         if (result.success) {
             setIsFollowed(result.is_followed);
         }
     };
 
     const handleLikes = async () => {
-        if (data.uuid === undefined) {
+        if (videoData.uuid === undefined) {
             return;
         }
 
-        const result = await likes(data.uuid);
+        const result = await likes(videoData.uuid);
         if (result.success) {
             setIsLiked(result.is_liked);
             setLikesCount(result.likes_count);
@@ -51,9 +51,9 @@ function ActionBar({ data }) {
             <ButtonIcon
                 type="img"
                 active={user && isFollowed === 1}
-                showIcon={!user || (data.user.allows_followers === 1 && data.user.uuid !== user.uuid)}
+                showIcon={!user || (videoData.user.allows_followers === 1 && videoData.user.uuid !== user.uuid)}
                 onClick={user ? handleFollows : openAuthModal}
-                src={data.user.avatar}
+                src={videoData.user.avatar}
             />
 
             <ButtonIcon
@@ -66,8 +66,8 @@ function ActionBar({ data }) {
 
             <ButtonIcon
                 type="icon"
-                to={`/video/${data.uuid}`}
-                count={data.comments_count || 0}
+                to={`/video/${videoData.uuid}`}
+                count={videoData.comments_count || 0}
                 icon={<FontAwesomeIcon icon={faCommentDots} />}
             />
 
@@ -89,7 +89,7 @@ function ActionBar({ data }) {
                 <ButtonIcon
                     type="icon"
                     icon={<FontAwesomeIcon icon={faBookmark} />}
-                    count={data.bookmarks_count || 0}
+                    count={videoData.bookmarks_count || 0}
                     onClick={() => setShowBookmark((prev) => !prev)}
                 />
             </HeadlessTippy>
@@ -105,7 +105,7 @@ function ActionBar({ data }) {
             >
                 <ButtonIcon
                     type="icon"
-                    count={data.shares_count || 0}
+                    count={videoData.shares_count || 0}
                     onClick={() => setShowShare((prev) => !prev)}
                     icon={<FontAwesomeIcon icon={faShare} />}
                 />

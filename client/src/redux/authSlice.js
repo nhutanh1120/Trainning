@@ -4,8 +4,8 @@ import { login, register, getMe, logout } from '~/services/authService';
 // Thunk: Đăng nhập
 export const loginUser = createAsyncThunk('auth/loginUser', async (payload, { rejectWithValue }) => {
     try {
-        const data = await login(payload);
-        return data.user;
+        const response = await login(payload);
+        return response.user;
     } catch (error) {
         return rejectWithValue('Lỗi server, vui lòng thử lại');
     }
@@ -14,8 +14,8 @@ export const loginUser = createAsyncThunk('auth/loginUser', async (payload, { re
 // Thunk: Đăng ký
 export const registerUser = createAsyncThunk('auth/registerUser', async (payload, { rejectWithValue }) => {
     try {
-        const data = await register(payload);
-        return data.user;
+        const response = await register(payload);
+        return response.user;
     } catch (error) {
         return rejectWithValue('Lỗi server, vui lòng thử lại');
     }
@@ -24,8 +24,8 @@ export const registerUser = createAsyncThunk('auth/registerUser', async (payload
 // Thunk: Kiểm tra trạng thái đăng nhập
 export const fetchUser = createAsyncThunk('auth/fetchUser', async (_, { rejectWithValue }) => {
     try {
-        const data = await getMe();
-        return data.user;
+        const response = await getMe();
+        return response.user;
     } catch {
         return rejectWithValue(null);
     }

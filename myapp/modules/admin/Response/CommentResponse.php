@@ -34,6 +34,6 @@ class CommentResponse extends Comments
      */
     public static function findCommentsByVideoUuid($videoUuid)
     {
-        return self::findAll(['video_uuid' => $videoUuid]);
+        return self::findAll(['video_uuid' => $videoUuid, 'parent_uuid' => null]);
     }
 }

@@ -2,6 +2,13 @@
     "COMMON": {
         "EMPTY_TEXT": "Không có dữ liệu"
     },
+    "COMPONENTS": {
+        "ACCOUNTS": {
+            "FOLLOW": "Follow",
+            "FOLLOWERS": "Followers",
+            "LIKES": "Lượt thích"
+        }
+    },
     "LAYOUTS": {
         "HEADER": {
             "LOGO": {

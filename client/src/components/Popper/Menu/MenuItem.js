@@ -8,26 +8,26 @@ import styles from './Menu.module.scss';
 
 const cx = classNames.bind(styles);
 
-function MenuItem({ data, onClick }) {
+function MenuItem({ menuItem, onClick }) {
     const classes = cx('menu-item', {
-        separate: data.separate,
-        active: data.active,
+        separate: menuItem.separate,
+        active: menuItem.active,
     });
     return (
         <Button
             className={classes}
-            leftIcon={data.icon}
-            rightIcon={data.active && <FontAwesomeIcon icon={faCheck} />}
-            to={data.to}
+            leftIcon={menuItem.icon}
+            rightIcon={menuItem.active && <FontAwesomeIcon icon={faCheck} />}
+            to={menuItem.to}
             onClick={onClick}
         >
-            {data.title}
+            {menuItem.title}
         </Button>
     );
 }
 
 MenuItem.propTypes = {
-    data: PropTypes.object.isRequired,
+    menuItem: PropTypes.object.isRequired,
     onClick: PropTypes.func,
 };
 

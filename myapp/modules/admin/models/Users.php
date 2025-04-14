@@ -69,7 +69,6 @@ class Users extends ActiveRecord
             [['avatar', 'password', 'website_url', 'facebook_url', 'youtube_url', 'twitter_url', 'instagram_url'], 'string', 'max' => 255],
             [['gender'], 'string', 'max' => 10],
             [['uuid'], 'unique'],
-            [['email'], 'unique'],
             [['nickname'], 'unique'],
             [['username'], 'unique'],
         ];

@@ -4,11 +4,10 @@ import { useTranslation } from 'react-i18next';
 import classNames from 'classnames/bind';
 
 import Button from '~/components/Button';
-import FormInput from './FormInput';
 import { useAuthModal } from '~/contexts/AuthModalContext';
 import { loginUser, registerUser } from '~/redux/authSlice';
-// import { login, register } from '~/services/authService';
 import { CloseIcon } from '~/components/Icons';
+import FormInput from './FormInput';
 import styles from './AuthModal.module.scss';
 
 const cx = classNames.bind(styles);
@@ -24,9 +23,6 @@ function AuthModal() {
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [confirmPasswordError, setConfirmPasswordError] = useState('');
-
-    // const [loading, setLoading] = useState(false);
-    // const [error, setError] = useState('');
 
     // Reset state when switching between login and register modes
     useEffect(() => {
@@ -48,34 +44,6 @@ function AuthModal() {
     const handleConfirmPasswordBlur = () => {
         setConfirmPasswordError(password !== confirmPassword ? t('LAYOUTS.AUTH.ERROR.PASSWORD_MISMATCH') : '');
     };
-
-    // const handleSubmit = async () => {
-    //     setLoading(true);
-    //     setError('');
-    //     try {
-    //         const payload = {
-    //             username,
-    //             password,
-    //         };
-
-    //         let response;
-    //         if (isLoginMode) {
-    //             response = await login(payload);
-    //         } else {
-    //             response = await register(payload);
-    //         }
-
-    //         if (response.data.success) {
-    //             closeAuthModal();
-    //         } else {
-    //             setError(response.data.message || t('LAYOUTS.AUTH.ERROR.GENERIC'));
-    //         }
-    //     } catch (error) {
-    //         setError(t('LAYOUTS.AUTH.ERROR.SERVER'));
-    //     } finally {
-    //         setLoading(false);
-    //     }
-    // };
 
     const handleSubmit = async () => {
         const payload = { username, password };

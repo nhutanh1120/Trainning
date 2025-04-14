@@ -15,6 +15,14 @@ class AuthController extends CommonController
             return ['success' => false, 'message' => 'Username và mật khẩu không thể trống'];
         }
 
+        $existingUser = UserResponse::findOne(['username' => $request['username']]);
+        if ($existingUser) {
+            return [
+                'success' => false,
+                'message' => 'Username đã tồn tại. Vui lòng chọn username khác.',
+            ];
+        }
+
         $user = new UserResponse();
         $user->uuid = Yii::$app->security->generateRandomString(36);
         $user->full_name = $request['username'];

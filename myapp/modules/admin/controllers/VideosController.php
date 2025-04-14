@@ -84,7 +84,7 @@ class VideosController extends CommonController
 
         return [
             'success' => true,
-            'data' => $video->toResponse(),
+            'items' => $video->toResponse(),
         ];
     }
 

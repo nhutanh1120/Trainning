@@ -1,9 +1,7 @@
-import { useState, useEffect } from 'react';
 import classNames from 'classnames/bind';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 
-import * as userService from '~/services/userService';
 import {
     HomeIcon,
     HomeActiveIcon,
@@ -18,67 +16,11 @@ import config from '~/config';
 import About from './About';
 import styles from './Sidebar.module.scss';
 
-const PAGE_SIZE = 5;
 const cx = classNames.bind(styles);
 
 function Sidebar() {
     const { t } = useTranslation();
     const user = useSelector((state) => state.auth.user);
-    const [initialData, setInitialData] = useState([]);
-    const [suggestedUsers, setSuggestedUsers] = useState([]);
-    const [followingUsers, setFollowingUsers] = useState([]);
-    const [page, setPage] = useState(1);
-    const [totalCount, setTotalCount] = useState(0);
-    const [hasMore, setHasMore] = useState(false);
-    const [loading, setLoading] = useState(false);
-
-    useEffect(() => {
-        fetchSuggestedUsers(1);
-        fetchFollowingUsers(1);
-    }, []);
-
-    const fetchSuggestedUsers = async (newPage) => {
-        if (0 < totalCount && totalCount <= initialData.length) {
-            const newData = initialData.slice(0, newPage * PAGE_SIZE);
-            setPage(newPage);
-            setSuggestedUsers(newData);
-            setHasMore(newData.length < initialData.length);
-            return;
-        }
-
-        setLoading(true);
-        const data = await userService.getSuggested({ page: newPage, page_size: PAGE_SIZE });
-        setLoading(false);
-
-        if (!data || data.length === 0) {
-            setHasMore(false);
-            return;
-        }
-
-        const updatedData = [...initialData, ...data.items];
-        setInitialData(updatedData);
-        setSuggestedUsers(updatedData);
-
-        setPage(newPage);
-        setTotalCount(data.pagination.totalCount);
-        setHasMore(updatedData.length < data.pagination.totalCount);
-    };
-
-    const fetchFollowingUsers = async (newPage) => {
-        const data = await userService.getSuggested({ page: newPage, page_size: PAGE_SIZE, type: 'foryou' });
-
-        setFollowingUsers(data.items);
-    };
-
-    const handleShowMore = () => {
-        fetchSuggestedUsers(page + 1);
-    };
-
-    const handleCollapse = () => {
-        setPage(1);
-        setHasMore(true);
-        setSuggestedUsers(initialData.slice(0, PAGE_SIZE));
-    };
 
     return (
         <aside className={cx('wrapper')}>
@@ -103,21 +45,9 @@ function Sidebar() {
                 />
             </Menu>
 
-            <SuggestedAccounts
-                loading={loading}
-                label={t('LAYOUTS.SIDEBAR.SUGGESTED_ACCOUNTS')}
-                data={suggestedUsers}
-                hasMore={hasMore}
-                onClick={hasMore ? handleShowMore : handleCollapse}
-            />
+            <SuggestedAccounts type="suggested" label={t('LAYOUTS.SIDEBAR.SUGGESTED_ACCOUNTS')} />
 
-            {user && (
-                <SuggestedAccounts
-                    label={t('LAYOUTS.SIDEBAR.FOLLOWING_ACCOUNTS')}
-                    data={followingUsers}
-                    hasMore={true}
-                />
-            )}
+            {user && <SuggestedAccounts type="foryou" label={t('LAYOUTS.SIDEBAR.FOLLOWING_ACCOUNTS')} />}
 
             <About />
         </aside>

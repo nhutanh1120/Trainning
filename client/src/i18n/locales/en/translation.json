@@ -2,6 +2,13 @@
     "COMMON": {
         "EMPTY_TEXT": "Empty data"
     },
+    "COMPONENTS": {
+        "ACCOUNTS": {
+            "FOLLOW": "Follow",
+            "FOLLOWERS": "Followers",
+            "LIKES": "Likes"
+        }
+    },
     "LAYOUTS": {
         "HEADER": {
             "LOGO": {

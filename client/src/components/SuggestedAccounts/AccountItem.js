@@ -11,12 +11,16 @@ import styles from './SuggestedAccounts.module.scss';
 
 const cx = classNames.bind(styles);
 
-function AccountItem({ data }) {
+function AccountItem({ type = 'suggested', account }) {
     const renderPreview = (props) => {
+        if (type === 'foryou') {
+            return null;
+        }
+
         return (
             <div tabIndex="-1" {...props}>
                 <PopperWrapper>
-                    <AccountPreview data={data} />
+                    <AccountPreview account={account} />
                 </PopperWrapper>
             </div>
         );
@@ -26,13 +30,13 @@ function AccountItem({ data }) {
         <div>
             <Tippy interactive delay={[800, 0]} offset={[-20, 0]} placement="bottom" render={renderPreview}>
                 <div className={cx('account-item')}>
-                    <Image className={cx('avatar')} src={data.avatar} alt={data.nickname} />
+                    <Image className={cx('avatar')} src={account.avatar} alt={account.nickname} />
                     <div className={cx('item-info')}>
                         <p className={cx('nickname')}>
-                            <strong>{data.nickname}</strong>
-                            {data.tick !== 0 && <FontAwesomeIcon className={cx('check')} icon={faCheckCircle} />}
+                            <strong>{account.nickname}</strong>
+                            {account.tick !== 0 && <FontAwesomeIcon className={cx('check')} icon={faCheckCircle} />}
                         </p>
-                        <p className={cx('name')}>{`${data.first_name} ${data.last_name}`}</p>
+                        <p className={cx('name')}>{`${account.first_name} ${account.last_name}`}</p>
                     </div>
                 </div>
             </Tippy>
@@ -41,7 +45,8 @@ function AccountItem({ data }) {
 }
 
 AccountItem.propTypes = {
-    data: PropTypes.object.isRequired,
+    type: PropTypes.oneOf(['suggested', 'foryou']),
+    account: PropTypes.object.isRequired,
 };
 
 export default AccountItem;

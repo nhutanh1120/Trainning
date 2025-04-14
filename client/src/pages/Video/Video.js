@@ -18,8 +18,8 @@ function Video() {
 
     useEffect(() => {
         const fetchVideo = async () => {
-            const data = await getVideoByUuid(uuid);
-            setVideoData(data);
+            const res = await getVideoByUuid(uuid);
+            setVideoData(res);
         };
 
         fetchVideo();
@@ -35,8 +35,8 @@ function Video() {
 
     return (
         <div className={cx('wrapper')}>
-            <VideoCard url={videoData.data.file_path} />
-            <VideoDescription videoData={videoData.data} />
+            <VideoCard url={videoData.items.file_path} />
+            <VideoDescription videoData={videoData.items} />
         </div>
     );
 }
