@@ -111,6 +111,15 @@
   ```
   mysql.default_port=:port
   ```
+  Sửa lại dung lượng file upload
+  ```
+  upload_max_filesize = 200M
+  post_max_size = 210M
+  file_uploads = On
+  max_execution_time = 300
+  max_input_time = 300
+  memory_limit = 512M
+  ```
 
   Sửa cấu hình file \xampp\phpMyAdmin\config.inc.php
 
@@ -145,3 +154,76 @@
   ```
   php yii fixture/load '*'
   ```
+
+7. Cấu trúc dự án reactjs
+   📦 my-react-app
+   ├── 📂 public
+   │ ├── index.html
+   │ ├── favicon.ico
+   │ ├── logo.png
+   │ └── ...
+   ├── 📂 src
+   │ ├── 📂 assets # Chứa hình ảnh, fonts, styles dùng chung
+   │ │ ├── images
+   │ │ ├── fonts
+   │ │ └── styles
+   │ │ ├── global.css
+   │ │ └── variables.css
+   │ ├── 📂 components # Chứa các component tái sử dụng
+   │ │ ├── Button.jsx
+   │ │ ├── Modal.jsx
+   │ │ └── ...
+   │ ├── 📂 features # Chia nhỏ theo từng tính năng (nếu dùng Redux Toolkit)
+   │ │ ├── auth
+   │ │ │ ├── AuthSlice.js
+   │ │ │ ├── LoginForm.jsx
+   │ │ │ └── RegisterForm.jsx
+   │ │ ├── posts
+   │ │ │ ├── PostList.jsx
+   │ │ │ ├── PostItem.jsx
+   │ │ │ ├── postSlice.js
+   │ │ │ └── ...
+   │ ├── 📂 contexts # Chứa Context API (nếu dùng)
+   │ │ ├── AuthContext.js
+   │ │ ├── ThemeContext.js
+   │ │ └── ...
+   │ ├── 📂 hooks # Custom hooks
+   │ │ ├── useAuth.js
+   │ │ ├── useFetch.js
+   │ │ └── ...
+   │ ├── 📂 layouts # Chứa layout tổng thể của ứng dụng
+   │ │ ├── MainLayout.jsx
+   │ │ ├── AdminLayout.jsx
+   │ │ └── ...
+   │ ├── 📂 pages # Chứa các trang chính
+   │ │ ├── Home.jsx
+   │ │ ├── Login.jsx
+   │ │ ├── Register.jsx
+   │ │ ├── Profile.jsx
+   │ │ └── ...
+   │ ├── 📂 redux # Chứa Redux store, nếu dùng Redux
+   │ │ ├── store.js
+   │ │ ├── authSlice.js
+   │ │ ├── postSlice.js
+   │ │ └── ...
+   │ ├── 📂 routes # Chứa định tuyến
+   │ │ ├── AppRoutes.jsx
+   │ │ └── PrivateRoute.jsx
+   │ ├── 📂 services # Chứa API services
+   │ │ ├── authService.js
+   │ │ ├── postService.js
+   │ │ └── ...
+   │ ├── 📂 utils # Chứa các hàm tiện ích dùng chung
+   │ │ ├── formatDate.js
+   │ │ ├── storage.js
+   │ │ ├── constants.js
+   │ │ └── ...
+   │ ├── App.jsx
+   │ ├── main.jsx
+   │ ├── index.css
+   │ └── ...
+   ├── 📜 package.json
+   ├── 📜 .gitignore
+   └── 📜 README.md
+
+

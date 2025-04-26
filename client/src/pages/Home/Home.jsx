@@ -92,7 +92,7 @@ function Home() {
                         <AngleUpIcon width="2.4rem" height="2.4rem" />
                     </button>
                     <button
-                        disabled={loading || currentIndex === videos.length - 1}
+                        disabled={loading || videos.length === 0 || currentIndex === videos.length - 1}
                         onClick={() => handleScroll('down')}
                     >
                         <AngleDownIcon width="2.4rem" height="2.4rem" />

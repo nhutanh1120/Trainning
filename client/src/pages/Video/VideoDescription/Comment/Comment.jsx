@@ -8,7 +8,7 @@ import { faHeart } from '@fortawesome/free-regular-svg-icons';
 
 import Image from '~/components/Image';
 import Button from '~/components/Button';
-import CommentInput from './../CommentInput';
+import CommentInput from '../CommentInput';
 import styles from './Comment.module.scss';
 
 const cx = classNames.bind(styles);

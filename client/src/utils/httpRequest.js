@@ -1,7 +1,8 @@
 import axios from 'axios';
 
 const httpRequest = axios.create({
-    baseURL: process.env.REACT_APP_BASE_URL,
+    // baseURL: import.meta.env.REACT_APP_BASE_URL,
+    baseURL: "/api/admin",
     timeout: 5000, // Hủy request sau 5 giây
     withCredentials: true,
     headers: {

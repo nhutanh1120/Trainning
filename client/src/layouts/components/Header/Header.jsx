@@ -13,9 +13,9 @@ import Button from '~/components/Button';
 import images from '~/assets/images';
 import Menu from '~/components/Popper/Menu';
 import Image from '~/components/Image';
-import Search from './../Search';
+import Search from '../Search';
 import { useAuthModal } from '~/contexts/AuthModalContext';
-import { useMenuItems, useUserMenu } from './../Utils';
+import { useMenuItems, useUserMenu } from '../Utils';
 import { InboxIcon, MessageIcon, UploadIcon } from '~/components/Icons';
 import styles from './Header.module.scss';
 

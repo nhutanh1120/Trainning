@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 
 import * as userService from '~/services/userService';
 import AccountItem from './AccountItem';
-import LoadingOverlay from './../LoadingOverlay';
+import LoadingOverlay from '../LoadingOverlay';
 import styles from './SuggestedAccounts.module.scss';
 
 const PAGE_SIZE = 5;
