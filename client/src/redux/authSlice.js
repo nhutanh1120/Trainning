@@ -27,13 +27,14 @@ export const fetchUser = createAsyncThunk('auth/fetchUser', async (_, { rejectWi
         const response = await getMe();
         return response.user;
     } catch {
+        localStorage.removeItem('isLoginMode');
         return rejectWithValue(null);
     }
 });
 
 // Thunk: Đăng xuất
 export const logoutUser = createAsyncThunk('auth/logoutUser', async () => {
-    localStorage.removeItem('authToken');
+    localStorage.removeItem('isLoginMode');
     await logout();
     return null;
 });

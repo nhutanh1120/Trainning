@@ -8,6 +8,7 @@ import UploadProgress from './UploadProgress';
 import { uploadVideo } from '~/services/uploadService';
 import { createVideo } from '~/services/videoService';
 import Button from '~/components/Button';
+import VideoThumbnailPicker from './VideoThumbnailPicker';
 import styles from './UploadVideo.module.scss';
 
 const cx = classNames.bind(styles);
@@ -25,6 +26,8 @@ function UploadVideo({ file, handleCancel }) {
     const [percent, setPercent] = useState(0);
     const [uploadedSize, setUploadedSize] = useState(0);
     const [remainingTime, setRemainingTime] = useState(0);
+
+    const [showThumbnailPicker, setShowThumbnailPicker] = useState(false);
 
     const textareaRef = useRef(null);
 
@@ -100,6 +103,18 @@ function UploadVideo({ file, handleCancel }) {
         }
     };
 
+    const handleOpenThumbnailPicker = () => {
+        setShowThumbnailPicker(true);
+    };
+
+    const handleCloseThumbnailPicker = () => {
+        setShowThumbnailPicker(false);
+    };
+
+    const handleConfirmThumbnail = (thumbnail) => {
+        setThumbnail(thumbnail);
+    };
+
     useEffect(() => {
         setCharCount(description.length);
     }, [description]);
@@ -136,13 +151,13 @@ function UploadVideo({ file, handleCancel }) {
                 </div>
 
                 <div className={cx('section')}>
-                    <label className={styles.label}>
+                    <label className={cx('label')}>
                         Ảnh bìa <FontAwesomeIcon icon={faCircleInfo} />
                     </label>
-                    <div className={styles.thumbnailWrapper}>
-                        <img src={thumbnail} alt="Thumbnail" className={styles.thumbnail} />
-                        <div className={styles.overlay}>
-                            <button className={styles.editButton}>Sửa ảnh bìa</button>
+                    <div className={cx('thumbnail-wrapper')}>
+                        <img src={thumbnail} alt="Thumbnail" className={cx('thumbnail')} />
+                        <div className={cx('overlay')} onClick={handleOpenThumbnailPicker}>
+                            <button className={cx('edit-button')}>Sửa ảnh bìa</button>
                         </div>
                     </div>
                 </div>
@@ -156,6 +171,13 @@ function UploadVideo({ file, handleCancel }) {
                     </Button>
                 </div>
             </div>
+
+            <VideoThumbnailPicker
+                file={file}
+                visible={showThumbnailPicker}
+                onClose={handleCloseThumbnailPicker}
+                onConfirm={handleConfirmThumbnail}
+            />
         </div>
     );
 }

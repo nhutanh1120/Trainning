@@ -28,21 +28,21 @@
     text-align: center;
     background-color: #f8f8f8;
     transition: 0.3s;
-}
 
-.upload-box:hover {
-    background-color: #f1f1f1;
-    border-color: #0075dc !important;
-}
+    &:hover {
+        background-color: #0075dc0f;
+        border-color: #0075dc !important;
+    }
 
-.upload-icon {
-    color: #ccc;
-    margin-bottom: 10px;
-}
+    .upload-icon {
+        color: #ccc;
+        margin-bottom: 10px;
+    }
 
-.upload-button {
-    margin: 20px;
-    padding: 10px 45px;
+    .upload-button {
+        margin: 20px;
+        padding: 10px 45px;
+    }
 }
 
 .upload-info {

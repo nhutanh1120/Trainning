@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const httpRequestFormData = axios.create({
-    baseURL: import.meta.env.REACT_APP_BASE_URL,
+    baseURL: import.meta.env.VITE_BASE_URL,
     timeout: 120000, // Hủy request sau 120 giây
     withCredentials: true,
     headers: {

@@ -55,6 +55,7 @@
 
         &:disabled {
             cursor: not-allowed;
+            color: #000;
             opacity: 0.4;
         }
     }

@@ -227,7 +227,14 @@ export const PictureToPictureIcon = ({ width = '3.2rem', height = '3.2rem', clas
 );
 
 export const AngleUpIcon = ({ width = '3.2rem', height = '3.2rem', className }) => (
-    <svg className={className} width={width} height={height} viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+    <svg
+        className={className}
+        width={width}
+        height={height}
+        viewBox="0 0 48 48"
+        fill="currentColor"
+        xmlns="http://www.w3.org/2000/svg"
+    >
         <path d="m24 20.24 13.17 13.17a1 1 0 0 0 1.42 0l2.82-2.82a1 1 0 0 0 0-1.42L25.06 12.82a1.5 1.5 0 0 0-2.12 0L6.59 29.17a1 1 0 0 0 0 1.42L9.4 33.4a1 1 0 0 0 1.42 0L24 20.24Z"></path>
     </svg>
 );

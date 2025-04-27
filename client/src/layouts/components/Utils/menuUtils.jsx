@@ -62,7 +62,7 @@ export const getUserMenu = (uuid, t, activeLanguage) => [
     {
         icon: <FontAwesomeIcon icon={faUser} />,
         title: t('LAYOUTS.HEADER.MENU.VIEW_PROFILE'),
-        to: `${config.routes.coin}${uuid}`,
+        to: `${config.routes.profile}/${uuid}`,
     },
     {
         icon: <FontAwesomeIcon icon={faCoins} />,

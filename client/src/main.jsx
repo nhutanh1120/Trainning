@@ -8,13 +8,13 @@ import { AuthModalProvider } from '~/contexts/AuthModalContext';
 import GlobalStyles from './components/GlobalStyles';
 
 createRoot(document.getElementById('root')).render(
-    <StrictMode>
-        <Provider store={store}>
-            <AuthModalProvider>
-                <GlobalStyles>
-                    <App />
-                </GlobalStyles>
-            </AuthModalProvider>
-        </Provider>
-    </StrictMode>,
+    // <StrictMode>
+    <Provider store={store}>
+        <AuthModalProvider>
+            <GlobalStyles>
+                <App />
+            </GlobalStyles>
+        </AuthModalProvider>
+    </Provider>,
+    // </StrictMode>,
 );
