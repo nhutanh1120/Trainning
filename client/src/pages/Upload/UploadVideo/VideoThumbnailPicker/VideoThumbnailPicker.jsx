@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import classNames from 'classnames/bind';
 
-import Modal from '~/components/Modal/Modal';
+import Modal from '~/components/Modal';
 import styles from './VideoThumbnailPicker.module.scss';
 
 const cx = classNames.bind(styles);
@@ -70,11 +70,15 @@ const VideoThumbnailPicker = ({ file, visible, onClose, onConfirm }) => {
     return (
         <Modal
             open={visible}
-            onOk={handleOk}
             onClose={onClose}
-            title="Chọn ảnh đại diện"
+            title="Chọn ảnh bìa"
             width={800}
             maskClosable={false}
+            footer={
+                <button className={cx('confirm-button')} onClick={handleOk}>
+                    Xác nhận
+                </button>
+            }
         >
             <div className={cx('wrapper')}>
                 <div className={cx('preview')}>
@@ -92,10 +96,6 @@ const VideoThumbnailPicker = ({ file, visible, onClose, onConfirm }) => {
                         />
                     ))}
                 </div>
-
-                <button className={cx('confirm-button')} onClick={handleOk}>
-                    Xác nhận
-                </button>
             </div>
         </Modal>
     );

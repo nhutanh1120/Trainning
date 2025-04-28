@@ -9,6 +9,7 @@ import { uploadVideo } from '~/services/uploadService';
 import { createVideo } from '~/services/videoService';
 import Button from '~/components/Button';
 import VideoThumbnailPicker from './VideoThumbnailPicker';
+import PreviewPhone from './PreviewPhone';
 import styles from './UploadVideo.module.scss';
 
 const cx = classNames.bind(styles);
@@ -122,6 +123,7 @@ function UploadVideo({ file, handleCancel }) {
     useEffect(() => {
         if (!file) return;
         handleUpload();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [file]);
 
     return (
@@ -134,43 +136,88 @@ function UploadVideo({ file, handleCancel }) {
                 handleCancel={handleCancel}
             />
 
-            <div className={cx('container')}>
-                <div className={cx('section')}>
-                    <label className={cx('label')}>{t('UPLOAD.UPLOAD_VIDEO.DESCRIPTION')}</label>
-                    <textarea
-                        ref={textareaRef}
-                        className={cx('textarea')}
-                        value={description}
-                        onChange={handleDescriptionChange}
-                    />
-                    <div className={cx('meta')}>
-                        <button onClick={handleAddHashtag}>{t('UPLOAD.UPLOAD_VIDEO.HASHTAG')}</button>
-                        <button onClick={handleAddMention}>@ Nhắc đến</button>
-                        <span>{charCount}/4000</span>
+            <div className={cx('upload-body')}>
+                <div className={cx('upload-form')}>
+                    <div className={cx('section')}>
+                        <label className={cx('label')}>{t('UPLOAD.UPLOAD_VIDEO.DESCRIPTION')}</label>
+                        <textarea
+                            ref={textareaRef}
+                            className={cx('textarea')}
+                            value={description}
+                            onChange={handleDescriptionChange}
+                        />
+                        <div className={cx('meta')}>
+                            <button onClick={handleAddHashtag}>{t('UPLOAD.UPLOAD_VIDEO.HASHTAG')}</button>
+                            <button onClick={handleAddMention}>@ Nhắc đến</button>
+                            <span>{charCount}/4000</span>
+                        </div>
+                    </div>
+
+                    <div className={cx('section')}>
+                        <label className={cx('label')}>
+                            Ảnh bìa <FontAwesomeIcon icon={faCircleInfo} />
+                        </label>
+                        <div className={cx('thumbnail-wrapper')}>
+                            <img src={thumbnail} alt="Thumbnail" className={cx('thumbnail')} />
+                            <div className={cx('overlay')} onClick={handleOpenThumbnailPicker}>
+                                <button className={cx('edit-button')}>Sửa ảnh bìa</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className={cx('section')}>
+                        <Button primary onClick={handleCreateVideo} disabled={isUploading}>
+                            Đăng video
+                        </Button>
+                        <Button primary className={cx('cancel')} onClick={handleCancel}>
+                            Hủy bỏ
+                        </Button>
                     </div>
                 </div>
+                <div className={cx('upload-preview')}>
+                    <div className={cx('phone-frame')}>
+                        <div className={cx('video-container')}>
+                            <video src={'previewUrl'} controls className={cx('upload-preview-video')} />
 
-                <div className={cx('section')}>
-                    <label className={cx('label')}>
-                        Ảnh bìa <FontAwesomeIcon icon={faCircleInfo} />
-                    </label>
-                    <div className={cx('thumbnail-wrapper')}>
-                        <img src={thumbnail} alt="Thumbnail" className={cx('thumbnail')} />
-                        <div className={cx('overlay')} onClick={handleOpenThumbnailPicker}>
-                            <button className={cx('edit-button')}>Sửa ảnh bìa</button>
+                            {/* Overlay phần thông tin video */}
+                            <div className={cx('video-info')}>
+                                <div className={cx('info-text')}>
+                                    <p className={cx('username')}>@usert0n6tevjoe</p>
+                                    <p className={cx('description')}>video1</p>
+                                    <p className={cx('music')}>🎵 Âm thanh gốc - usert0n6tevjoe</p>
+                                </div>
+
+                                {/* Các nút bên phải */}
+                                <div className={cx('actions')}>
+                                    <button className={cx('action-button')}>
+                                        <i className="fa-solid fa-heart"></i>
+                                    </button>
+                                    <button className={cx('action-button')}>
+                                        <i className="fa-solid fa-comment-dots"></i>
+                                    </button>
+                                    <button className={cx('action-button')}>
+                                        <i className="fa-solid fa-share"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            {/* Thanh thời gian */}
+                            <div className={cx('progress-bar')}>
+                                <div className={cx('progress')} style={{ width: `30%` }}></div>
+                            </div>
                         </div>
                     </div>
                 </div>
-
-                <div className={cx('section')}>
-                    <Button primary onClick={handleCreateVideo} disabled={isUploading}>
-                        Đăng video
-                    </Button>
-                    <Button primary className={cx('cancel')} onClick={handleCancel}>
-                        Hủy bỏ
-                    </Button>
-                </div>
             </div>
+
+            <PreviewPhone
+                videoSrc="link/video.mp4"
+                username="usert0n6tevjoe"
+                description="video1"
+                musicTitle="Âm thanh gốc"
+                avatarUrl="link/avatar.png"
+                progress={50}
+            />
 
             <VideoThumbnailPicker
                 file={file}

@@ -9,6 +9,7 @@ const Modal = ({
     open,
     title,
     children,
+    footer,
     onClose,
     onOk,
     okText = 'OK',
@@ -57,14 +58,20 @@ const Modal = ({
 
                 <div className={cx('modal-body')}>{children}</div>
 
-                <div className={cx('modal-footer')}>
-                    <button className={cx('cancel-button')} onClick={onClose}>
-                        {cancelText}
-                    </button>
-                    <button className={cx('ok-button')} disabled={loading} onClick={onOk}>
-                        {loading ? 'Đang tải...' : okText}
-                    </button>
-                </div>
+                {footer !== null && (
+                    <div className={cx('modal-footer')}>
+                        {footer ?? (
+                            <>
+                                <button className={cx('cancel-button')} onClick={onClose}>
+                                    {cancelText}
+                                </button>
+                                <button className={cx('ok-button')} disabled={loading} onClick={onOk}>
+                                    {loading ? 'Đang tải...' : okText}
+                                </button>
+                            </>
+                        )}
+                    </div>
+                )}
             </div>
         </div>
     );
