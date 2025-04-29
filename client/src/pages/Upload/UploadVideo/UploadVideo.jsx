@@ -174,15 +174,6 @@ function UploadVideo({ file, handleCancel }) {
                         </Button>
                     </div>
                 </div>
-                <div className={cx('upload-preview')}>
-                    <div className={cx('phone-frame')}>
-                        <div className={cx('video-container')}>
-                            <video src={'previewUrl'} controls className={cx('upload-preview-video')} />
-
-                            {/* Overlay phần thông tin video */}
-                            <div className={cx('video-info')}>
-                                <div className={cx('info-text')}>
-                                    <p className={cx('username')}>@usert0n6tevjoe</p>
                                     <p className={cx('description')}>video1</p>
                                     <p className={cx('music')}>🎵 Âm thanh gốc - usert0n6tevjoe</p>
                                 </div>
@@ -204,20 +195,15 @@ function UploadVideo({ file, handleCancel }) {
                             {/* Thanh thời gian */}
                             <div className={cx('progress-bar')}>
                                 <div className={cx('progress')} style={{ width: `30%` }}></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <PreviewPhone
+                    videoSrc={file}
+                    username="usert0n6tevjoe"
+                    description="video1"
+                    musicTitle="Âm thanh gốc - usert0n6tevjoe"
+                    avatarUrl="link/avatar.png"
+                    progress={50}
+                />
             </div>
-
-            <PreviewPhone
-                videoSrc="link/video.mp4"
-                username="usert0n6tevjoe"
-                description="video1"
-                musicTitle="Âm thanh gốc"
-                avatarUrl="link/avatar.png"
-                progress={50}
-            />
 
             <VideoThumbnailPicker
                 file={file}

@@ -1,22 +1,49 @@
+.upload-preview {
+    position: relative;
+    width: 280px;
+    background-color: red;
+}
+
+.phone-background {
+    width: 422px;
+    height: 851px;
+    transform: scale(0.66);
+    background-image: url('~/assets/images/apple-iphone-13.png');
+    background-size: 100%;
+    transform-origin: 0px 0px;
+}
+
 .phone-frame {
-    width: 320px;
-    height: 600px;
-    background: #000;
-    border-radius: 30px;
-    overflow: hidden;
     display: flex;
     flex-direction: column;
-    position: relative;
+    position: absolute;
+    width: 375px;
+    height: 812px;
+    top: 13px;
+    left: 16px;
     color: #fff;
-    border: 10px solid #000;
+    background: #5e6d7a8a;
+    transform: scale(0.66);
+    border-radius: 45px;
+    overflow: hidden;
+    transform-origin: 0px 0px;
+
+    // mask-image: radial-gradient(circle 30px at 50% 0px, transparent 29px, black 30px),
+    //     /* notch */ linear-gradient(black, black); /* phần còn lại */
+
+    // -webkit-mask-image: radial-gradient(circle 30px at 50% 0px, transparent 29px, black 30px),
+    //     linear-gradient(black, black);
+
+    // -webkit-mask-composite: destination-out;
+    // mask-composite: exclude;
 }
 
 .phone-header {
-    height: 30px;
+    height: 50px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 12px;
+    padding: 0 40px;
     font-size: 12px;
 
     .icons {
@@ -28,78 +55,78 @@
 .video-container {
     flex: 1;
     position: relative;
-}
 
-.video {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.overlay {
-    position: absolute;
-    top: 0;
-    bottom: 50px;
-    left: 0;
-    right: 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    padding: 16px;
-}
-
-.video-info {
-    flex: 1;
-
-    .username {
-        font-weight: bold;
-        margin-bottom: 6px;
+    .video {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
     }
 
-    .description {
-        font-size: 14px;
-        margin-bottom: 6px;
-    }
-
-    .music {
-        font-size: 12px;
+    .overlay {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
         display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        padding: 16px;
+    }
+
+    .video-info {
+        flex: 1;
+
+        .username {
+            font-weight: bold;
+            margin-bottom: 6px;
+        }
+
+        .description {
+            font-size: 14px;
+            margin-bottom: 6px;
+        }
+
+        .music {
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+    }
+
+    .actions {
+        display: flex;
+        flex-direction: column;
         align-items: center;
-        gap: 4px;
-    }
-}
+        gap: 20px;
 
-.actions {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
+        .avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 2px solid #fff;
+            margin-bottom: 10px;
+        }
 
-    .avatar {
-        width: 50px;
-        height: 50px;
-        border-radius: 50%;
-        border: 2px solid #fff;
-        margin-bottom: 10px;
-    }
-
-    .icon {
-        font-size: 20px;
+        .icon {
+            font-size: 20px;
+        }
     }
 }
 
 .progress-bar {
     position: absolute;
-    bottom: 50px;
     left: 0;
+    bottom: 2px;
     width: 100%;
     height: 3px;
     background: rgba(255, 255, 255, 0.3);
-}
 
-.progress {
-    height: 100%;
-    background: #fff;
+    .progress {
+        height: 100%;
+        background: #fff;
+    }
 }
 
 .phone-footer {
