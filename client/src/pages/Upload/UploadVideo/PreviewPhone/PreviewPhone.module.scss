@@ -1,7 +1,7 @@
 .upload-preview {
     position: relative;
     width: 280px;
-    background-color: red;
+    height: 565px;
 }
 
 .phone-background {
@@ -28,14 +28,37 @@
     overflow: hidden;
     transform-origin: 0px 0px;
 
-    // mask-image: radial-gradient(circle 30px at 50% 0px, transparent 29px, black 30px),
-    //     /* notch */ linear-gradient(black, black); /* phần còn lại */
-
-    // -webkit-mask-image: radial-gradient(circle 30px at 50% 0px, transparent 29px, black 30px),
-    //     linear-gradient(black, black);
-
+    // mask-image: linear-gradient(black, black), radial-gradient(circle 30px at 50% 0px, black 29px, transparent 30px);
+    // -webkit-mask-image: linear-gradient(black, black),
+    //     radial-gradient(circle 30px at 50% 0px, black 29px, transparent 30px);
     // -webkit-mask-composite: destination-out;
     // mask-composite: exclude;
+
+    // mask-image: linear-gradient(black, black),
+    //     radial-gradient(ellipse 75px 12.5px at 50% 0px, black 24px, transparent 25px);
+    // -webkit-mask-image: linear-gradient(black, black),
+    //     radial-gradient(ellipse 75px 12.5px at 50% 0px, black 24px, transparent 25px);
+    // -webkit-mask-composite: destination-out;
+    // mask-composite: exclude;
+
+    // mask-image: linear-gradient(black, black),
+    //     linear-gradient(to top, transparent 96%, transparent 20px, black 20px, black 100%);
+    // -webkit-mask-image: linear-gradient(black, black),
+    //     linear-gradient(to top, transparent 96%, transparent 20px, black 20px, black 100%);
+    // -webkit-mask-composite: destination-out;
+    // mask-composite: exclude;
+
+    &::after {
+        content: '';
+        position: absolute;
+        width: 40%;
+        height: 25px;
+        background: black;
+        top: 0;
+        left: 110px;
+        border-radius: 0 0 15px 15px;
+        z-index: 10;
+    }
 }
 
 .phone-header {
@@ -44,7 +67,7 @@
     justify-content: space-between;
     align-items: center;
     padding: 0 40px;
-    font-size: 12px;
+    font-size: 14px;
 
     .icons {
         display: flex;
@@ -71,7 +94,7 @@
         display: flex;
         justify-content: space-between;
         align-items: flex-end;
-        padding: 16px;
+        padding: 16px 10px;
     }
 
     .video-info {
@@ -85,6 +108,7 @@
         .description {
             font-size: 14px;
             margin-bottom: 6px;
+            white-space: pre-line;
         }
 
         .music {
@@ -100,6 +124,7 @@
         flex-direction: column;
         align-items: center;
         gap: 20px;
+        // padding-bottom: 50px;
 
         .avatar {
             width: 50px;
@@ -111,6 +136,22 @@
 
         .icon {
             font-size: 20px;
+        }
+
+        .music {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #312e2e;
+            animation: spin 8s linear infinite;
+
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                border-radius: 50%;
+                border: 4px solid #312e2e;
+            }
         }
     }
 }
@@ -146,5 +187,14 @@
     .plus-icon {
         font-size: 24px;
         color: #ff2c55;
+    }
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
     }
 }

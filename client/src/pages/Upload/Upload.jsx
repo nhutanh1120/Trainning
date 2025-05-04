@@ -17,7 +17,17 @@ function Upload() {
     const [acceptedFiles, setAcceptedFiles] = useState(null);
 
     const onDrop = useCallback((acceptedFiles) => {
-        setAcceptedFiles(acceptedFiles);
+        const videoExtensions = ['.mp4', '.mkv', '.avi', '.mov'];
+        const validFiles = acceptedFiles.filter((file) => {
+            const name = file.name.toLowerCase();
+            return videoExtensions.some((ext) => name.endsWith(ext));
+        });
+
+        if (validFiles.length > 0) {
+            setAcceptedFiles(validFiles);
+        } else {
+            alert('Only video files (.mp4, .mkv, .avi, .mov) are allowed.');
+        }
     }, []);
 
     const { getRootProps, getInputProps } = useDropzone({

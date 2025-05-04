@@ -1,5 +1,7 @@
-import React from 'react';
+import { useEffect, useRef, useState } from 'react';
 import classNames from 'classnames/bind';
+import dayjs from 'dayjs';
+import { useSelector } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     faSignal,
@@ -20,13 +22,48 @@ import styles from './PreviewPhone.module.scss';
 
 const cx = classNames.bind(styles);
 
-const PreviewPhone = ({ videoSrc, username, description, musicTitle, avatarUrl, progress }) => {
+const PreviewPhone = ({ file, description }) => {
+    const user = useSelector((state) => state.auth.user);
+
+    const [time, setTime] = useState(dayjs().format('HH:mm'));
+    const [videoSrc, setVideoSrc] = useState('');
+
+    const videoRef = useRef(null);
+    const [progress, setProgress] = useState(0);
+
+    const handleTimeUpdate = () => {
+        const video = videoRef.current;
+        if (video && video.duration) {
+            const percent = (video.currentTime / video.duration) * 100;
+            setProgress(percent);
+        }
+    };
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setTime(dayjs().format('HH:mm'));
+        }, 1000);
+
+        return () => clearInterval(interval);
+    }, []);
+
+    useEffect(() => {
+        if (file) {
+            const url = URL.createObjectURL(file);
+            setVideoSrc(url);
+
+            return () => {
+                URL.revokeObjectURL(url);
+            };
+        }
+    }, [file]);
+
     return (
         <div className={cx('upload-preview')}>
             <div className={cx('phone-background')}></div>
             <div className={cx('phone-frame')}>
                 <div className={cx('phone-header')}>
-                    <span>8:00</span>
+                    <span>{time}</span>
                     <div className={cx('icons')}>
                         <FontAwesomeIcon icon={faSignal} />
                         <FontAwesomeIcon icon={faWifi} />
@@ -35,19 +72,27 @@ const PreviewPhone = ({ videoSrc, username, description, musicTitle, avatarUrl, 
                 </div>
 
                 <div className={cx('video-container')}>
-                    <video className={cx('video')} src={videoSrc} autoPlay loop muted />
+                    <video
+                        ref={videoRef}
+                        className={cx('video')}
+                        {...(videoSrc ? { src: videoSrc } : {})}
+                        onTimeUpdate={handleTimeUpdate}
+                        autoPlay
+                        loop
+                        muted
+                    />
 
                     <div className={cx('overlay')}>
                         <div className={cx('video-info')}>
-                            <div className={cx('username')}>@{username}</div>
+                            <div className={cx('username')}>@{user.full_name}</div>
                             <div className={cx('description')}>{description}</div>
                             <div className={cx('music')}>
-                                <FontAwesomeIcon icon={faMusic} /> {musicTitle}
+                                <FontAwesomeIcon icon={faMusic} /> {`Âm thanh gốc - ${user.full_name}`}
                             </div>
                         </div>
 
                         <div className={cx('actions')}>
-                            <img src={avatarUrl} alt="avatar" className={cx('avatar')} />
+                            <img src={user.avatar} alt="avatar" className={cx('avatar')} />
                             <div className={cx('icon')}>
                                 <FontAwesomeIcon icon={faHeart} />
                             </div>
@@ -56,6 +101,9 @@ const PreviewPhone = ({ videoSrc, username, description, musicTitle, avatarUrl, 
                             </div>
                             <div className={cx('icon')}>
                                 <FontAwesomeIcon icon={faShare} />
+                            </div>
+                            <div className={cx('music')}>
+                                <img src={user.avatar} alt="avatar" className={cx('music')} />
                             </div>
                         </div>
                     </div>

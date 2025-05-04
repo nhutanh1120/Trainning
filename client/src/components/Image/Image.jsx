@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { useState, forwardRef } from 'react';
+import { useState, forwardRef, useEffect } from 'react';
 import classNames from 'classnames';
 
 import images from '~/assets/images';
@@ -11,6 +11,12 @@ const Image = forwardRef(({ src, alt, className, fallback: customFallback = imag
     const handleError = () => {
         setFallback(customFallback);
     };
+
+    useEffect(() => {
+        if (src) {
+            setFallback(null);
+        }
+    }, [src]);
 
     return (
         <img

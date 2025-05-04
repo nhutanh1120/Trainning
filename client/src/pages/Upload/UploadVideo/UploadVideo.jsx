@@ -8,6 +8,7 @@ import UploadProgress from './UploadProgress';
 import { uploadVideo } from '~/services/uploadService';
 import { createVideo } from '~/services/videoService';
 import Button from '~/components/Button';
+import Image from '~/components/Image/Image';
 import VideoThumbnailPicker from './VideoThumbnailPicker';
 import PreviewPhone from './PreviewPhone';
 import styles from './UploadVideo.module.scss';
@@ -18,7 +19,6 @@ function UploadVideo({ file, handleCancel }) {
     const { t } = useTranslation();
     const [videoPath, setVideoPath] = useState('');
     const [description, setDescription] = useState('');
-    const [thumbnail, setThumbnail] = useState('https://files.fullstack.edu.vn/f8-tiktok/users/4854/646231eb7a517.png');
     const [message, setMessage] = useState('');
 
     const [isUploading, setIsUploading] = useState(false);
@@ -28,6 +28,8 @@ function UploadVideo({ file, handleCancel }) {
     const [uploadedSize, setUploadedSize] = useState(0);
     const [remainingTime, setRemainingTime] = useState(0);
 
+    const [selectedThumbnail, setSelectedThumbnail] = useState('');
+    const [thumbnailList, setThumbnailList] = useState([]);
     const [showThumbnailPicker, setShowThumbnailPicker] = useState(false);
 
     const textareaRef = useRef(null);
@@ -113,7 +115,44 @@ function UploadVideo({ file, handleCancel }) {
     };
 
     const handleConfirmThumbnail = (thumbnail) => {
-        setThumbnail(thumbnail);
+        setSelectedThumbnail(thumbnail);
+    };
+
+    const generateThumbnails = (file) => {
+        const url = URL.createObjectURL(file);
+        const video = document.createElement('video');
+        video.src = url;
+        video.crossOrigin = 'anonymous';
+
+        video.addEventListener('loadedmetadata', () => {
+            const duration = video.duration;
+            const interval = duration / 5; // Chia lấy 5 thumbnails
+
+            const captures = [];
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+
+            const captureFrame = (time) => {
+                video.currentTime = time;
+                video.addEventListener('seeked', function handler() {
+                    canvas.width = video.videoWidth;
+                    canvas.height = video.videoHeight;
+                    ctx?.drawImage(video, 0, 0, canvas.width, canvas.height);
+                    captures.push(canvas.toDataURL('image/jpeg'));
+                    video.removeEventListener('seeked', handler);
+
+                    if (captures.length < 5) {
+                        captureFrame((captures.length + 1) * interval);
+                    } else {
+                        setThumbnailList(captures);
+                        setSelectedThumbnail(captures[0]); // Set default thumbnail to the first one
+                        URL.revokeObjectURL(url);
+                    }
+                });
+            };
+
+            captureFrame(interval);
+        });
     };
 
     useEffect(() => {
@@ -123,6 +162,7 @@ function UploadVideo({ file, handleCancel }) {
     useEffect(() => {
         if (!file) return;
         handleUpload();
+        generateThumbnails(file);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [file]);
 
@@ -158,7 +198,7 @@ function UploadVideo({ file, handleCancel }) {
                             Ảnh bìa <FontAwesomeIcon icon={faCircleInfo} />
                         </label>
                         <div className={cx('thumbnail-wrapper')}>
-                            <img src={thumbnail} alt="Thumbnail" className={cx('thumbnail')} />
+                            <Image src={selectedThumbnail} alt="Thumbnail" className={cx('thumbnail')} />
                             <div className={cx('overlay')} onClick={handleOpenThumbnailPicker}>
                                 <button className={cx('edit-button')}>Sửa ảnh bìa</button>
                             </div>
@@ -174,39 +214,13 @@ function UploadVideo({ file, handleCancel }) {
                         </Button>
                     </div>
                 </div>
-                                    <p className={cx('description')}>video1</p>
-                                    <p className={cx('music')}>🎵 Âm thanh gốc - usert0n6tevjoe</p>
-                                </div>
 
-                                {/* Các nút bên phải */}
-                                <div className={cx('actions')}>
-                                    <button className={cx('action-button')}>
-                                        <i className="fa-solid fa-heart"></i>
-                                    </button>
-                                    <button className={cx('action-button')}>
-                                        <i className="fa-solid fa-comment-dots"></i>
-                                    </button>
-                                    <button className={cx('action-button')}>
-                                        <i className="fa-solid fa-share"></i>
-                                    </button>
-                                </div>
-                            </div>
-
-                            {/* Thanh thời gian */}
-                            <div className={cx('progress-bar')}>
-                                <div className={cx('progress')} style={{ width: `30%` }}></div>
-                <PreviewPhone
-                    videoSrc={file}
-                    username="usert0n6tevjoe"
-                    description="video1"
-                    musicTitle="Âm thanh gốc - usert0n6tevjoe"
-                    avatarUrl="link/avatar.png"
-                    progress={50}
-                />
+                <PreviewPhone file={file} description={description} progress={50} />
             </div>
 
             <VideoThumbnailPicker
-                file={file}
+                selectedThumbnail={selectedThumbnail}
+                thumbnailList={thumbnailList}
                 visible={showThumbnailPicker}
                 onClose={handleCloseThumbnailPicker}
                 onConfirm={handleConfirmThumbnail}
