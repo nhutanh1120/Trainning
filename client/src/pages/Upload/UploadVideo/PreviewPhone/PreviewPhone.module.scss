@@ -52,22 +52,27 @@
         content: '';
         position: absolute;
         width: 40%;
-        height: 25px;
+        height: 35px;
         background: black;
         top: 0;
         left: 110px;
-        border-radius: 0 0 15px 15px;
+        border-radius: 0 0 20px 20px;
         z-index: 10;
     }
 }
 
 .phone-header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
     height: 50px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 0 40px;
     font-size: 14px;
+    z-index: 10;
 
     .icons {
         display: flex;
@@ -78,6 +83,29 @@
 .video-container {
     flex: 1;
     position: relative;
+
+    .video-header {
+        position: absolute;
+        top: 40px;
+        left: 0;
+        width: 100%;
+        height: 50px;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        font-size: 16px;
+        z-index: 10;
+
+        .icon-live,
+        .icon-search {
+            display: flex;
+            align-items: center;
+        }
+
+        .active {
+            font-weight: 600;
+        }
+    }
 
     .video {
         width: 100%;
@@ -143,7 +171,10 @@
             height: 40px;
             border-radius: 50%;
             background-color: #312e2e;
-            animation: spin 8s linear infinite;
+
+            &.active {
+                animation: spin 8s linear infinite;
+            }
 
             img {
                 width: 100%;
@@ -170,6 +201,35 @@
     }
 }
 
+.media-placeholder {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    border-radius: var(--border-radius);
+}
+
+.animation-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 120px;
+    height: 120px;
+    animation: fadeInScale 666ms cubic-bezier(0.33, 1, 0.68, 1) 0s 1 normal;
+    background-color: #0009;
+    border-radius: 50%;
+
+    svg {
+        width: 80px;
+        height: 80px;
+        color: #fff;
+    }
+}
+
 .phone-footer {
     height: 50px;
     background: #000;
@@ -187,6 +247,17 @@
     .plus-icon {
         font-size: 24px;
         color: #ff2c55;
+    }
+}
+
+@keyframes fadeInScale {
+    0% {
+        transform: scale(0);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
     }
 }
 

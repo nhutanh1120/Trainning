@@ -1,6 +1,7 @@
 import classNames from 'classnames/bind';
 
 import Modal from '~/components/Modal';
+import Image from '~/components/Image';
 import styles from './VideoThumbnailPicker.module.scss';
 
 const cx = classNames.bind(styles);
@@ -26,12 +27,12 @@ const VideoThumbnailPicker = ({ selectedThumbnail, thumbnailList, visible, onClo
         >
             <div className={cx('wrapper')}>
                 <div className={cx('preview')}>
-                    <img src={selectedThumbnail} alt="Selected thumbnail" />
+                    <Image src={selectedThumbnail} alt="Selected thumbnail" />
                 </div>
 
                 <div className={cx('thumbnail-list')}>
                     {thumbnailList.map((thumb, index) => (
-                        <img
+                        <Image
                             key={index}
                             src={thumb}
                             alt={`Thumbnail ${index}`}

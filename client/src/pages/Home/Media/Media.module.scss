@@ -136,6 +136,35 @@
     border-radius: var(--border-radius);
 }
 
+.progress-section {
+    display: flex;
+    align-items: flex-end;
+    position: absolute;
+    left: 5px;
+    right: 5px;
+    bottom: 0;
+    height: 12px;
+    border-radius: 20px;
+    overflow: hidden;
+    cursor: pointer;
+
+    &:hover .progress-bar {
+        height: 6px;
+    }
+
+    .progress-bar {
+        width: 100%;
+        height: 3px;
+        background: rgba(255, 255, 255, 0.3);
+        transition: height 0.2s ease;
+
+        .progress {
+            height: 100%;
+            background: var(--primary);
+        }
+    }
+}
+
 .animation-icon {
     display: flex;
     justify-content: center;

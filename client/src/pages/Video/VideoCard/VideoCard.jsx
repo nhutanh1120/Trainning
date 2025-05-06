@@ -5,6 +5,7 @@ import { faXmark } from '@fortawesome/free-solid-svg-icons';
 
 import config from '~/config';
 import Button from '~/components/Button';
+import Image from '~/components/Image';
 import images from '~/assets/images';
 import styles from './VideoCard.module.scss';
 
@@ -17,7 +18,7 @@ const VideoCard = ({ url }) => {
                 <source src={url} type="video/mp4" />
             </video>
             <div className={cx('background')}>
-                <img src={images.noImage} alt="video background" />
+                <Image src={images.noImage} alt="video background" />
             </div>
             <div className={cx('controls')}>
                 <Button to={config.routes.home} className={cx('close')}>

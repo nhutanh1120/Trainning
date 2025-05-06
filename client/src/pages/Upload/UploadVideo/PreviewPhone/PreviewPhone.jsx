@@ -16,8 +16,12 @@ import {
     faSquarePlus,
     faInbox,
     faUser,
+    faPause,
+    faPlay,
 } from '@fortawesome/free-solid-svg-icons';
 
+import { LiveIcon, SearchIcon } from '~/components/Icons';
+import Image from '~/components/Image';
 import styles from './PreviewPhone.module.scss';
 
 const cx = classNames.bind(styles);
@@ -30,6 +34,24 @@ const PreviewPhone = ({ file, description }) => {
 
     const videoRef = useRef(null);
     const [progress, setProgress] = useState(0);
+
+    const [showMediaPlaceholder, setShowMediaPlaceholder] = useState(false);
+    const [playing, setPlaying] = useState(true);
+
+    const togglePlay = () => {
+        if (playing) {
+            videoRef.current.pause();
+        } else {
+            videoRef.current.play();
+        }
+        setPlaying((prev) => !prev);
+
+        // Display .media-placeholder for 2 seconds
+        setShowMediaPlaceholder(true);
+        setTimeout(() => {
+            setShowMediaPlaceholder(false);
+        }, 500);
+    };
 
     const handleTimeUpdate = () => {
         const video = videoRef.current;
@@ -72,6 +94,18 @@ const PreviewPhone = ({ file, description }) => {
                 </div>
 
                 <div className={cx('video-container')}>
+                    <div className={cx('video-header')}>
+                        <div className={cx('icon-live')}>
+                            <LiveIcon />
+                        </div>
+
+                        <div className={cx('friends')}>Bạn bè</div>
+                        <div className={cx('friends')}>Đang Follow</div>
+                        <div className={cx('foryou', 'active')}>Dành cho bạn</div>
+                        <div className={cx('icon-search')}>
+                            <SearchIcon />
+                        </div>
+                    </div>
                     <video
                         ref={videoRef}
                         className={cx('video')}
@@ -82,7 +116,7 @@ const PreviewPhone = ({ file, description }) => {
                         muted
                     />
 
-                    <div className={cx('overlay')}>
+                    <div className={cx('overlay')} onClick={togglePlay}>
                         <div className={cx('video-info')}>
                             <div className={cx('username')}>@{user.full_name}</div>
                             <div className={cx('description')}>{description}</div>
@@ -92,7 +126,7 @@ const PreviewPhone = ({ file, description }) => {
                         </div>
 
                         <div className={cx('actions')}>
-                            <img src={user.avatar} alt="avatar" className={cx('avatar')} />
+                            <Image src={user.avatar} alt="avatar" className={cx('avatar')} />
                             <div className={cx('icon')}>
                                 <FontAwesomeIcon icon={faHeart} />
                             </div>
@@ -102,8 +136,8 @@ const PreviewPhone = ({ file, description }) => {
                             <div className={cx('icon')}>
                                 <FontAwesomeIcon icon={faShare} />
                             </div>
-                            <div className={cx('music')}>
-                                <img src={user.avatar} alt="avatar" className={cx('music')} />
+                            <div className={cx('music', { active: playing })}>
+                                <Image src={user.avatar} alt="avatar" />
                             </div>
                         </div>
                     </div>
@@ -111,6 +145,14 @@ const PreviewPhone = ({ file, description }) => {
                     <div className={cx('progress-bar')}>
                         <div className={cx('progress')} style={{ width: `${progress}%` }}></div>
                     </div>
+
+                    {showMediaPlaceholder && (
+                        <div className={cx('media-placeholder')}>
+                            <div className={cx('animation-icon')}>
+                                <FontAwesomeIcon icon={playing ? faPause : faPlay} />
+                            </div>
+                        </div>
+                    )}
                 </div>
 
                 <div className={cx('phone-footer')}>

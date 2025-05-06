@@ -13,6 +13,7 @@ import VideoThumbnailPicker from './VideoThumbnailPicker';
 import PreviewPhone from './PreviewPhone';
 import styles from './UploadVideo.module.scss';
 
+const NUM_THUMBNAILS = 5;
 const cx = classNames.bind(styles);
 
 function UploadVideo({ file, handleCancel }) {
@@ -126,7 +127,7 @@ function UploadVideo({ file, handleCancel }) {
 
         video.addEventListener('loadedmetadata', () => {
             const duration = video.duration;
-            const interval = duration / 5; // Chia lấy 5 thumbnails
+            const interval = duration / NUM_THUMBNAILS; // Chia lấy 5 thumbnails
 
             const captures = [];
             const canvas = document.createElement('canvas');
@@ -141,7 +142,7 @@ function UploadVideo({ file, handleCancel }) {
                     captures.push(canvas.toDataURL('image/jpeg'));
                     video.removeEventListener('seeked', handler);
 
-                    if (captures.length < 5) {
+                    if (captures.length < NUM_THUMBNAILS) {
                         captureFrame((captures.length + 1) * interval);
                     } else {
                         setThumbnailList(captures);
@@ -215,7 +216,7 @@ function UploadVideo({ file, handleCancel }) {
                     </div>
                 </div>
 
-                <PreviewPhone file={file} description={description} progress={50} />
+                <PreviewPhone file={file} description={description} />
             </div>
 
             <VideoThumbnailPicker

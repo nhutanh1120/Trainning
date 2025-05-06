@@ -21,6 +21,7 @@ function Media({
     video,
 }) {
     const videoRef = useRef(null);
+    const [progress, setProgress] = useState(0);
     const [isExpanded, setIsExpanded] = useState(false);
     const [showMediaPlaceholder, setShowMediaPlaceholder] = useState(false);
 
@@ -73,6 +74,14 @@ function Media({
         });
     };
 
+    const handleTimeUpdate = () => {
+        const video = videoRef.current;
+        if (video && video.duration) {
+            const percent = (video.currentTime / video.duration) * 100;
+            setProgress(percent);
+        }
+    };
+
     useEffect(() => {
         const observer = new IntersectionObserver(
             ([entry]) => {
@@ -123,6 +132,7 @@ function Media({
                         muted={muted}
                         //  controls
                         ref={videoRef}
+                        onTimeUpdate={handleTimeUpdate}
                     >
                         <source src={video.file_path} type="video/mp4" />
                     </video>
@@ -157,6 +167,11 @@ function Media({
                     <button onClick={togglePiP}>
                         <PictureToPictureIcon width="2.4rem" height="2.4rem" />
                     </button>
+                </div>
+            </div>
+            <div className={cx('progress-section')}>
+                <div className={cx('progress-bar')}>
+                    <div className={cx('progress')} style={{ width: `${progress}%` }}></div>
                 </div>
             </div>
             {showMediaPlaceholder && (

@@ -45,7 +45,7 @@ function Header() {
         <header className={cx('wrapper')}>
             <div className={cx('inner')}>
                 <Link to={config.routes.home} className={cx('logo-link')}>
-                    <img src={images.logo} alt={t('LAYOUTS.HEADER.LOGO.ALT')} />
+                    <Image src={images.logo} alt={t('LAYOUTS.HEADER.LOGO.ALT')} />
                 </Link>
 
                 <Search />
