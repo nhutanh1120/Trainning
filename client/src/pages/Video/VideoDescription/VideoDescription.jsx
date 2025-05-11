@@ -78,14 +78,25 @@ function VideoDescription({ videoData }) {
             </div>
 
             <div className={cx('actions')}>
-                <div>
-                    <FontAwesomeIcon icon={faHeart} /> {videoData.likes_count}
-                </div>
-                <div>
-                    <FontAwesomeIcon icon={faCommentDots} /> {commentCount}
-                </div>
-                <div>
-                    <FontAwesomeIcon icon={faBookmark} /> {videoData.bookmarks_count}
+                <div className={cx('action-group')}>
+                    <button className={cx('button-action')}>
+                        <span className={cx('icon', { active: videoData.is_liked === 1 })}>
+                            <FontAwesomeIcon icon={faHeart} />
+                        </span>
+                        <strong className={cx('count')}>{videoData.likes_count}</strong>
+                    </button>
+                    <button className={cx('button-action')}>
+                        <span className={cx('icon')}>
+                            <FontAwesomeIcon icon={faCommentDots} />
+                        </span>
+                        <strong className={cx('count')}>{commentCount}</strong>
+                    </button>
+                    <button className={cx('button-action')}>
+                        <span className={cx('icon')}>
+                            <FontAwesomeIcon icon={faBookmark} />
+                        </span>
+                        <strong className={cx('count')}>{videoData.bookmarks_count}</strong>
+                    </button>
                 </div>
                 <div>
                     <FontAwesomeIcon icon={faLink} />

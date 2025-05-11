@@ -36,7 +36,7 @@ function AccountPreview({ account }) {
             <div className={cx('body')}>
                 <p className={cx('nickname')}>
                     <strong>{account.nickname}</strong>
-                    {account.tick && <FontAwesomeIcon className={cx('check')} icon={faCheckCircle} />}
+                    {account.tick !== 0 && <FontAwesomeIcon className={cx('check')} icon={faCheckCircle} />}
                 </p>
                 <p className={cx('name')}>{`${account.first_name} ${account.last_name}`}</p>
                 <p className={cx('analytics')}>

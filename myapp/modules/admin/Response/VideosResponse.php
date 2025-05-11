@@ -18,8 +18,8 @@ class VideosResponse extends Videos
     {
         $user = (new UserResponse($this->user))->toResponse();
         return array_merge($this->toArray(), [
-            'file_path'=> Yii::$app->request->hostInfo . $this->file_path,
-            'thumb_path'=> Yii::$app->request->hostInfo . $this->thumb_path,
+            'file_path' => $this->file_path,
+            'thumb_path' => $this->thumb_path,
             'is_liked' => $this->isLiked,
             'likes_count' => count($this->likes),
             'comments_count' => count($this->comments),

@@ -39,19 +39,16 @@ class CommonController extends Controller
         ];
 
         // Cấu hình xác thực bằng Bearer Token
-        // $behaviors['authenticator'] = [
-        //     'class' => HttpBearerAuth::class,
-        // ];
         $behaviors['authenticator'] = [
             'class' => JwtAuth::class,
             'except' => [
                 'login',
                 'register',
                 'search',
-                'view',
             ],
             'optional' => [
                 'index',
+                'view',
                 'suggested',
             ],
         ];

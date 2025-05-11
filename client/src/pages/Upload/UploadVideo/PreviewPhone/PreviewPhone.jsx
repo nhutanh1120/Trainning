@@ -35,8 +35,8 @@ const PreviewPhone = ({ file, description }) => {
     const videoRef = useRef(null);
     const [progress, setProgress] = useState(0);
 
-    const [showMediaPlaceholder, setShowMediaPlaceholder] = useState(false);
     const [playing, setPlaying] = useState(true);
+    const [showMediaPlaceholder, setShowMediaPlaceholder] = useState(false);
 
     const togglePlay = () => {
         if (playing) {

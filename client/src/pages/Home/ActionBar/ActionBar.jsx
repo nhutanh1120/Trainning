@@ -5,7 +5,7 @@ import { faBookmark, faCommentDots, faHeart, faPlus, faShare } from '@fortawesom
 import HeadlessTippy from '@tippyjs/react/headless';
 
 import Button from '~/components/Button';
-import ButtonIcon from './ButtonAction';
+import ButtonAction from './ButtonAction';
 import { useAuthModal } from '~/contexts/AuthModalContext';
 import { Wrapper as PopperWrapper } from '~/components/Popper';
 import { follows } from '~/services/userService';
@@ -48,7 +48,7 @@ function ActionBar({ videoData }) {
 
     return (
         <section className="wrapper">
-            <ButtonIcon
+            <ButtonAction
                 type="img"
                 active={user && isFollowed === 1}
                 showIcon={!user || (videoData.user.allows_followers === 1 && videoData.user.uuid !== user.uuid)}
@@ -56,7 +56,7 @@ function ActionBar({ videoData }) {
                 src={videoData.user.avatar}
             />
 
-            <ButtonIcon
+            <ButtonAction
                 type="icon"
                 active={isLiked === 1}
                 onClick={user ? handleLikes : openAuthModal}
@@ -64,7 +64,7 @@ function ActionBar({ videoData }) {
                 count={likesCount}
             />
 
-            <ButtonIcon
+            <ButtonAction
                 type="icon"
                 to={`/video/${videoData.uuid}`}
                 count={videoData.comments_count || 0}
@@ -86,7 +86,7 @@ function ActionBar({ videoData }) {
                     </div>
                 )}
             >
-                <ButtonIcon
+                <ButtonAction
                     type="icon"
                     icon={<FontAwesomeIcon icon={faBookmark} />}
                     count={videoData.bookmarks_count || 0}
@@ -103,7 +103,7 @@ function ActionBar({ videoData }) {
                     </div>
                 )}
             >
-                <ButtonIcon
+                <ButtonAction
                     type="icon"
                     count={videoData.shares_count || 0}
                     onClick={() => setShowShare((prev) => !prev)}

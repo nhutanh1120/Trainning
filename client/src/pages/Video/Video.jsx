@@ -14,30 +14,31 @@ const cx = classNames.bind(styles);
 function Video() {
     const { uuid } = useParams();
     const { t } = useTranslation();
+    const [isLoading, setIsLoading] = useState(false);
     const [videoData, setVideoData] = useState(null);
 
     useEffect(() => {
         const fetchVideo = async () => {
+            setIsLoading(true);
             const res = await getVideoByUuid(uuid);
-            setVideoData(res);
+            setIsLoading(false);
+            setVideoData(res.items || '');
         };
 
         fetchVideo();
     }, [uuid]);
 
     if (!videoData) {
-        return <LoadingOverlay loading fullScreen />;
-    }
-
-    if (!videoData.success) {
         return <div>{t('COMMON.EMPTY_TEXT')}</div>;
     }
 
     return (
-        <div className={cx('wrapper')}>
-            <VideoCard url={videoData.items.file_path} />
-            <VideoDescription videoData={videoData.items} />
-        </div>
+        <LoadingOverlay loading={isLoading} fullScreen>
+            <div className={cx('wrapper')}>
+                <VideoCard url={videoData.file_path} thumb={videoData.thumb_path} />
+                <VideoDescription videoData={videoData} />
+            </div>
+        </LoadingOverlay>
     );
 }
 

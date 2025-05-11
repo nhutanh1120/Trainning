@@ -3,7 +3,8 @@
 
     position: relative;
     display: grid;
-    grid-template-rows: auto 33px 44px 1fr 60px;
+    grid-template-rows: auto 32px 44px 1fr 60px;
+    gap: 10px;
     width: 35%;
     height: 100vh;
     padding: 16px;
@@ -45,6 +46,7 @@
         p {
             margin-top: 8px;
             font-size: 14px;
+            white-space: pre-wrap;
         }
     }
 
@@ -62,10 +64,42 @@
 }
 
 .actions {
+    position: relative;
     display: flex;
     justify-content: space-between;
-    padding-top: 12px;
-    font-size: 14px;
+
+    .action-group {
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        gap: 20px;
+    }
+}
+
+.button-action {
+    display: flex;
+    align-items: center;
+    background: #fff;
+
+    .icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 30px;
+        height: 30px;
+        background-color: rgba(22, 24, 35, 0.06);
+        border-radius: 50%;
+
+        &.active {
+            color: #fe2c55;
+        }
+    }
+
+    .count {
+        font-size: 14px;
+        font-weight: unset;
+        margin-left: 8px;
+    }
 }
 
 .tabs-action {

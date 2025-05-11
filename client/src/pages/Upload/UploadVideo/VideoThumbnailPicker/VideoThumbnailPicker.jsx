@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import classNames from 'classnames/bind';
 
 import Modal from '~/components/Modal';
@@ -7,8 +8,14 @@ import styles from './VideoThumbnailPicker.module.scss';
 const cx = classNames.bind(styles);
 
 const VideoThumbnailPicker = ({ selectedThumbnail, thumbnailList, visible, onClose, onConfirm }) => {
+    const [thumbnail, setThumbnail] = useState(selectedThumbnail);
+
+    const handleChangeThumbnail = (thumb) => {
+        setThumbnail(thumb);
+    };
+
     const handleOk = () => {
-        onConfirm(selectedThumbnail);
+        onConfirm(thumbnail);
         onClose();
     };
 
@@ -36,8 +43,8 @@ const VideoThumbnailPicker = ({ selectedThumbnail, thumbnailList, visible, onClo
                             key={index}
                             src={thumb}
                             alt={`Thumbnail ${index}`}
-                            className={cx('thumbnail-item', { selected: selectedThumbnail === thumb })}
-                            onClick={() => onConfirm(thumb)}
+                            className={cx('thumbnail-item', { selected: thumbnail === thumb })}
+                            onClick={() => handleChangeThumbnail(thumb)}
                         />
                     ))}
                 </div>

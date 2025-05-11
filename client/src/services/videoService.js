@@ -12,10 +12,11 @@ export const likes = async (uuid) => {
     }
 };
 
-export const createVideo = async (path, description) => {
+export const createVideo = async (videoPath, imagePath, description) => {
     try {
         const res = await request.post('videos/create', {
-            path,
+            videoPath,
+            imagePath,
             description,
         });
         return res.result;

@@ -13,3 +13,13 @@ export const uploadVideo = async (formData, onProgress) => {
         return [];
     }
 };
+
+export const uploadImages = async (formData) => {
+    try {
+        const res = await requestFormData.post('upload/images', formData);
+        return res.result;
+    } catch (error) {
+        console.log(error);
+        return [];
+    }
+};

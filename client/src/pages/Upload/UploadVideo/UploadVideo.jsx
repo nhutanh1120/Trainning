@@ -5,8 +5,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleInfo } from '@fortawesome/free-solid-svg-icons';
 
 import UploadProgress from './UploadProgress';
-import { uploadVideo } from '~/services/uploadService';
+import { uploadVideo, uploadImages } from '~/services/uploadService';
 import { createVideo } from '~/services/videoService';
+import { base64ToFile } from '~/utils/base64ToFile';
 import Button from '~/components/Button';
 import Image from '~/components/Image/Image';
 import VideoThumbnailPicker from './VideoThumbnailPicker';
@@ -19,16 +20,18 @@ const cx = classNames.bind(styles);
 function UploadVideo({ file, handleCancel }) {
     const { t } = useTranslation();
     const [videoPath, setVideoPath] = useState('');
+    const [imagePath, setImagePath] = useState('');
     const [description, setDescription] = useState('');
     const [message, setMessage] = useState('');
 
-    const [isUploading, setIsUploading] = useState(false);
+    const [isUploadingVideo, setIsUploadingVideo] = useState(false);
     const [charCount, setCharCount] = useState(0);
 
     const [percent, setPercent] = useState(0);
     const [uploadedSize, setUploadedSize] = useState(0);
     const [remainingTime, setRemainingTime] = useState(0);
 
+    const [isUploadingThumbnail, setIsUploadingThumbnail] = useState(false);
     const [selectedThumbnail, setSelectedThumbnail] = useState('');
     const [thumbnailList, setThumbnailList] = useState([]);
     const [showThumbnailPicker, setShowThumbnailPicker] = useState(false);
@@ -55,7 +58,7 @@ function UploadVideo({ file, handleCancel }) {
         setUploadedSize(uploadedSize);
     };
 
-    const handleUpload = async () => {
+    const handleUploadVideo = async () => {
         if (!file) {
             setMessage('Please select a video to upload.');
             return;
@@ -64,7 +67,7 @@ function UploadVideo({ file, handleCancel }) {
         const formData = new FormData();
         formData.append('file', file);
 
-        setIsUploading(true);
+        setIsUploadingVideo(true);
         const startTime = Date.now();
         const response = await uploadVideo(formData, handleProgress(startTime));
         if (response.success) {
@@ -73,11 +76,31 @@ function UploadVideo({ file, handleCancel }) {
         } else {
             setMessage('Failed to upload video.');
         }
-        setIsUploading(false);
+        setIsUploadingVideo(false);
+    };
+
+    const handleUploadImages = async () => {
+        if (!selectedThumbnail) {
+            setMessage('Please select a video to upload.');
+            return;
+        }
+
+        const formData = new FormData();
+        formData.append('file', base64ToFile(selectedThumbnail, 'thumbnail.png'));
+
+        setIsUploadingThumbnail(true);
+        const response = await uploadImages(formData);
+        if (response.success) {
+            setImagePath(response.path);
+            setMessage('Video uploaded successfully!');
+        } else {
+            setMessage('Failed to upload video.');
+        }
+        setIsUploadingThumbnail(false);
     };
 
     const handleCreateVideo = async () => {
-        const response = await createVideo(videoPath, description);
+        const response = await createVideo(videoPath, imagePath, description);
         if (response.success) {
             setMessage('Video uploaded successfully!');
         } else {
@@ -162,10 +185,16 @@ function UploadVideo({ file, handleCancel }) {
 
     useEffect(() => {
         if (!file) return;
-        handleUpload();
+        handleUploadVideo();
         generateThumbnails(file);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [file]);
+
+    useEffect(() => {
+        if (!selectedThumbnail) return;
+        handleUploadImages();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [selectedThumbnail]);
 
     return (
         <div className={cx('wrapper')}>
@@ -207,7 +236,7 @@ function UploadVideo({ file, handleCancel }) {
                     </div>
 
                     <div className={cx('section')}>
-                        <Button primary onClick={handleCreateVideo} disabled={isUploading}>
+                        <Button primary onClick={handleCreateVideo} disabled={isUploadingVideo || isUploadingThumbnail}>
                             Đăng video
                         </Button>
                         <Button primary className={cx('cancel')} onClick={handleCancel}>

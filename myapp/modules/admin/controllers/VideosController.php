@@ -11,6 +11,7 @@ use app\modules\admin\Response\VideosResponse;
 class VideosController extends CommonController
 {
     const UPLOAD_DIR = '@webroot/uploads/videos/';
+    const IMAGE_DIR = '@webroot/uploads/images/';
 
     public function actionIndex()
     {
@@ -92,21 +93,37 @@ class VideosController extends CommonController
     {
         $request = json_decode(Yii::$app->request->getRawBody(), true);
 
-        $tempPath = Yii::getAlias('@webroot') . $request['path'];
-        $filename = basename($tempPath);
-        $newPath = Yii::getAlias(self::UPLOAD_DIR) . $filename;
-        $relativeNewPath = '/uploads/videos/' . $filename;
+        // Paths for video
+        $tempVideoPath = Yii::getAlias('@webroot') . $request['videoPath'];
+        $videoFileName = basename($tempVideoPath);
+        $finalVideoPath = Yii::getAlias(self::UPLOAD_DIR) . $videoFileName;
+        $videoWebPath = '/uploads/videos/' . $videoFileName;
 
-        // Di chuyển file
-        if (!rename($tempPath, $newPath)) {
+        // Paths for image
+        $tempImagePath = Yii::getAlias('@webroot') . $request['imagePath'];
+        $imageFileName = basename($tempImagePath);
+        $finalImagePath = Yii::getAlias(self::IMAGE_DIR) . $imageFileName;
+        $imageWebPath = '/uploads/images/' . $imageFileName;
+
+        // Check file exists
+        if (!file_exists($tempVideoPath) || !file_exists($tempImagePath)) {
+            return $this->asJson(['success' => false, 'message' => 'File tạm không tồn tại']);
+        }
+
+        // Move video
+        if (!rename($tempVideoPath, $finalVideoPath)) {
             return $this->asJson(['success' => false, 'message' => 'Không thể di chuyển video']);
         }
 
+        // Move image
+        if (!rename($tempImagePath, $finalImagePath)) {
+            return $this->asJson(['success' => false, 'message' => 'Không thể di chuyển ảnh']);
+        }
         $video = new Videos();
         $video->uuid = Yii::$app->security->generateRandomString(36);
         $video->user_uuid = Yii::$app->user->identity->uuid;
-        $video->file_path = $relativeNewPath;
-        $video->thumb_path = '/uploads/thumbs/.jpg';
+        $video->file_path = $videoWebPath;
+        $video->thumb_path = $imageWebPath;
         $video->description = $request['description'];
         // $video->music = $music;
         // $video->allows = $allows;

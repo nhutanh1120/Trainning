@@ -121,6 +121,10 @@
         "ASPECT_RATIO": {
             "TITLE": "Aspect ratios",
             "DESCRIPTION": "Recommended: 16:9 for landscape, 9:16 for vertical."
+        },
+        "UPLOAD_VIDEO": {
+            "DESCRIPTION": "Description",
+            "HASHTAG": "# Hashtag"
         }
     }
 }
