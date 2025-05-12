@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import classNames from 'classnames/bind';
 import dayjs from 'dayjs';
 import { useTranslation } from 'react-i18next';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBookmark, faCommentDots, faHeart, faLink } from '@fortawesome/free-solid-svg-icons';
+import { faBookmark, faCommentDots, faHeart } from '@fortawesome/free-solid-svg-icons';
 
 import Image from '~/components/Image';
 import Button from '~/components/Button';
@@ -19,6 +20,8 @@ const cx = classNames.bind(styles);
 function VideoDescription({ videoData }) {
     const { t } = useTranslation();
     const { openAuthModal } = useAuthModal();
+
+    const user = useSelector((state) => state.auth.user);
 
     const [comments, setComments] = useState([]);
     const [commentCount, setCommentCount] = useState(videoData.comments_count);
@@ -72,9 +75,13 @@ function VideoDescription({ videoData }) {
                     </span>
                     <p>{videoData.description}</p>
                 </div>
-                <Button className={cx('follow')} onClick={openAuthModal}>
-                    {t('VIDEO.VIDEO_DESCRIPTION.FOLLOW')}
-                </Button>
+                {user && videoData?.user && user.uuid !== videoData.user.uuid && (
+                    <Button className={cx('follow')} onClick={openAuthModal}>
+                        {videoData.user.is_followed !== 1
+                            ? t('VIDEO.VIDEO_DESCRIPTION.FOLLOW')
+                            : t('VIDEO.VIDEO_DESCRIPTION.UNFOLLOW')}
+                    </Button>
+                )}
             </div>
 
             <div className={cx('actions')}>
@@ -98,10 +105,13 @@ function VideoDescription({ videoData }) {
                         <strong className={cx('count')}>{videoData.bookmarks_count}</strong>
                     </button>
                 </div>
-                <div>
-                    <FontAwesomeIcon icon={faLink} />
-                    {t('VIDEO.VIDEO_DESCRIPTION.COPY_LINK')}
-                </div>
+            </div>
+
+            <div className={cx('copy-link')} onClick={() => navigator.clipboard.writeText(window.location.href)}>
+                <span className={cx('link-text')}>
+                    http://localhost:3000/video/bafdGGVroD_ZsxssUNTCeTu-FAJxHca6FkZZ
+                </span>
+                <button className={cx('button')}>{t('VIDEO.VIDEO_DESCRIPTION.COPY_LINK')}</button>
             </div>
 
             <div className={cx('tabs-action')}>

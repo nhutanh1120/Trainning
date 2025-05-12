@@ -1,4 +1,21 @@
 {
+  // Bật tự động định dạng khi lưu
   "editor.formatOnSave": true,
-  "editor.defaultFormatter": "esbenp.prettier-vscode"
+
+  // Đặt Prettier làm trình định dạng mặc định
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+
+  // Bật GitHub Copilot
+  "github.copilot.enable": true,
+  "github.copilot.suggestion.showInline": true,
+
+  // Hỗ trợ Markdown
+  "markdown.preview.doubleClickToSwitchToEditor": true,
+  "markdown.preview.scrollPreviewWithEditor": true,
+  "markdown.preview.scrollEditorWithPreview": true,
+  "markdown.preview.breaks": true,
+
+  // Hỗ trợ IntelliSense cho Markdown
+  "markdown.extension.completion.root": "./.vscode/prompts",
+  "markdown.extension.toc.updateOnSave": true
 }
