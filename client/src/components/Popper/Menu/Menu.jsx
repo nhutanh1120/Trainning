@@ -2,9 +2,9 @@ import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import PropTypes from 'prop-types';
 import classNames from 'classnames/bind';
-import Tippy from '@tippyjs/react/headless';
 
 import { Wrapper as PopperWrapper } from '~/components/Popper';
+import Tooltip from '~/components/Tooltip';
 import MenuItem from './MenuItem';
 import Header from './Header';
 import styles from './Menu.module.scss';
@@ -12,7 +12,7 @@ import styles from './Menu.module.scss';
 const cx = classNames.bind(styles);
 const defaultFn = () => {};
 
-function Menu({ children, items = [], hideOnClick = false, onChange = defaultFn }) {
+function Menu({ children, items = [], onChange = defaultFn }) {
     const [history, setHistory] = useState([{ data: items }]);
     const current = history[history.length - 1];
     const { i18n } = useTranslation();
@@ -60,17 +60,17 @@ function Menu({ children, items = [], hideOnClick = false, onChange = defaultFn 
     };
 
     return (
-        <Tippy
+        <Tooltip
             interactive
             delay={[0, 700]}
-            offset={[12, 8]}
-            hideOnClick={hideOnClick}
+            offsetX={12}
+            offsetY={8}
             placement="bottom-end"
-            render={renderResult}
+            content={renderResult}
             onHide={handleReset}
         >
             {children}
-        </Tippy>
+        </Tooltip>
     );
 }
 

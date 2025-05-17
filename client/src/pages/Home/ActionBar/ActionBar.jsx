@@ -2,10 +2,10 @@ import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBookmark, faCommentDots, faHeart, faPlus, faShare } from '@fortawesome/free-solid-svg-icons';
-import HeadlessTippy from '@tippyjs/react/headless';
 
 import Button from '~/components/Button';
 import ButtonAction from './ButtonAction';
+import Tooltip from '~/components/Tooltip';
 import { useAuthModal } from '~/contexts/AuthModalContext';
 import { Wrapper as PopperWrapper } from '~/components/Popper';
 import { follows } from '~/services/userService';
@@ -71,12 +71,12 @@ function ActionBar({ videoData }) {
                 icon={<FontAwesomeIcon icon={faCommentDots} />}
             />
 
-            <HeadlessTippy
+            <Tooltip
                 interactive
                 visible={showBookmark}
                 placement="right"
                 onClickOutside={() => setShowBookmark(false)}
-                render={(attrs) => (
+                content={(attrs) => (
                     <div tabIndex="-1" {...attrs}>
                         <PopperWrapper className={styles['popper-bookmark']}>
                             <Button primary leftIcon={<FontAwesomeIcon icon={faPlus} />}>
@@ -92,12 +92,12 @@ function ActionBar({ videoData }) {
                     count={videoData.bookmarks_count || 0}
                     onClick={() => setShowBookmark((prev) => !prev)}
                 />
-            </HeadlessTippy>
+            </Tooltip>
 
-            <HeadlessTippy
+            <Tooltip
                 visible={showShare}
                 onClickOutside={() => setShowShare(false)}
-                render={(attrs) => (
+                content={(attrs) => (
                     <div tabIndex="-1" {...attrs}>
                         <PopperWrapper>Chia sẻ với</PopperWrapper>
                     </div>
@@ -109,7 +109,7 @@ function ActionBar({ videoData }) {
                     onClick={() => setShowShare((prev) => !prev)}
                     icon={<FontAwesomeIcon icon={faShare} />}
                 />
-            </HeadlessTippy>
+            </Tooltip>
         </section>
     );
 }

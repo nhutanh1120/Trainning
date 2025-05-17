@@ -1,3 +1,4 @@
+import { Fragment } from 'react';
 import { useSelector } from 'react-redux';
 import classNames from 'classnames/bind';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -5,14 +6,13 @@ import { faEllipsisVertical } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import Tippy from '@tippyjs/react';
-import 'tippy.js/dist/tippy.css';
 
 import config from '~/config';
 import Button from '~/components/Button';
 import images from '~/assets/images';
 import Menu from '~/components/Popper/Menu';
 import Image from '~/components/Image';
+import Tooltip from '~/components/Tooltip';
 import Search from '../Search';
 import { useAuthModal } from '~/contexts/AuthModalContext';
 import { useMenuItems, useUserMenu } from '../Utils';
@@ -52,27 +52,30 @@ function Header() {
 
                 <div className={cx('actions')}>
                     {user ? (
-                        <>
-                            <Tippy
+                        <Fragment>
+                            <Tooltip
                                 delay={[0, 50]}
+                                offsetY={5}
                                 content={t('LAYOUTS.HEADER.BUTTON.UPLOAD_VIDEO.CONTENT')}
                                 placement="bottom"
                             >
                                 <button onClick={() => navigate(config.routes.upload)} className={cx('action-btn')}>
                                     <UploadIcon />
                                 </button>
-                            </Tippy>
-                            <Tippy
+                            </Tooltip>
+                            <Tooltip
                                 delay={[0, 50]}
+                                offsetY={5}
                                 content={t('LAYOUTS.HEADER.BUTTON.MESSAGE.CONTENT')}
                                 placement="bottom"
                             >
                                 <button className={cx('action-btn')}>
                                     <MessageIcon />
                                 </button>
-                            </Tippy>
-                            <Tippy
+                            </Tooltip>
+                            <Tooltip
                                 delay={[0, 50]}
+                                offsetY={5}
                                 content={t('LAYOUTS.HEADER.BUTTON.INBOX.CONTENT')}
                                 placement="bottom"
                             >
@@ -80,17 +83,17 @@ function Header() {
                                     <InboxIcon />
                                     <span className={cx('badge')}>12</span>
                                 </button>
-                            </Tippy>
-                        </>
+                            </Tooltip>
+                        </Fragment>
                     ) : (
-                        <>
+                        <Fragment>
                             <Button text onClick={openAuthModal}>
                                 {t('LAYOUTS.HEADER.BUTTON.UPLOAD')}
                             </Button>
                             <Button primary onClick={openAuthModal}>
                                 {t('LAYOUTS.HEADER.BUTTON.LOGIN')}
                             </Button>
-                        </>
+                        </Fragment>
                     )}
 
                     <Menu items={user ? userMenu : menuItems} onChange={handleMenuChange}>

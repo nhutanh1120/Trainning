@@ -1,0 +1,23 @@
+.tooltip-box {
+    position: relative;
+    color: #fff;
+    font-size: 1.6rem;
+    line-height: 2.2rem;
+    font-weight: 600;
+    padding: 6px 10px;
+    white-space: nowrap;
+    border-radius: 8px;
+    background-color: #545454eb;
+    box-shadow: 0 2px 8px #00000026;
+}
+
+.tooltip-box::before {
+    content: '';
+    position: absolute;
+    top: -18px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 10px;
+    border-style: solid;
+    border-color: transparent transparent #545454eb transparent;
+}
